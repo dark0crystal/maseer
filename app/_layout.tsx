@@ -1,7 +1,9 @@
 import {View , Text} from "react-native"
 import {Slot} from "expo-router"
 import React from "react"
-import "./global.css";
+// Import your global CSS file
+import "../global.css";
+
 
 export default function RootLayout(){
     return(
