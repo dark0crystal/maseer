@@ -1,5 +1,5 @@
 import {View , Text} from "react-native"
-import {Slot, SplashScreen} from "expo-router"
+import {Slot, SplashScreen, Stack} from "expo-router"
 import React from "react"
 import 'react-native-reanimated';
 import {useFonts} from "expo-font"
@@ -37,9 +37,8 @@ export default function RootLayout(){
         return null;
       }
     return(
-        <View>
-            <Text className="text-5xl">welcome</Text>
-            <Slot/>
-        </View>
+        <Stack>
+            <Stack.Screen name="index" options={{headerShown:false}}/>
+        </Stack>
     )
 }
