@@ -1,16 +1,16 @@
 import {View , Text} from "react-native"
 import {Slot} from "expo-router"
 import React from "react"
-// Import your global CSS file
-import "../global.css";
+import 'react-native-reanimated';
+import "./global.css";
 
 
 export default function RootLayout(){
     return(
         <>
-            <Text>Header</Text>
+            <Text >Header</Text>
             <Slot/>
-            <Text>footer</Text>
+            <Text className="text-5xl text-red-600">footer</Text>
         </>
     )
 }
