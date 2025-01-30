@@ -8,7 +8,8 @@ import 'react-native-reanimated';
 export default function RootLayout(){
     return(
         <View>
-                <Text className="text-5xl">oman</Text>
+            <Text className="text-5xl">welcome</Text>
+            <Slot/>
         </View>
     )
 }
