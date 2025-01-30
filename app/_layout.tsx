@@ -1,12 +1,13 @@
 import {View , Text} from "react-native"
+import {Slot} from "expo-router"
 import React from "react"
 
 export default function RootLayout(){
     return(
-        <View>
-            <Text>
-                oman
-            </Text>
-        </View>
+        <>
+            <Text>Header</Text>
+            <Slot/>
+            <Text>footer</Text>
+        </>
     )
 }
