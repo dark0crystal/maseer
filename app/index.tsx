@@ -5,7 +5,7 @@ export default function App() {
   return (
     <View>
 
-      <Text className="text-secondary-100 text-2xl">Native wind is here</Text>
+      <Text className="text-red-400 text-5xl ">Native wind is here</Text>
     </View>
   );
 }
