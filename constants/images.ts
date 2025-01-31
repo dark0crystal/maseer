@@ -8,5 +8,6 @@
 
 // export default { profile, thumbnail, cards, path, logo, logoSmall, empty };
 import brand from "../assets/images/brand.jpg";
+import kayak from "../assets/images/kayak.jpeg"
 
-export default { brand };
+export default { brand ,kayak };
