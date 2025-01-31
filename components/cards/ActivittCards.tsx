@@ -17,7 +17,6 @@ export default function activityCategories(){
              <FlatList
                 data={activityCategories}
                 keyExtractor={(category) => category.id}
-                horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10 }}
                 renderItem={({ item }) => (
