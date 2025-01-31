@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from 'react-native';
 
-export default function activityCategories(){
+export default function ExperienceCards(){
 
 
     const activityCategories = [
