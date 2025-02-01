@@ -21,10 +21,13 @@ export default function ActivityCards(){
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10 }}
                 renderItem={({ item }) => (
-                <View className="bg-gray-200 w-[280px] h-[310px] p-2 mx-2 rounded-lg items-center ">
+                <View className="bg-white w-full h-[250px] p-2 m-2 rounded-lg items-center border border-red-300">
+                    <View className='relative w-[270px] h-[300px]'>
+                        <Image className='absolute w-full h-full' resizeMode="contain" source={images.brand}/>
+                    </View>
                     <Text className="text-lg font-semibold text-gray-800">{item.id}</Text>
                     <Text className="text-sm text-gray-600 mt-1">{item.name}</Text>
-                    <Image className='w-[270px] h-[300px]' resizeMode='contain' source={images.brand}/>
+                   
                 </View>
                 )}
             />
