@@ -5,12 +5,12 @@ import React from "react";
 
 export default function ExperienceCards() {
   const activityCategories = [
-    { id: "1", name: "Scuba Diving", image: images.brand },
-    { id: "2", name: "Fishing", image: images.kayak },
-    { id: "3", name: "Sea Tour", image: images.brand },
-    { id: "4", name: "Snorkeling", image: images.brand },
-    { id: "5", name: "Jet Ski",  image: images.brand },
-    { id: "6", name: "Kayak", image: images.brand },
+    { id: "1", name: "Scuba Diving", image: images.brand ,to:"/create" as const},
+    { id: "2", name: "Fishing", image: images.kayak ,to:"/profile" as const},
+    { id: "3", name: "Sea Tour", image: images.brand ,to:"/" as const},
+    { id: "4", name: "Snorkeling", image: images.brand ,to:"/" as const},
+    { id: "5", name: "Jet Ski",  image: images.brand ,to:"/create" as const},
+    { id: "6", name: "Kayak", image: images.brand ,to:"/create" as const},
   ];
 
   return (
@@ -22,7 +22,7 @@ export default function ExperienceCards() {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 10 }}
         renderItem={({ item }) => (
-          <Link href="/" asChild>
+          <Link href={`${item.to }`} >
             <View className="w-48">
               {/* الصورة */}
               <TouchableOpacity className="h-64 rounded-xl overflow-hidden relative">
