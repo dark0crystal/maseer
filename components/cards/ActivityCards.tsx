@@ -17,7 +17,6 @@ export default function ActivityCards(){
             <Text className='text-xl font-psemibold'>Activity Cards</Text>
              <FlatList
                 data={activityCategories}
-                horizontal
                 keyExtractor={(category) => category.id}
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10 }}
