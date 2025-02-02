@@ -5,7 +5,7 @@ export default function ActivityCards(){
 
 
     const activityCategories = [
-        { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
+        { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:true ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
         { id: '2', location:"Bidyah", title: 'صيد السمك ' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
         { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
         { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
@@ -23,10 +23,28 @@ export default function ActivityCards(){
                 contentContainerStyle={{ paddingHorizontal: 10  ,alignItems: "center",}}
                 renderItem={({ item }) => (
                 <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
-                    {/* Image section */}
-                    <View className='relative w-full h-[230px] overflow-hidden rounded-2xl border '>
-                        <Image className='absolute w-full h-full' resizeMode="cover" source={item.img}/>
+                   <View className="relative w-full h-[230px] overflow-hidden rounded-2xl border">
+                    <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />
+                    
+                    {/*Top image text */}
+                    <View className="absolute top-0 w-full flex justify-center items-center">
+                        
+                        <View className='bg-white/90 py-[4px] px-10 rounded-b-2xl'>
+                             <Text className="text-black text-base font-psemibold text-center font-semibold">Female</Text>
+                        </View>
                     </View>
+                    {item.female &&
+                    <View className="absolute bottom-0 w-full flex justify-center items-center">
+                        
+                    <View className='bg-white/90 py-[4px] px-10 rounded-t-2xl'>
+                         <Text className="text-black text-base font-psemibold text-center font-semibold">Female</Text>
+                    </View>
+                </View>
+
+                    }
+                    
+                </View>
+
 
                     {/* Title */}
                     <View className='border w-full rounded-lg px-3 py-1 mt-1'>
@@ -40,7 +58,7 @@ export default function ActivityCards(){
                         <View>
                             
                             <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>location
-                            <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price} R.O</Text>
+                            <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price} <Text>R.O</Text></Text>
                         </View>
                         {/* Right section */}
                         <View className=' h-full p-2 mx-2 '>
