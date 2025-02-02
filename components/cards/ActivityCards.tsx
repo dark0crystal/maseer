@@ -4,12 +4,12 @@ export default function ActivityCards(){
 
 
     const activityCategories = [
-        { id: '1', name: 'Scuba diving' },
-        { id: '2', name: 'Fishing' },
-        { id: '3', name: 'Sea tour' },
-        { id: '4', name: 'Snorkeling' },
-        { id: '5', name: 'Jet ski' },
-        { id: '6', name: 'Kayak' },
+        { id: '1', name: 'Scuba diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" },
+        { id: '2', name: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser"},
+        { id: '3', name: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah"},
+        { id: '4', name: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" },
+        { id: '5', name: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs"},
+        { id: '6', name: 'Kayak' , type:"Mid" , female:false ,price:"49.5",companyName:"MfqodLTD"},
     ];
 
     return(
