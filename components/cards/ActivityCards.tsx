@@ -1,11 +1,12 @@
 import { View, Text, FlatList, Image } from 'react-native';
 import {images} from "../../constants"
+import Ionicons from '@expo/vector-icons/Ionicons';
 export default function ActivityCards(){
 
 
     const activityCategories = [
         { id: '1', location:"Muscat", title: 'Scuba diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
-        { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
+        { id: '2', location:"Bidyah", title: 'صيد السمك ' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
         { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
         { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
         { id: '5', location:"Saudi", title: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs",img:images.kayak},
@@ -28,11 +29,13 @@ export default function ActivityCards(){
                     </View>
                     {/* content section */}
                     <View className='bg-violet-300 w-full h-[110px] p-2 mt-1 overflow-hidden rounded-2xl border flex flex-row'>
+                        {/* Left section */}
                         <View>
-                            <Text className="text-sm text-gray-600 mt-1">{item.title}</Text>
-                            <Text className="text-sm text-gray-600 mt-1">{item.location}</Text>location
+                            <Text className="text-base font-psemibold text-gray-600 mt-1">{item.title}</Text>
+                            <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>location
                             <Text className="text-sm text-gray-600 mt-1">{item.price} R.O</Text>
                         </View>
+                        {/* Right section */}
                         <View className='border w-full p-2'>
                              <Text className="text-sm text-gray-600 mt-1">{item.type}</Text>
                         </View>
