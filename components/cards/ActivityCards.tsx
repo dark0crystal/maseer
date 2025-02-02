@@ -32,7 +32,7 @@ export default function ActivityCards(){
                     <View className="absolute top-0 w-full flex justify-center items-center">
                         
                         <View className='bg-white/90 py-[4px] px-10 rounded-b-2xl'>
-                             <Text className="text-black text-base font-psemibold text-center font-semibold">Female</Text>
+                             <Text className="text-black text-base font-psemibold text-center font-semibold">Top Rated</Text>
                         </View>
                     </View>
                     {item.female &&
