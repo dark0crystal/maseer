@@ -19,10 +19,10 @@ export default function ActivityCards(){
                 data={activityCategories}
                 keyExtractor={(category) => category.id}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 10 }}
+                contentContainerStyle={{ paddingHorizontal: 10  ,alignItems: "center",}}
                 renderItem={({ item }) => (
-                <View className="bg-white w-full h-[250px] p-2 m-2 rounded-lg items-center border border-red-300">
-                    <View className='relative w-[270px] h-[300px]'>
+                <View className="bg-black-200/30 w-[330px] h-[350px] p-4 m-2 rounded-3xl items-center border border-red-300">
+                    <View className='relative w-full h-[300px] overflow-hidden rounded-3xl'>
                         <Image className='absolute w-full h-full' resizeMode="contain" source={images.brand}/>
                     </View>
                     <Text className="text-lg font-semibold text-gray-800">{item.id}</Text>
