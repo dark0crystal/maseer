@@ -21,7 +21,7 @@ export default function ActivityCards(){
                 data={activityCategories}
                 keyExtractor={(category) => category.id}
                 showsHorizontalScrollIndicator={false}
-                contentContainerStyle={{ paddingHorizontal: 10  ,alignItems: "center",}}
+                contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
                 <Link href="/create" >
                 <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
