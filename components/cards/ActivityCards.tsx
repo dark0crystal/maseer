@@ -5,7 +5,7 @@ export default function ActivityCards(){
 
 
     const activityCategories = [
-        { id: '1', location:"Muscat", title: 'Scuba diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
+        { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
         { id: '2', location:"Bidyah", title: 'صيد السمك ' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
         { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
         { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
@@ -27,17 +27,32 @@ export default function ActivityCards(){
                     <View className='relative w-full h-[230px] overflow-hidden rounded-2xl border '>
                         <Image className='absolute w-full h-full' resizeMode="cover" source={item.img}/>
                     </View>
+
+                    {/* Title */}
+                    <View className='border w-full rounded-lg px-3 py-1 mt-1'>
+                        <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
+                    </View>
                     {/* content section */}
-                    <View className='bg-violet-300 w-full h-[110px] p-3 mt-1 overflow-hidden rounded-2xl border flex flex-row items-center '>
+                    <View className='bg-white w-full  p-3 mt-1 overflow-hidden rounded-2xl border flex flex-row items-center '>
+
+                        
                         {/* Left section */}
                         <View>
-                            <Text className="text-base font-psemibold text-gray-600 mt-1">{item.title}</Text>
+                            
                             <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>location
                             <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price} R.O</Text>
                         </View>
                         {/* Right section */}
-                        <View className=' border w-full h-full p-2 mx-2'>
-                             <Text className="absolute bottom-2 left-2 text-sm text-gray-600 mt-1">{item.type}</Text>
+                        <View className=' h-full p-2 mx-2 '>
+                            <View className='flex flex-row items-center  absolute bottom-2 left-2 gap-1'>
+                                <View className='relative flex flex-row items-center justify-center'>
+                                    <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
+                                    <View className='absolute h-3 w-3 bg-green-400 rounded-full'/>
+                                    <View className='h-2 w-2 bg-green-500 rounded-full'/>
+                                </View>
+                                <Text className="text-sm text-gray-600"> {item.type}</Text>
+                                
+                             </View>
                         </View>
                     </View>
                 </View>
