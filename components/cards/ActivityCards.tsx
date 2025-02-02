@@ -4,12 +4,12 @@ export default function ActivityCards(){
 
 
     const activityCategories = [
-        { id: '1', location:"Muscat", title: 'Scuba diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" },
-        { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser"},
-        { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah"},
-        { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" },
-        { id: '5', location:"Saudi", title: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs"},
-        { id: '6', location:"Dubai", title: 'Kayak' , type:"Mid" , female:false ,price:"49.5",companyName:"MfqodLTD"},
+        { id: '1', location:"Muscat", title: 'Scuba diving', type:"Hard" , female:false ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
+        { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
+        { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
+        { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
+        { id: '5', location:"Saudi", title: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs",img:images.kayak},
+        { id: '6', location:"Dubai", title: 'Kayak' , type:"Mid" , female:false ,price:"49.5",companyName:"MfqodLTD",img:images.brand},
     ];
 
     return(
@@ -21,19 +21,19 @@ export default function ActivityCards(){
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10  ,alignItems: "center",}}
                 renderItem={({ item }) => (
-                <View className="bg-white shadow w-[330px] h-[350px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
+                <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
                     {/* Image section */}
                     <View className='relative w-full h-[230px] overflow-hidden rounded-2xl border '>
-                        <Image className='absolute w-full h-full' resizeMode="cover" source={images.brand}/>
+                        <Image className='absolute w-full h-full' resizeMode="cover" source={item.img}/>
                     </View>
                     {/* content section */}
-                    <View className='bg-violet-300 w-full p-2 mt-1 overflow-hidden rounded-2xl border flex flex-row'>
+                    <View className='bg-violet-300 w-full h-[110px] p-2 mt-1 overflow-hidden rounded-2xl border flex flex-row'>
                         <View>
                             <Text className="text-sm text-gray-600 mt-1">{item.title}</Text>
                             <Text className="text-sm text-gray-600 mt-1">{item.location}</Text>location
                             <Text className="text-sm text-gray-600 mt-1">{item.price} R.O</Text>
                         </View>
-                        <View>
+                        <View className='border w-full p-2'>
                              <Text className="text-sm text-gray-600 mt-1">{item.type}</Text>
                         </View>
                     </View>
