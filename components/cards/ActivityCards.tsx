@@ -1,6 +1,7 @@
 import { View, Text, FlatList, Image } from 'react-native';
 import {images} from "../../constants"
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from "expo-router";
 export default function ActivityCards(){
 
 
@@ -22,6 +23,7 @@ export default function ActivityCards(){
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10  ,alignItems: "center",}}
                 renderItem={({ item }) => (
+                <Link href="/create" >
                 <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
                    <View className="relative w-full h-[230px] overflow-hidden rounded-2xl border">
                     <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />
@@ -74,6 +76,7 @@ export default function ActivityCards(){
                         </View>
                     </View>
                 </View>
+                </Link>
                 )}
             />
         </View>
