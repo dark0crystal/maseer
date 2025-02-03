@@ -17,10 +17,24 @@ export default function App() {
       }}
       style={styles.map} >
          <Marker
-   
-        coordinate={{latitude:37.78825 , longitude:-122.4324}}
-        title="Helllo there"
-        description="let's goooo"
+            coordinate={{latitude:37.78825 , longitude:-122.4324}}
+            title="Helllo there"
+            description="let's goooo"
+        />
+        <Marker
+            coordinate={{latitude:35.78825 , longitude:-122.4324}}
+            title="Helllo there"
+            description="let's goooo"
+        />
+        <Marker
+            coordinate={{latitude:37.78825 , longitude:-112.4324}}
+            title="Helllo there"
+            description="let's goooo"
+        />
+        <Marker
+            coordinate={{latitude:37.78825 , longitude:-127.4324}}
+            title="Helllo there"
+            description="let's goooo"
         />
       </MapView>
     </View>
