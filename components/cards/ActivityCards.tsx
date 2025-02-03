@@ -6,8 +6,8 @@ export default function ActivityCards(){
 
 
     const activityCategories = [
-        { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:true ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
-        { id: '2', location:"Bidyah", title: 'صيد السمك ' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
+        { id: '1', location:"Muscat", title: 'Scuba diving', type:"Hard" , female:true ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
+        { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
         { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
         { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
         { id: '5', location:"Saudi", title: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs",img:images.kayak},
@@ -25,7 +25,7 @@ export default function ActivityCards(){
                 renderItem={({ item }) => (
                 <Link href={`/details/${item.id}`} className='mt-2'>
                 <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
-                   <View className="relative w-full h-[230px] overflow-hidden rounded-2xl border">
+                   <View className="relative w-full h-[230px] overflow-hidden rounded-2xl ">
                     <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />
                     
                     {/*Top image text */}
@@ -49,7 +49,7 @@ export default function ActivityCards(){
 
 
                     {/* Title */}
-                    <View className='border w-full rounded-lg px-3 py-1 mt-1'>
+                    <View className=' w-full rounded-lg px-3 py-1 mt-1'>
                         <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
                     </View>
                     {/* content section */}
