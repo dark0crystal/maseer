@@ -23,8 +23,8 @@ export default function DiscoverCards(){
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
-                <Link href={`/details/${item.id}`} >
-                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl  border border-red-300 flex flex-row overflow-hidden gap-1">
+                <Link href={`/details/${item.id}`}  className='mt-2'>
+                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl  border border-red-300 flex flex-row overflow-hidden gap-1 ">
                     {/* image section */}
                    <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl border">
                         <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />   
@@ -39,8 +39,8 @@ export default function DiscoverCards(){
                         {/* Left section */}
                         <View>
                             <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
-                            <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>
-                            <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price}R.O</Text>
+                            <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>
+                            <Text className="text-base font-pmedium text-gray-600 mt-1">{item.price}R.O</Text>
                             <View className='flex flex-row items-center  gap-1'>
                                 <View className='relative flex flex-row items-center justify-center'>
                                     <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
