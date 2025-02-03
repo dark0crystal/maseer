@@ -24,32 +24,24 @@ export default function DiscoverCards(){
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
                 <Link href={`/details/${item.id}`} >
-                <View className="bg-white shadow w-[330px] h-[200px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
+                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl  border border-red-300 flex flex-row overflow-hidden gap-1">
                     {/* image section */}
-                   <View className="relative w-full h-[180px] overflow-hidden rounded-2xl border">
-                        <Image className="absolute w-[120px] h-full" resizeMode="cover" source={item.img} />   
+                   <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl border">
+                        <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />   
                     </View>
 
-                </View>
-
-
-                    {/* Title */}
-                    <View className='border w-full rounded-lg px-3 py-1 mt-1'>
-                        <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
-                    </View>
+              
+                    
                     {/* content section */}
-                    <View className='bg-white w-full  p-3 mt-1 overflow-hidden rounded-2xl border flex flex-row items-center '>
+                    <View className='bg-white w-[200px]  p-2  overflow-hidden rounded-2xl border flex flex-row '>
 
                         
                         {/* Left section */}
                         <View>
-                            
-                            <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>location
-                            <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price} <Text>R.O</Text></Text>
-                        </View>
-                        {/* Right section */}
-                        <View className=' h-full p-2 mx-2 '>
-                            <View className='flex flex-row items-center  absolute bottom-2 left-2 gap-1'>
+                            <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
+                            <Text className="text-sm text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>
+                            <Text className="text-sm font-pmedium text-gray-600 mt-1">{item.price}R.O</Text>
+                            <View className='flex flex-row items-center  gap-1'>
                                 <View className='relative flex flex-row items-center justify-center'>
                                     <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
                                     <View className='absolute h-3 w-3 bg-green-400 rounded-full'/>
