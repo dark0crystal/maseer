@@ -5,7 +5,7 @@ import { StyleSheet, View ,Text} from 'react-native';
 import { Link, Stack } from 'expo-router';
 import {Marker} from 'react-native-maps';
 
-export default function CustomMarker({activity}){
+export default function CustomMarker({activity ,index}:any){
     return(
 
         <Marker 
