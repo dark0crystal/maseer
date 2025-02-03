@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState} from 'react';
 import MapView from 'react-native-maps';
 import { StyleSheet, View ,Text} from 'react-native';
 import { Link, Stack } from 'expo-router';
@@ -6,7 +6,9 @@ import {Marker} from 'react-native-maps';
 import CustomMarker from '@/components/map-design/CustomMarker';
 import MapOverlay from '@/components/map-design/MapOverlay';
 
+
 export default function App() {
+    const [selectedActivity ,showSelectedActivity ] = useState(null)
 
     const data = [
         {
@@ -77,8 +79,10 @@ export default function App() {
 
         ))}
       </MapView>
-
-      <MapOverlay />
+        {selectedActivity &&
+             <MapOverlay />
+        }
+     
     </View>
   );
 }
