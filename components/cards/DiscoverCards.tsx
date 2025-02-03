@@ -2,12 +2,13 @@ import { View, Text, FlatList, Image } from 'react-native';
 import {images} from "../../constants"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from "expo-router";
+import StarRating from 'react-native-star-rating-widget';
 export default function DiscoverCards(){
 
 
     const activityCategories = [
         { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:true ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
-        { id: '2', location:"Bidyah", title: 'صيد السمك ' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
+        { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
         { id: '3', location:"Sidab", title: 'Sea tour' , type:"Mid" , female:false ,price:"20",companyName:"Masser Almotahidah",img:images.kayak},
         { id: '4', location:"Qatar", title: 'Snorkeling' , type:"Hard" , female:false,price:"30.5",companyName:"Masseeer trips" ,img:images.brand},
         { id: '5', location:"Saudi", title: 'Jet ski' , type:"Easy" , female:true ,price:"30000",companyName:"Oman trips LTD shshssshs",img:images.kayak},
@@ -30,10 +31,8 @@ export default function DiscoverCards(){
                         <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />   
                     </View>
 
-              
-                    
                     {/* content section */}
-                    <View className='bg-white w-[200px]  p-2  overflow-hidden rounded-2xl border flex flex-row '>
+                    <View className='bg-white w-[200px]  h-[160px]  p-2  overflow-hidden rounded-2xl border flex flex-row '>
 
                         
                         {/* Left section */}
