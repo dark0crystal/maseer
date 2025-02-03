@@ -77,8 +77,8 @@ export default function App() {
             title={marker.title}
             description={marker.price}>
                 <Link href={`/details/${marker.id}`} className='mt-2'>
-                    <View className='bg-violet-200 p-2 rounded-2xl'>
-                        <Text className='font-pmedium'>{marker.activityType}</Text>  
+                    <View className='bg-white border p-2 rounded-2xl'>
+                        <Text className='text-sm font-pmedium'>{marker.activityType}</Text>  
                     </View>
                 </Link>
              
