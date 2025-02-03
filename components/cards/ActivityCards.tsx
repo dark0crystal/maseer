@@ -23,7 +23,7 @@ export default function ActivityCards(){
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
-                <Link href={`/details/${item.id}`} >
+                <Link href={`/details/${item.id}`} className='mt-2'>
                 <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
                    <View className="relative w-full h-[230px] overflow-hidden rounded-2xl border">
                     <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />
