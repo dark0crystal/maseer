@@ -2,12 +2,20 @@ import React from 'react';
 import MapView from 'react-native-maps';
 import { StyleSheet, View } from 'react-native';
 import { Stack } from 'expo-router';
+import {Marker} from 'react-native-maps';
 
 export default function App() {
   return (
     <View style={styles.container}>
         <Stack.Screen options={{headerShown:false}}/> 
-      <MapView style={styles.map} />
+      <MapView 
+       initialRegion={{
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }}
+      style={styles.map} />
     </View>
   );
 }
