@@ -8,7 +8,7 @@ import MapOverlay from '@/components/map-design/MapOverlay';
 
 
 export default function App() {
-    const [selectedActivity ,showSelectedActivity ] = useState(null)
+    const [selectedActivity ,setSelectedActivity ] = useState(null)
 
     const data = [
         {
@@ -17,7 +17,8 @@ export default function App() {
           "longitude": 58.5453,
           "activityType": "Hiking",
           "price": "Free",
-          "title": "Muttrah Mountain Trail"
+          "title": "Muttrah Mountain Trail",
+          "type":"Hard"
         },
         {
           "id":2,
@@ -25,7 +26,8 @@ export default function App() {
           "longitude": 57.5333,
           "activityType": "Camping",
           "price": "5 OMR per night",
-          "title": "Wadi Bani Khalid Camp"
+          "title": "Wadi Bani Khalid Camp",
+          "type":"Hard"
         },
         {
           "id":3,
@@ -33,7 +35,8 @@ export default function App() {
           "longitude": 56.9417,
           "activityType": "Diving",
           "price": "30 OMR",
-          "title": "Dimaniyat Islands Diving"
+          "title": "Dimaniyat Islands Diving",
+          "type":"Hard"
         },
         {
           "id":4,
@@ -41,7 +44,8 @@ export default function App() {
           "longitude": 55.6669,
           "activityType": "Rock Climbing",
           "price": "15 OMR",
-          "title": "Jebel Akhdar Climbing"
+          "title": "Jebel Akhdar Climbing",
+          "type":"Hard"
         },
         {
           "id":5,
@@ -49,7 +53,8 @@ export default function App() {
           "longitude": 54.0897,
           "activityType": "Beach Relaxation",
           "price": "Free",
-          "title": "Mughsail Beach Getaway"
+          "title": "Mughsail Beach Getaway",
+          "type":"Hard"
         },
         {
           "id":6,
@@ -57,7 +62,8 @@ export default function App() {
           "longitude": 58.8833,
           "activityType": "Desert Safari",
           "price": "50 OMR",
-          "title": "Sharqiya Sands Adventure"
+          "title": "Sharqiya Sands Adventure",
+          "type":"Hard"
         }
       ]
       
@@ -74,13 +80,13 @@ export default function App() {
     //   }}
       style={styles.map}
        >
-        {data.map((marker,index)=>(
-           <CustomMarker activity ={marker} index={index}/>
+        {data.map((activity,index)=>(
+           <CustomMarker activity ={activity} index={index} onPress={()=>setSelectedActivity(activity)}/>
 
         ))}
       </MapView>
         {selectedActivity &&
-             <MapOverlay />
+             <MapOverlay activity={selectedActivity} />
         }
      
     </View>
