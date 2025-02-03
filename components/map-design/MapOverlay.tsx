@@ -7,7 +7,7 @@ import { StarRatingDisplay} from 'react-native-star-rating-widget';
 
 export default function MapOverlay(){
     return(
-        <View className='absolute bottom-20 left-5 right-5'>
+        <View className='absolute bottom-32 left-5 right-5'>
             <Link href={`/details/${1}`}  className='mt-2'>
                 <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl   border-red-300 flex flex-row overflow-hidden gap-1 ">
                     {/* image section */}
