@@ -15,7 +15,14 @@ export default function App() {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       }}
-      style={styles.map} />
+      style={styles.map} >
+         <Marker
+   
+        coordinate={{latitude:37.78825 , longitude:-122.4324}}
+        title="Helllo there"
+        description="let's goooo"
+        />
+      </MapView>
     </View>
   );
 }
