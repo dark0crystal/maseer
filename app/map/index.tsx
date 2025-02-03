@@ -71,18 +71,7 @@ export default function App() {
       style={styles.map}
        >
         {data.map((marker,index)=>(
-            <Marker 
-            key={index}
-            coordinate={{latitude: marker.latitude , longitude: marker.longitude}}
-            title={marker.title}
-            description={marker.price}>
-                <Link href={`/details/${marker.id}`} className='mt-2'>
-                    <View className='bg-white border p-2 rounded-2xl'>
-                        <Text className='text-sm font-pmedium'>{marker.activityType}</Text>  
-                    </View>
-                </Link>
-             
-            </Marker>
+           
 
         ))}
       </MapView>
