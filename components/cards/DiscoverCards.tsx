@@ -2,10 +2,11 @@ import { View, Text, FlatList, Image } from 'react-native';
 import {images} from "../../constants"
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from "expo-router";
-import StarRating from 'react-native-star-rating-widget';
+import { StarRatingDisplay} from 'react-native-star-rating-widget';
+// import { useState } from 'react';
 export default function DiscoverCards(){
 
-
+    // const [rating, setRating] = useState(0);
     const activityCategories = [
         { id: '1', location:"Muscat", title: 'Scuba fasdf fddads diving', type:"Hard" , female:true ,price:"100.0",companyName:"MfqodLTD" ,img:images.kayak },
         { id: '2', location:"Bidyah", title: 'Fishing' , type:"Easy" , female:true ,price:"1200",companyName:"Masser",img:images.brand},
@@ -45,6 +46,13 @@ export default function DiscoverCards(){
                                     <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
                                     <View className='absolute h-3 w-3 bg-green-400 rounded-full'/>
                                     <View className='h-2 w-2 bg-green-500 rounded-full'/>
+                                    {/* <StarRating
+                                        rating={3.5}
+                                        onChange={rating}
+                                    /> */}
+                                    <StarRatingDisplay
+                                        rating={4.5}
+                                    />
                                 </View>
                                 <Text className="text-sm text-gray-600"> {item.type}</Text>
                                 
