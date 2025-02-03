@@ -3,6 +3,7 @@ import MapView from 'react-native-maps';
 import { StyleSheet, View ,Text} from 'react-native';
 import { Link, Stack } from 'expo-router';
 import {Marker} from 'react-native-maps';
+import CustomMarker from '@/components/CustomMarket';
 
 export default function App() {
 
@@ -71,7 +72,7 @@ export default function App() {
       style={styles.map}
        >
         {data.map((marker,index)=>(
-           
+           <CustomMarker activity ={marker} index={index}/>
 
         ))}
       </MapView>
