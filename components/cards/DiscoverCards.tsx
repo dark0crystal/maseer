@@ -24,27 +24,12 @@ export default function DiscoverCards(){
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
                 <Link href={`/details/${item.id}`} >
-                <View className="bg-white shadow w-[330px] h-[370px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
-                   <View className="relative w-full h-[230px] overflow-hidden rounded-2xl border">
-                    <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />
-                    
-                    {/*Top image text */}
-                    <View className="absolute top-0 w-full flex justify-center items-center">
-                        
-                        <View className='bg-white/90 py-[4px] px-10 rounded-b-2xl'>
-                             <Text className="text-black text-base font-psemibold text-center font-semibold">Top Rated</Text>
-                        </View>
+                <View className="bg-white shadow w-[330px] h-[200px] p-3 m-2 rounded-3xl items-center border border-red-300 flex flex-col overflow-hidden">
+                    {/* image section */}
+                   <View className="relative w-full h-[180px] overflow-hidden rounded-2xl border">
+                        <Image className="absolute w-[120px] h-full" resizeMode="cover" source={item.img} />   
                     </View>
-                    {item.female &&
-                    <View className="absolute bottom-0 w-full flex justify-center items-center">
-                        
-                    <View className='bg-white/90 py-[4px] px-10 rounded-t-2xl'>
-                         <Text className="text-black text-base font-psemibold text-center font-semibold">Female</Text>
-                    </View>
-                </View>
 
-                    }
-                    
                 </View>
 
 
