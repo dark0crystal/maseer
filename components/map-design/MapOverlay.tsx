@@ -5,10 +5,10 @@ import { Link } from "expo-router";
 import { StarRatingDisplay} from 'react-native-star-rating-widget';
 
 
-export default function MapOverlay(){
+export default function MapOverlay({activity}:any){
     return(
         <View className='absolute bottom-32 left-5 right-5'>
-            <Link href={`/details/${1}`}  className='mt-2'>
+            <Link href={`/details/${activity.id}`}  className='mt-2'>
                 <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl   border-red-300 flex flex-row overflow-hidden gap-1 ">
                     {/* image section */}
                    <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl ">
@@ -21,15 +21,15 @@ export default function MapOverlay(){
                         
                         {/* Left section */}
                         <View>
-                            <Text className="text-base font-psemibold text-gray-600 ">oman</Text>
-                            <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />location</Text>
+                            <Text className="text-base font-psemibold text-gray-600 ">{activity.activityType}</Text>
+                            <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{activity.title}</Text>
                             <View className=''>
                                 <StarRatingDisplay
                                     rating={2.5}
                                     starSize={18}
                                 />
                             </View>
-                            <Text className="text-base font-pmedium text-gray-600 mt-1">10000</Text>
+                            <Text className="text-base font-pmedium text-gray-600 mt-1">{activity.price}</Text>
                             <View className='flex flex-row items-center  gap-1'>
                                 <View className='relative flex flex-row items-center justify-center'>
                                     <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
@@ -37,7 +37,7 @@ export default function MapOverlay(){
                                     <View className='h-2 w-2 bg-green-500 rounded-full'/>
                                     
                                 </View>
-                                <Text className="text-sm text-gray-600"> jjjfa</Text>
+                                <Text className="text-sm text-gray-600">{activity.type}</Text>
                                 
                              </View>
                         </View>
