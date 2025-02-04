@@ -31,6 +31,25 @@ export default function TitleForm() {
 
       {errors.title && <Text style={styles.error}>{errors.title.message}</Text>}
 
+      {/* Activity Type */}
+
+      <Controller
+        control={control}
+        name="ActivityType"
+        rules={{ required: "Title is required" }}
+        render={({ field: { onChange, onBlur, value } }) => (
+          <TextInput
+            style={styles.input}
+            placeholder="Enter Activity Type..."
+            onBlur={onBlur}
+            onChangeText={onChange}
+            value={value}
+          />
+        )}
+      />
+
+      {errors.title && <Text style={styles.error}>{errors.title.message}</Text>}
+
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
     </View>
   );
