@@ -25,7 +25,7 @@ export default function StepOne() {
     <View style={{ padding: 20 }}>
       <Text className="text-xl font-pmedium text-black mt-4">Now, let's give your activity a Title</Text>
       <TextInput 
-        className="border rounded-2xl text-xl font-pmedium h-24 p-3" 
+        className="border rounded-2xl text-xl font-pmedium h-24 p-3 mt-2" 
         multiline={true}
         placeholder="Enter your Acrivity Title..."
         textAlignVertical="top"
@@ -34,8 +34,8 @@ export default function StepOne() {
       />
       {errors.title && <Text style={{ color: "red" }}>{errors.title.message}</Text>}
 
-      <Text className="text-xl font-pmedium text-black mt-8">Create Your Describtion</Text>
-      <Text className="text-base text-gray-500">Share what makes your activity special</Text>
+      <Text className="text-xl font-pmedium text-black mt-8">Create Your Description</Text>
+      <Text className="text-base text-gray-500 mt-1">Share what makes your activity special</Text>
       <TextInput
         className="h-56 border border-black rounded-2xl p-3 text-xl font-pmedium"
         multiline={true}
@@ -47,7 +47,10 @@ export default function StepOne() {
       {errors.description && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
     
     
-          <Button title="Next" onPress={handleSubmit(onNext)}   />
+      <View className="bg-black rounded-lg w-fit p-4 mt-6">
+          <Button title="Next" onPress={handleSubmit(onNext)} color="white" />
+      </View>
+
     
     </View>
   );
