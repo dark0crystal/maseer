@@ -22,7 +22,7 @@ export default function StepThree() {
   const onSubmit = () => {
     console.log({ title, price, features, images });
     alert("Form Submitted!");
-    router.push("/"); // Go back home
+    router.push("./StepFour"); // Go back home
   };
 
   return (
