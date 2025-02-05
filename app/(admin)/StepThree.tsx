@@ -18,20 +18,20 @@ export default function StepThree() {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(formSchema.pick({ activityType: true })), // حل آخر ممكن
+    resolver: zodResolver(formSchema.pick({ activityType: true })),    
     defaultValues: { activityType },
   });
 
-  const selectedActivityType = watch("activityType"); // مراقبة القيمة المحدثة
+  const selectedActivityType = watch("activityType");    
 
   const onSelect = (type: string) => {
-    setValue("activityType", type, { shouldValidate: true }); // تأكد من التحقق من صحة البيانات
+    setValue("activityType", type, { shouldValidate: true });
     setActivityType(type);
   };
 
   const onNext = () => {
     console.log("Selected activity type:", selectedActivityType);
-    setActivityType(selectedActivityType); // تأكد من تخزين القيمة النهائية
+    setActivityType(selectedActivityType); 
     router.push("./StepFour");
   };
 
