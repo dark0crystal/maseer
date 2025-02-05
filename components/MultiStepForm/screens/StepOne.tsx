@@ -14,7 +14,7 @@ export default function StepOne({ navigation }:any) {
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = (data:any ) => {
     navigation.navigate("StepTwo", { title: data.title, price: data.price });
   };
 
