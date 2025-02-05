@@ -4,6 +4,7 @@ interface FormState {
   title: string;
   description:string;
   price: string;
+  activityType: string;
   features: string[];
   images: string[];
   setTitle: (title: string) => void;
@@ -11,12 +12,14 @@ interface FormState {
   setPrice: (price: string) => void;
   setFeatures: (features: string[]) => void;
   setImages: (images: string[]) => void;
+  setActivityType: (type: string) => void;
 }
 
 export const useFormStore = create<FormState>((set) => ({
   title: "",
   description : "",
   price: "",
+  activityType: "",
   features: [],
   images: [],
   setTitle: (title) => set({ title }),
@@ -24,4 +27,5 @@ export const useFormStore = create<FormState>((set) => ({
   setPrice: (price) => set({ price }),
   setFeatures: (features) => set({ features }),
   setImages: (images) => set({ images }),
+  setActivityType: (type) => set({ activityType: type }),
 }));
