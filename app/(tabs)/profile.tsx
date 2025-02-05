@@ -8,7 +8,7 @@ const Profile = () => {
     <SafeAreaView>
       <Text>Profile</Text>
 
-      <Link href="/(admin)/create">Go to admin</Link>
+      <Link href="/(admin)/StepOne">Go to admin</Link>
       <Link href="/(admin)/">Go to index</Link>
     </SafeAreaView>
   )
