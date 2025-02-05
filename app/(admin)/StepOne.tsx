@@ -23,8 +23,8 @@ export default function StepOne() {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text>Title</Text>
-      <TextInput {...register("title")} onChangeText={(text) => setValue("title", text)} style={{ borderWidth: 1, marginBottom: 10 }} />
+      <Text>Activity Title</Text>
+      <TextInput className="border rounded-2xl text-xl font-pmedium p-4 " {...register("title")} onChangeText={(text) => setValue("title", text)}  />
       {errors.title && <Text style={{ color: "red" }}>{errors.title.message}</Text>}
 
       <Text>Describtion</Text>
