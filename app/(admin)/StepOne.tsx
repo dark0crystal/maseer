@@ -41,6 +41,8 @@ export default function StepOne() {
         multiline={true}
         placeholder="Enter your text..."
         textAlignVertical="top"
+        {...register("description")} 
+        onChangeText={(text) => setValue("description", text)}
       />
       {errors.description && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
     
