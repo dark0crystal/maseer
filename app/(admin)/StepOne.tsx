@@ -23,22 +23,30 @@ export default function StepOne() {
 
   return (
     <View style={{ padding: 20 }}>
-      <Text>Now, let's give your activity a Title</Text>
-      <TextInput className="border rounded-2xl text-xl font-pmedium p-4 " {...register("title")} onChangeText={(text) => setValue("title", text)}  />
+      <Text className="text-xl font-pmedium text-black mt-4">Now, let's give your activity a Title</Text>
+      <TextInput 
+        className="border rounded-2xl text-xl font-pmedium h-24 p-3" 
+        multiline={true}
+        placeholder="Enter your Acrivity Title..."
+        textAlignVertical="top"
+        {...register("title")} 
+        onChangeText={(text) => setValue("title", text)}
+      />
       {errors.title && <Text style={{ color: "red" }}>{errors.title.message}</Text>}
 
-      <Text className="text-xl font-pmedium text-black">Create Your Describtion</Text>
+      <Text className="text-xl font-pmedium text-black mt-8">Create Your Describtion</Text>
       <Text className="text-base text-gray-500">Share what makes your activity special</Text>
       <TextInput
-        className="h-32 border border-gray-300 rounded-lg p-3 text-base"
+        className="h-56 border border-black rounded-2xl p-3 text-xl font-pmedium"
         multiline={true}
         placeholder="Enter your text..."
         textAlignVertical="top"
       />
       {errors.title && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
     
-
-      <Button title="Next" onPress={handleSubmit(onNext)} />
+      <View className="bg-black px-4 py-3 rounded-lg">
+          <Button title="Next" onPress={handleSubmit(onNext)}  color="white" />
+      </View>
     </View>
   );
 }
