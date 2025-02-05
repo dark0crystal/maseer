@@ -42,11 +42,11 @@ export default function StepOne() {
         placeholder="Enter your text..."
         textAlignVertical="top"
       />
-      {errors.title && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
+      {errors.description && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
     
-      <View className="bg-black px-4 py-3 rounded-lg">
-          <Button title="Next" onPress={handleSubmit(onNext)}  color="white" />
-      </View>
+    
+          <Button title="Next" onPress={handleSubmit(onNext)}   />
+    
     </View>
   );
 }
