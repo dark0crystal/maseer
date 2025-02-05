@@ -5,7 +5,8 @@ import { formSchema } from "../../../../schemas/formSchema";
 import { useFormStore } from "../../../../store/FormStore";
 import { useRouter } from "expo-router";
 
-export default function Step1() {
+
+export default function StepOne() {
   const router = useRouter();
   const { title, price, setTitle, setPrice } = useFormStore();
   
@@ -17,7 +18,7 @@ export default function Step1() {
   const onNext = (data: any) => {
     setTitle(data.title);
     setPrice(data.price);
-    router.push("/step2");
+    router.push("./StepTwo");
   };
 
   return (

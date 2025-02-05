@@ -3,7 +3,7 @@ import * as ImagePicker from "expo-image-picker";
 import { useFormStore } from "../../../../store/FormStore";
 import { useRouter } from "expo-router";
 
-export default function Step3() {
+export default function StepThree() {
   const router = useRouter();
   const { title, price, features, images, setImages } = useFormStore();
 

@@ -7,7 +7,7 @@ import { useRouter } from "expo-router";
 
 const featuresList = ["WiFi", "Parking", "Pool", "Gym", "AC", "TV"];
 
-export default function Step2() {
+export default function StepTwo() {
   const router = useRouter();
   const { features, setFeatures } = useFormStore();
 
@@ -21,7 +21,7 @@ export default function Step2() {
     setValue("features", features);
   };
 
-  const onNext = () => router.push("/step3");
+  const onNext = () => router.push("./StepThree");
 
   return (
     <View style={{ padding: 20 }}>
