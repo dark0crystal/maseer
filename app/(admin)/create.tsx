@@ -1,79 +1,22 @@
-
 import React from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
-import { useForm, Controller } from "react-hook-form";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import StepOne from "../../components/MultiStepForm/screens/StepOne";
+import StepTwo from "../../components/MultiStepForm/screens/StepTwo";
+import StepThree from "../../components/MultiStepForm/screens/StepThree";
+import StepFour from "../../components/MultiStepForm/screens/StepFour";
 
-export default function TitleForm() {
-  const { control, handleSubmit, formState: { errors } } = useForm();
+const Stack = createStackNavigator();
 
-  const onSubmit = (data: any) => {
-    console.log("Form Submitted:", data);
-  };
-
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Enter Title:</Text>
-
-      <Controller
-        control={control}
-        name="title"
-        rules={{ required: "Title is required" }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Enter title..."
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-
-      {errors.title && <Text style={styles.error}>{errors.title.message}</Text>}
-
-      {/* Activity Type */}
-
-      <Controller
-        control={control}
-        name="ActivityType"
-        rules={{ required: "Title is required" }}
-        render={({ field: { onChange, onBlur, value } }) => (
-          <TextInput
-            style={styles.input}
-            placeholder="Enter Activity Type..."
-            onBlur={onBlur}
-            onChangeText={onChange}
-            value={value}
-          />
-        )}
-      />
-
-      {errors.title && <Text style={styles.error}>{errors.title.message}</Text>}
-
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="StepOne">
+        <Stack.Screen name="StepOne" component={StepOne} options={{ title: "Step 1: Details" }} />
+        <Stack.Screen name="StepTwo" component={StepTwo} options={{ title: "Step 2: Features" }} />
+        <Stack.Screen name="StepThree" component={StepThree} options={{ title: "Step 3: Images" }} />
+        <Stack.Screen name="StepFour" component={StepFour} options={{ title: "Step 4: Review & Submit" }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    justifyContent: "center",
-  },
-  label: {
-    fontSize: 18,
-    marginBottom: 8,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "gray",
-    padding: 10,
-    borderRadius: 5,
-    marginBottom: 10,
-  },
-  error: {
-    color: "red",
-    marginBottom: 10,
-  },
-});
