@@ -19,7 +19,6 @@ export const useFormStore = create<FormState>((set) => ({
   title: "",
   description : "",
   price: "",
-  activityType: "",
   features: [],
   images: [],
   setTitle: (title) => set({ title }),
@@ -27,5 +26,6 @@ export const useFormStore = create<FormState>((set) => ({
   setPrice: (price) => set({ price }),
   setFeatures: (features) => set({ features }),
   setImages: (images) => set({ images }),
+  activityType: "",
   setActivityType: (type) => set({ activityType: type }),
 }));
