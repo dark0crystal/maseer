@@ -9,6 +9,7 @@ const Profile = () => {
       <Text>Profile</Text>
 
       <Link href="/(admin)/create">Go to admin</Link>
+      <Link href="/(admin)/">Go to index</Link>
     </SafeAreaView>
   )
 }
