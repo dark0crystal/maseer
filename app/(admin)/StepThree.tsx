@@ -15,19 +15,23 @@ export default function StepThree() {
   const {
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({ activityType: true })), // حل آخر ممكن
     defaultValues: { activityType },
   });
 
+  const selectedActivityType = watch("activityType"); // مراقبة القيمة المحدثة
+
   const onSelect = (type: string) => {
-    setValue("activityType", type);
+    setValue("activityType", type, { shouldValidate: true }); // تأكد من التحقق من صحة البيانات
     setActivityType(type);
   };
 
-  const onNext = (data: any) => {
-    setActivityType(data.activityType);
+  const onNext = () => {
+    console.log("Selected activity type:", selectedActivityType);
+    setActivityType(selectedActivityType); // تأكد من تخزين القيمة النهائية
     router.push("./StepFour");
   };
 
@@ -41,12 +45,12 @@ export default function StepThree() {
         <TouchableOpacity
           key={type}
           className={`p-4 my-2 border rounded-lg ${
-            activityType === type ? "bg-black text-white" : "border-gray-300"
+            selectedActivityType === type ? "bg-black text-white" : "border-gray-300"
           }`}
           onPress={() => onSelect(type)}
         >
-          <Text className={`text-lg ${activityType === type ? "text-white" : "text-black"}`}>
-            {activityType === type ? `✔ ${type}` : type}
+          <Text className={`text-lg ${selectedActivityType === type ? "text-white" : "text-black"}`}>
+            {selectedActivityType === type ? `✔ ${type}` : type}
           </Text>
         </TouchableOpacity>
       ))}
