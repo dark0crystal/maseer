@@ -8,7 +8,7 @@ import { useRouter } from "expo-router";
 // Activity types list
 const activityTypes = ["Hiking", "Camping", "Fishing", "Cycling", "Diving"];
 
-export default function StepOne() {
+export default function StepThree() {
   const router = useRouter();
   const { activityType, setActivityType } = useFormStore();
 
@@ -28,7 +28,7 @@ export default function StepOne() {
 
   const onNext = (data: any) => {
     setActivityType(data.activityType);
-    router.push("./StepTwo");
+    router.push("./StepFour");
   };
 
   return (
