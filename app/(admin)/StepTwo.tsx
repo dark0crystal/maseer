@@ -1,4 +1,4 @@
-import { View, Text, Button } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../../schemas/formSchema";
@@ -13,25 +13,67 @@ export default function StepTwo() {
 
   const { handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema.pick({ features: true })),
-    defaultValues: { features }
+    defaultValues: { features },
   });
 
   const toggleFeature = (feature: string) => {
-    setFeatures(features.includes(feature) ? features.filter(f => f !== feature) : [...features, feature]);
-    setValue("features", features);
+    const updatedFeatures = features.includes(feature)
+      ? features.filter((f) => f !== feature)
+      : [...features, feature];
+
+    setFeatures(updatedFeatures);
+    setValue("features", updatedFeatures);
   };
 
   const onNext = () => router.push("./StepThree");
 
   return (
     <View style={{ padding: 20 }}>
-      <Text>Select Features:</Text>
-      {featuresList.map((feature) => (
-        <Button key={feature} title={features.includes(feature) ? `✔ ${feature}` : feature} onPress={() => toggleFeature(feature)} />
-      ))}
-      {errors.features && <Text style={{ color: "red" }}>{errors.features.message}</Text>}
-      
-      <Button title="Next" onPress={handleSubmit(onNext)} />
+      <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
+        Select Features:
+      </Text>
+
+      {featuresList.map((feature) => {
+        const isSelected = features.includes(feature);
+        return (
+          <TouchableOpacity
+            key={feature}
+            onPress={() => toggleFeature(feature)}
+            style={{
+              padding: 12,
+              marginVertical: 6,
+              borderWidth: 2,
+              borderColor: isSelected ? "#000" : "#ccc",
+              backgroundColor: isSelected ? "#000" : "#fff",
+              borderRadius: 10,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: isSelected ? "#fff" : "#000", fontSize: 16 }}>
+              {isSelected ? `✔ ${feature}` : feature}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
+
+      {errors.features && (
+        <Text style={{ color: "red", marginTop: 10 }}>
+          {errors.features.message}
+        </Text>
+      )}
+
+      <TouchableOpacity
+        onPress={handleSubmit(onNext)}
+        style={{
+          marginTop: 20,
+          padding: 12,
+          backgroundColor: "#000",
+          borderRadius: 10,
+          alignItems: "center",
+        }}
+      >
+        <Text style={{ color: "#fff", fontSize: 18 }}>Next</Text>
+      </TouchableOpacity>
     </View>
   );
 }
