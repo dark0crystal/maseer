@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 
 export default function StepFour() {
   const router = useRouter();
-  const { title, price, features, images, setImages } = useFormStore();
+  const { title, features, images, setImages } = useFormStore();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -20,22 +20,25 @@ export default function StepFour() {
   };
 
   const onSubmit = () => {
-    console.log({ title, price, features, images });
+    console.log({ title, features, images });
     alert("Form Submitted!");
-    router.push("./StepFive"); // Go back home
+    router.replace("./StepFive"); // Redirect to StepFive
   };
 
   return (
     <View style={{ padding: 20 }}>
-      <Text>Upload Images:</Text>
+      <Text className="text-xl font-semibold">Upload Images:</Text>
       <Button title="Pick Images" onPress={pickImage} />
+
       <View style={{ flexDirection: "row", flexWrap: "wrap", marginTop: 10 }}>
         {images.map((uri, index) => (
-          <Image key={index} source={{ uri }} style={{ width: 80, height: 80, margin: 5 }} />
+          <Image key={index} source={{ uri }} style={{ width: 80, height: 80, margin: 5, borderRadius: 8 }} />
         ))}
       </View>
 
-      <Button title="Submit" onPress={onSubmit} />
+      <View className="bg-black rounded-lg p-4 mt-6">
+        <Button title="Next" onPress={onSubmit} color="white" />
+      </View>
     </View>
   );
 }
