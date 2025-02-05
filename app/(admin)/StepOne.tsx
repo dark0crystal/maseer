@@ -8,16 +8,16 @@ import { useRouter } from "expo-router";
 
 export default function StepOne() {
   const router = useRouter();
-  const { title, price, setTitle, setPrice } = useFormStore();
+  const { title, description ,setDescription, setTitle  } = useFormStore();
   
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-    resolver: zodResolver(formSchema.pick({ title: true, price: true })),
-    defaultValues: { title, price }
+    resolver: zodResolver(formSchema.pick({ title: true, description: true })),
+    defaultValues: { title, description }
   });
 
   const onNext = (data: any) => {
     setTitle(data.title);
-    setPrice(data.price);
+    setDescription(data.description);
     router.push("./StepTwo");
   };
 
@@ -27,9 +27,10 @@ export default function StepOne() {
       <TextInput {...register("title")} onChangeText={(text) => setValue("title", text)} style={{ borderWidth: 1, marginBottom: 10 }} />
       {errors.title && <Text style={{ color: "red" }}>{errors.title.message}</Text>}
 
-      <Text>Price</Text>
-      <TextInput {...register("price")} onChangeText={(text) => setValue("price", text)} keyboardType="numeric" style={{ borderWidth: 1, marginBottom: 10 }} />
-      {errors.price && <Text style={{ color: "red" }}>{errors.price.message}</Text>}
+      <Text>Describtion</Text>
+      <TextInput {...register("description")} onChangeText={(text) => setValue("description", text)} style={{ borderWidth: 1, marginBottom: 10 }} />
+      {errors.title && <Text style={{ color: "red" }}>{errors.description.message}</Text>}
+    
 
       <Button title="Next" onPress={handleSubmit(onNext)} />
     </View>
