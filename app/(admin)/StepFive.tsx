@@ -25,22 +25,25 @@ export default function StepFour(){
         <View>
             <Text className="text-xl font-pmedium text-black mt-4">Now, Select Your Price</Text>
             <Text className="text-base text-gray-500 mt-1">You can change it any time.</Text>
-            <View className="flex flex-row bg-violet-400 items-center justify-center h-64">
-                <Text className="text-5xl text-black font-psemibold border h-28">OMR</Text>
+            <View className="flex flex-row  items-center justify-center h-64">
+                <View className="flex justify-center items border h-60">
+
+                    <Text className="text-5xl text-black font-psemibold ">OMR</Text>
+                </View>
                 <TextInput 
-                    className="text-5xl text-black  font-psemibold border h-28"
+                    className="text-5xl text-black  font-psemibold border p-2 h-60 "
                     keyboardType="numeric" 
                     {...register("price", { valueAsNumber: true })} 
                     onChangeText={(number) => setValue("price", parseFloat(number) || 0)} 
                 />
             </View>
 
-        {errors.price && <Text style={{ color: "red" }}>{errors.price.message}</Text>}
+            {errors.price && <Text style={{ color: "red" }}>{errors.price.message}</Text>}
     
     
-        <View className="bg-black rounded-lg w-fit p-4 mt-6">
-            <Button title="Next" onPress={handleSubmit(onNext)} color="white" />
-        </View>
+            <View className="bg-black rounded-lg w-fit p-4 mt-6">
+                <Button title="Next" onPress={handleSubmit(onNext)} color="white" />
+            </View>
         </View>
     )
 }
