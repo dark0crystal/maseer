@@ -25,12 +25,15 @@ export default function StepFour(){
         <View>
             <Text className="text-xl font-pmedium text-black mt-4">Now, Select Your Price</Text>
             <Text className="text-base text-gray-500 mt-1">You can change it any time.</Text>
-            <TextInput 
-                className="text-5xl text-black"
-                keyboardType="numeric" 
-                {...register("price", { valueAsNumber: true })} 
-                onChangeText={(number) => setValue("price", parseFloat(number) || 0)} 
-            />
+            <View className="flex flex-row gap-2 items-center justify-center h-fit">
+                <Text className="text-5xl text-black font-psemibold">OMR</Text>
+                <TextInput 
+                    className="text-5xl text-black  font-psemibold"
+                    keyboardType="numeric" 
+                    {...register("price", { valueAsNumber: true })} 
+                    onChangeText={(number) => setValue("price", parseFloat(number) || 0)} 
+                />
+            </View>
 
         {errors.price && <Text style={{ color: "red" }}>{errors.price.message}</Text>}
     
