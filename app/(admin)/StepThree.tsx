@@ -40,7 +40,7 @@ export default function StepThree() {
       <Text className="text-xl font-semibold text-black mb-4">
         Choose Your Activity Type
       </Text>
-
+      <View className="">
       {activityTypes.map((type) => (
         <TouchableOpacity
           key={type}
@@ -54,6 +54,8 @@ export default function StepThree() {
           </Text>
         </TouchableOpacity>
       ))}
+      </View>
+    
 
       {errors.activityType && <Text className="text-red-500 mt-2">{errors.activityType.message}</Text>}
 
