@@ -3,13 +3,13 @@ import { create } from "zustand";
 interface FormState {
   title: string;
   description:string;
-  price: string;
+  price: number;
   activityType: string;
   features: string[];
   images: string[];
   setTitle: (title: string) => void;
   setDescription:(description: string) => void;
-  setPrice: (price: string) => void;
+  setPrice: (price: number) => void;
   setFeatures: (features: string[]) => void;
   setImages: (images: string[]) => void;
   setActivityType: (type: string) => void;
@@ -18,7 +18,7 @@ interface FormState {
 export const useFormStore = create<FormState>((set) => ({
   title: "",
   description : "",
-  price: "",
+  price: 20,
   features: [],
   images: [],
   activityType: "",
