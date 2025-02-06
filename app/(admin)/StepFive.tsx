@@ -20,8 +20,8 @@ export default function StepFour() {
   };
 
   return (
-    <View className="flex items-center  px-6">
-      <Text className="text-xl font-semibold text-black mt-4">
+    <View className="flex  px-6 w-screen">
+      <Text className="text-xl font-semibold text-black mt-8">
         Now, Select Your Price
       </Text>
       <Text className="text-base text-gray-500 mt-1">
@@ -29,16 +29,17 @@ export default function StepFour() {
       </Text>
 
       {/* Input Field with Currency */}
-      <View className="flex flex-row items-center justify-center mt-8 border border-gray-300 rounded-lg p-4 bg-white w-full max-w-xs">
+      <View className="flex flex-row items-center justify-center mt-8  rounded-lg p-4  w-full max-w-xs">
         {/* Currency Label */}
         <View className=" px-4 py-2 rounded-lg">
-          <Text className="text-4xl text-black font-semibold">OMR</Text>
+          <Text className="text-5xl text-black font-semibold">OMR</Text>
         </View>
 
         {/* Price Input */}
         <TextInput
-          className="text-4xl text-black font-semibold flex-1 rounded-lg px-4"
+          className="text-4xl text-black font-semibold flex-1 text-center rounded-lg px-4"
           keyboardType="numeric"
+          placeholder="20"
           {...register("price", { valueAsNumber: true })}
           onChangeText={(number) => setValue("price", parseFloat(number) || 0)}
         />
