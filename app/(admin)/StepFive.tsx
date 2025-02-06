@@ -5,13 +5,14 @@ import { formSchema } from "../../schemas/formSchema";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
 
+
 export default function StepFour(){
 
     const router = useRouter();
     const { price, setPrice  } = useFormStore();
     
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-      resolver: zodResolver(formSchema.pick({ title: true, description: true })),
+      resolver: zodResolver(formSchema.pick({ price: true})),
       defaultValues: { price, setPrice }
     });
   
@@ -25,9 +26,10 @@ export default function StepFour(){
             <Text className="text-xl font-pmedium text-black mt-4">Now, Select Your Price</Text>
             <Text className="text-base text-gray-500 mt-1">You can change it any time.</Text>
             <TextInput 
-            className="text-5xl text-black "
-            {...register("price")} 
-            onChangeText={(text) => setValue("price", text)}
+                className="text-5xl text-black"
+                keyboardType="numeric" 
+                {...register("price", { valueAsNumber: true })} 
+                onChangeText={(number) => setValue("price", parseFloat(number) || 0)} 
             />
 
         {errors.price && <Text style={{ color: "red" }}>{errors.price.message}</Text>}
