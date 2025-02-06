@@ -18,9 +18,9 @@ export default function StepFour(){
     const onNext = (data: any) => {
       setTitle(data.title);
       setDescription(data.description);
-      router.push("./StepTwo");
+      router.push("./StepSix");
     };
-    
+
     return(
         <View>
             <Text className="text-xl font-pmedium text-black mt-4">Now, Select Your Price</Text>
