@@ -1,3 +1,10 @@
+import { View, Text, TouchableOpacity, Button ,Keyboard, TouchableWithoutFeedback} from "react-native";
+import { Controller, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useFormStore } from "../../store/FormStore";
+import { formSchema } from "../../schemas/formSchema";
+import { useRouter } from "expo-router";
+
 export default function StepSix() {
     const router = useRouter();
     const { availableSeats, genderPreference, allowPets, incrementSeat, decrementSeat, setGenderPreference, setAllowPets } = useFormStore();
@@ -26,8 +33,8 @@ export default function StepSix() {
           <View className="flex flex-row items-center justify-between border p-3 rounded-lg w-40">
             <TouchableOpacity
               onPress={() => {
-                decrementSeat();  // Update the state using Zustand store
-                setValue("availableSeats", Math.max(1, availableSeats - 1));  // Update the form value
+                decrementSeat(availableSeats);  // Update the state using Zustand store
+                // setValue("availableSeats", Math.max(1, availableSeats - 1));  // Update the form value
               }}
               className="p-2 bg-gray-200 rounded-full"
             >
@@ -38,8 +45,8 @@ export default function StepSix() {
   
             <TouchableOpacity
               onPress={() => {
-                incrementSeat();  // Update the state using Zustand store
-                setValue("availableSeats", availableSeats + 1);  // Update the form value
+                incrementSeat(availableSeats);  // Update the state using Zustand store
+                // setValue("availableSeats", availableSeats + 1);  // Update the form value
               }}
               className="p-2 bg-gray-200 rounded-full"
             >
