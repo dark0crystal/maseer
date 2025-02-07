@@ -1,9 +1,13 @@
 import { View, Text, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { useRouter } from "expo-router";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { formSchema } from "../../schemas/formSchema";
+import { useFormStore } from "@/store/FormStore";
 
 export default function StepSix() {
   const router = useRouter();
+  const { availableSeats , genderPreference, allowPets } = useFormStore();
   const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       availableSeats: 0,
@@ -12,7 +16,7 @@ export default function StepSix() {
     },
   });
 
-  const availableSeats = watch("availableSeats");
+
 
   const onNext = (data: any) => {
     console.log(data);
