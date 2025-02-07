@@ -6,7 +6,7 @@ export default function StepSix() {
   const router = useRouter();
   const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
-      availableSeats: 1,
+      availableSeats: 0,
       genderPreference: "both",
       allowPets: false,
     },
