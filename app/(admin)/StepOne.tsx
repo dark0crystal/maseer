@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button } from "react-native";
+import { View, Text, TextInput, Button ,Keyboard, TouchableWithoutFeedback} from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../../schemas/formSchema";
@@ -22,6 +22,7 @@ export default function StepOne() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={{ padding: 20 }}>
       <Text className="text-xl font-pmedium text-black mt-4">Now, let's give your activity a Title</Text>
       <TextInput 
@@ -53,5 +54,6 @@ export default function StepOne() {
 
     
     </View>
+    </TouchableWithoutFeedback>
   );
 }
