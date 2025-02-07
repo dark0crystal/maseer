@@ -38,26 +38,27 @@ export default function StepTwo() {
       </Text>
 
       {/* Governorate Dropdown */}
-      <View className="mt-4 w-full max-w-xs border border-gray-300 rounded-lg text-black">
+      <Text className="mt-2">Select Governorate</Text>
+      <View className="mt-1 w-full max-w-xs border border-gray-300 rounded-lg">
         <Picker
-        
           selectedValue={governorate}
           onValueChange={(itemValue) => {
             setGovernorate(itemValue);
             setValue("governorate", itemValue);
           }}
         >
-          <Picker.Item label="Select Governorate" value="" />
+          <Picker.Item label="Select Governorate" value="" style={{ color: "black" }} />
           {omaniGovernorates.map((gov, index) => (
-            <Picker.Item key={index} label={gov} value={gov} />
+            <Picker.Item key={index} label={gov} value={gov} style={{ color: "black" }} />
           ))}
         </Picker>
       </View>
       {errors.governorate && <Text className="text-red-500 mt-1">{errors.governorate.message}</Text>}
 
       {/* City Input */}
+      <Text className="mt-2">Select City</Text>
       <TextInput
-        className="border border-gray-300 rounded-lg px-4 py-2 mt-4 w-full max-w-xs text-lg"
+        className="border border-gray-300 rounded-lg px-4 py-2 mt-1 w-full max-w-xs text-lg"
         placeholder="Enter City Name"
         {...register("city")}
         onChangeText={(text) => setValue("city", text)}
