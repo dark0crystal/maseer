@@ -1,4 +1,4 @@
-import { View, Text, Button, Image } from "react-native";
+import { View, Text, Button, Image ,Keyboard, TouchableWithoutFeedback} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
@@ -26,6 +26,7 @@ export default function StepFour() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View style={{ padding: 20 }}>
       <Text className="text-xl font-semibold">Upload Images:</Text>
       <Button title="Pick Images" onPress={pickImage} />
@@ -40,5 +41,6 @@ export default function StepFour() {
         <Button title="Next" onPress={onSubmit} color="white" />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
