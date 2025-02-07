@@ -45,7 +45,9 @@ export default function StepTwo() {
           onValueChange={(itemValue) => {
             setGovernorate(itemValue);
             setValue("governorate", itemValue);
+            
           }}
+          style={{ color: "black" }} 
         >
           <Picker.Item label="Select Governorate" value="" style={{ color: "black" }} />
           {omaniGovernorates.map((gov, index) => (
