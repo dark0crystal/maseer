@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Button } from "react-native";
+import { View, Text, TouchableOpacity, Button ,Keyboard, TouchableWithoutFeedback} from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStore } from "../../store/FormStore";
@@ -36,6 +36,7 @@ export default function StepThree() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View className="p-5">
       <Text className="text-xl font-semibold text-black mb-4">
         Choose Your Activity Type
@@ -63,5 +64,6 @@ export default function StepThree() {
         <Button title="Next" onPress={handleSubmit(onNext)} color="white" />
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
