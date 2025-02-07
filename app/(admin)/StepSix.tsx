@@ -7,7 +7,7 @@ import { useFormStore } from "@/store/FormStore";
 
 export default function StepSix() {
   const router = useRouter();
-  const { availableSeats , genderPreference, allowPets } = useFormStore();
+  const { availableSeats , genderPreference, allowPets ,setAvailableSeats,setGenderPreference,setAllowPets } = useFormStore();
   const { control, handleSubmit, setValue, watch } = useForm({
     defaultValues: {
       availableSeats: 0,
@@ -20,6 +20,9 @@ export default function StepSix() {
 
   const onNext = (data: any) => {
     console.log(data);
+    setAvailableSeats(data.availableSeats)
+    setGenderPreference(data.genderPreference)
+    setAllowPets(data.allowPets)
     router.replace("./StepSeven"); // الانتقال للصفحة التالية
   };
 
