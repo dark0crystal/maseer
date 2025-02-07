@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TextInput, TouchableOpacity ,Keyboard, TouchableWithoutFeedback} from "react-native";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../../schemas/formSchema";
@@ -20,6 +20,7 @@ export default function StepFour() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View className="flex  px-6 w-screen">
       <Text className="text-xl font-semibold text-black mt-8">
         Now, Select Your Price
@@ -60,5 +61,6 @@ export default function StepFour() {
         </Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
