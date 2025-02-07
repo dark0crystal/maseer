@@ -7,4 +7,10 @@ export const formSchema = z.object({
   price: z.coerce.number().positive("Price must be a positive number"),
   features: z.array(z.string()).min(1, "Select at least one feature"),
   images: z.array(z.string()).min(1, "Upload at least one image"),
+  governorate: z.string().min(1, "Please select a governorate"),
+  city: z.string().min(2, "City name must be at least 2 characters"),
+  coordinates: z.object({
+    latitude: z.number().min(-90).max(90, "Invalid latitude"),
+    longitude: z.number().min(-180).max(180, "Invalid longitude"),
+  }),
 });
