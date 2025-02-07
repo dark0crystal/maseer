@@ -60,8 +60,27 @@ export default function StepThree() {
 
       {errors.activityType && <Text className="text-red-500 mt-2">{errors.activityType.message}</Text>}
 
-      <View className="bg-black rounded-lg p-4 mt-6">
-        <Button title="Next" onPress={handleSubmit(onNext)} color="white" />
+      <View className="flex flex-row w-screen justify-around">
+      {/* Back Button */}
+      <TouchableOpacity
+            onPress={() => router.back()}
+            className="bg-black rounded-lg px-6 py-4 mt-6"
+          >
+            <Text className="text-white text-lg font-semibold text-center">
+              Back
+            </Text>
+          </TouchableOpacity>
+
+      
+      {/* Next Button */}
+      <TouchableOpacity
+        onPress={handleSubmit(onNext)}
+        className="bg-black rounded-lg px-6 py-4 mt-6"
+      >
+        <Text className="text-white text-lg font-semibold text-center">
+          Next
+        </Text>
+        </TouchableOpacity>
       </View>
     </View>
     </TouchableWithoutFeedback>
