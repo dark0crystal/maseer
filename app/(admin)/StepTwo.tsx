@@ -87,7 +87,18 @@ export default function StepTwo() {
         </MapView>
       </View>
       {errors.coordinates && <Text className="text-red-500 mt-1">{errors.coordinates.message}</Text>}
+    <View className="flex flex-row w-screen justify-around">
+      {/* Back Button */}
+      <TouchableOpacity
+            onPress={() => router.back()}
+            className="bg-black rounded-lg px-6 py-4 mt-6"
+          >
+            <Text className="text-white text-lg font-semibold text-center">
+              Back
+            </Text>
+          </TouchableOpacity>
 
+      
       {/* Next Button */}
       <TouchableOpacity
         onPress={handleSubmit(onNext)}
@@ -96,7 +107,8 @@ export default function StepTwo() {
         <Text className="text-white text-lg font-semibold text-center">
           Next
         </Text>
-      </TouchableOpacity>
+        </TouchableOpacity>
+      </View>
     </View>
     </TouchableWithoutFeedback>
   );
