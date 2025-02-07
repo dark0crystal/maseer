@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput ,Keyboard, TouchableWithoutFeedback} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,14 +31,16 @@ export default function StepTwo() {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
     <View className="flex-1 items-center justify-center px-6">
       <Text className="text-xl font-semibold text-black mt-4">
         Select Location
       </Text>
 
       {/* Governorate Dropdown */}
-      <View className="mt-4 w-full max-w-xs border border-gray-300 rounded-lg">
+      <View className="mt-4 w-full max-w-xs border border-gray-300 rounded-lg text-black">
         <Picker
+        
           selectedValue={governorate}
           onValueChange={(itemValue) => {
             setGovernorate(itemValue);
@@ -95,6 +97,7 @@ export default function StepTwo() {
         </Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
