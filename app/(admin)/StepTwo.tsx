@@ -92,14 +92,14 @@ export default function StepTwo() {
         </ScrollView>
 
         {/* Fixed Bottom Buttons */}
-        <View className="absolute bottom-0 bg-violet-200 h-[120px] flex flex-row w-screen">
+        <View className="absolute bottom-0 bg-white h-[120px] flex flex-row w-screen">
         <View className="h-2 w-full bg-black"></View>
           {/* Back Button */}
           <TouchableOpacity
             onPress={() => router.back()}
-            className="absolute bottom-12 left-6 bg-black rounded-lg px-6 py-3"
+            className="absolute bottom-12 left-6 rounded-lg px-6 py-3"
           >
-            <Text className="text-white text-lg font-semibold">Back</Text>
+            <Text className="text-black text-lg font-semibold">Back</Text>
           </TouchableOpacity>
 
           {/* Next Button */}
