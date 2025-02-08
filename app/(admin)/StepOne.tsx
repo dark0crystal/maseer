@@ -50,8 +50,9 @@ export default function StepOne() {
         <View className="flex-1" />
 
         {/* Fixed Button at the Bottom */}
-        <View className="absolute bottom-0 left-0 w-screen h-[100px] bg-violet-300 flex items-center justify-center">
-          <TouchableOpacity onPress={handleSubmit(onNext)} className="bg-black rounded-lg px-6 py-3">
+        <View className="absolute bottom-0  w-screen h-[120px] bg-violet-300 flex ">
+          <View className="h-2 w-full bg-black"></View>
+          <TouchableOpacity onPress={handleSubmit(onNext)} className="absolute bottom-12 right-6 bg-black rounded-lg px-6 py-3 w-[100px] ">
             <Text className="text-white text-lg font-semibold">Next</Text>
           </TouchableOpacity>
         </View>
