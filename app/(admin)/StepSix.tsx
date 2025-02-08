@@ -15,7 +15,7 @@ export default function StepSix() {
         allowPets,
       },
     });
-  
+  console.log(availableSeats)
     const onNext = (data: any) => {
       console.log(data);
       // Use setState functions from Zustand to update the store
