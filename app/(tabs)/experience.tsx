@@ -7,7 +7,7 @@ const Experience = () => {
   return (
     <SafeAreaView>
       <Text>Experience</Text>
-      <ExperienceCards/>
+      {/* <ExperienceCards/> */}
     </SafeAreaView>
   )
 }
