@@ -15,6 +15,12 @@ const activityCategories = [
 ];
 
 export default function ActivityDetails() {
+  const steps =[
+                {name:"Main" , component: <Rese},
+                {name:"Step One", component:},
+                {name:"Step Two", component:},
+                {name:"Step Three", component:}
+               ]
   const { id } = useLocalSearchParams();
   const activity = activityCategories.find((item) => item.id === id);
   const [modalVisible, setModalVisible] = useState(false);
@@ -97,45 +103,10 @@ export default function ActivityDetails() {
               </TouchableOpacity>
 
               <Text className="text-xl font-bold text-gray-900 mb-4">Book {activity.title}</Text>
+              <View>
 
-              {/* Name Input */}
-              <Text className="text-gray-700">Full Name</Text>
-              <TextInput 
-                className="border p-2 rounded-md mt-1 mb-3"
-                placeholder="Enter your name"
-                value={formData.name}
-                onChangeText={(text) => setFormData({ ...formData, name: text })}
-              />
-
-              {/* Email Input */}
-              <Text className="text-gray-700">Email</Text>
-              <TextInput 
-                className="border p-2 rounded-md mt-1 mb-3"
-                placeholder="Enter your email"
-                keyboardType="email-address"
-                value={formData.email}
-                onChangeText={(text) => setFormData({ ...formData, email: text })}
-              />
-
-              {/* Date Input */}
-              <Text className="text-gray-700">Date</Text>
-              <TextInput 
-                className="border p-2 rounded-md mt-1 mb-3"
-                placeholder="YYYY-MM-DD"
-                value={formData.date}
-                onChangeText={(text) => setFormData({ ...formData, date: text })}
-              />
-
-              {/* Submit Button */}
-              <TouchableOpacity 
-                className="bg-violet-500 p-3 rounded-lg mt-2"
-                onPress={() => {
-                  console.log("Booking Details:", formData);
-                  setModalVisible(false);
-                }}
-              >
-                <Text className="text-white text-center font-semibold">Confirm Booking</Text>
-              </TouchableOpacity>
+              </View>
+               
 
             </View>
           </View>
