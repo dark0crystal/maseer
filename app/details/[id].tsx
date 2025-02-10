@@ -72,30 +72,31 @@ export default function ActivityDetails() {
           </TouchableOpacity>
         </View>
         {/* Rendering Reservation components in a Model */}
-        <Modal transparent={true} visible={modalVisible} animationType="slide">
-          <View className="flex-1  items-center mt-28 rounded-t-3xl overflow-hidden h-screen">
-            <View className="w-full bg-red-300 rounded-lg h-full ">
-              <TouchableOpacity className="absolute right-4 top-4" onPress={() => setModalVisible(false)}>
-                <Ionicons name="close" size={30} color="black" />
+        <Modal transparent={true} visible={modalVisible} animationType="slide" >
+          <View className="flex-1 mt-28 rounded-t-3xl  overflow-hidden border-t-2 ">
+            <View className="w-full bg-violet-300 rounded-lg h-full p-4">
+              <TouchableOpacity className="absolute right-8 top-8" onPress={() => setModalVisible(false)}>
+                <Ionicons name="close" size={34} color="black" />
               </TouchableOpacity>
 
               <Text className="text-xl font-bold text-gray-900 mb-4">Book {activity.title}</Text>
               <View>{steps[reservationStep].component}</View>
-              
-              <View className="absolute bottom-0 mt-6">
+              {/* buttons */}
+              <View className="absolute bottom-0 bg-white h-[120px] flex flex-row w-screen">
+              <View className="h-2 w-full bg-black"></View>
                 <TouchableOpacity
                   disabled={reservationStep === 0}
-                  className={`px-6 py-3 rounded-lg ${reservationStep === 0 ? "bg-gray-300" : "bg-gray-500"}`}
+                  className={`absolute bottom-12 left-6 px-6 py-3 rounded-lg  ${reservationStep === 0 ? "bg-gray-300" : "bg-gray-500"}`}
                   onPress={() => setReservationStep(reservationStep - 1)}
                 >
-                  <Text className="text-white font-semibold">Back</Text>
+                  <Text className="text-black text-lg font-semibold">Back</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   disabled={reservationStep === steps.length - 1}
-                  className={`px-6 py-3 rounded-lg ${reservationStep === steps.length - 1 ? "bg-gray-300" : "bg-violet-500"}`}
+                  className={`absolute bottom-12 right-6 bg-black rounded-lg px-6 py-3 ${reservationStep === steps.length - 1 ? "bg-gray-300" : "bg-black"}`}
                   onPress={() => setReservationStep(reservationStep + 1)}
                 >
-                  <Text className="text-white font-semibold">Next</Text>
+                  <Text className="text-white text-lg font-semibold">Next</Text>
                 </TouchableOpacity>
               </View>
             </View>
