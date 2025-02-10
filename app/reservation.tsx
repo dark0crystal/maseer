@@ -22,7 +22,8 @@ export default function Reservation() {
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
                 keyboardShouldPersistTaps="handled"
             >
-            <View className="flex flex-row">
+            {/* Header top section  */}
+            <View className="flex flex-row w-screen border-gray-200 border-y-[1px] my-2 py-4 px-2" >
             {/* Activity image */}
                 <View className=" relative w-[160px] h-[140px] rounded-lg overflow-hidden">
                     <Image 
@@ -33,12 +34,22 @@ export default function Reservation() {
                 </View>
                 
                 {/* Content section */}
-                <View className="border px-3 justify-center">
+                <View className="px-3 justify-center">
                     <Text className="text-lg font-bold">20 OMR</Text>
-                    <Text className="text-md text-gray-700">Kayaking</Text>
+                    <Text className="text-md text-gray-700">Kayaking sport albsjfd</Text>
                     <Text className="text-sm text-yellow-500">⭐ 5 Stars</Text>
                 </View>
+            </View>
+            
+            {/*  */}
+            <View>
+                <Text className="text-black text-2xl font-psemibold">
+                    Date
+                </Text>
+                <View>
+                    
                 </View>
+            </View>
 
             <View className="h-[100vh]"/>
 
