@@ -1,9 +1,10 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
-import { Link, useLocalSearchParams ,useRouter} from "expo-router";
+import {  View, Text, Image, ScrollView, TouchableOpacity, TextInput,  Keyboard, TouchableWithoutFeedback, Modal 
+} from "react-native";
+import { useState } from "react";
+import { useLocalSearchParams } from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
-// بيانات وهمية مؤقتة - استبدلها بقاعدة بيانات لاحقًا
 const activityCategories = [
   { id: "1", location: "Muscat", title: "Scuba Diving", type: "Hard", female: true, price: "100.0", companyName: "MfqodLTD", img: images.kayak },
   { id: "2", location: "Bidyah", title: "صيد السمك", type: "Easy", female: true, price: "1200", companyName: "Masser", img: images.brand },
@@ -14,9 +15,14 @@ const activityCategories = [
 ];
 
 export default function ActivityDetails() {
-  const { id } = useLocalSearchParams(); // التقاط ID من الرابط
-  const activity = activityCategories.find((item) => item.id === id); // البحث عن النشاط المطابق
-  const router  = useRouter();
+  const { id } = useLocalSearchParams();
+  const activity = activityCategories.find((item) => item.id === id);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    date: "",
+  });
 
   if (!activity) {
     return (
@@ -66,12 +72,74 @@ export default function ActivityDetails() {
         <View className="absolute bottom-0 left-0 right-0 bg-black h-28 flex-row items-center justify-between px-6 py-4">
           <Text className="text-white text-lg font-semibold">{activity.price} OMR</Text>
           <TouchableOpacity 
-              className="bg-violet-500 px-6 py-3 rounded-lg"
-              onPress={() => router.push(`/reservation?id=${activity.id}`)} // Navigate to reservation page
-            >
-              <Text className="text-white font-semibold">Book Now</Text>
-            </TouchableOpacity>
+            className="bg-violet-500 px-6 py-3 rounded-lg"
+            onPress={() => setModalVisible(true)}
+          >
+            <Text className="text-white font-semibold">Book Now</Text>
+          </TouchableOpacity>
         </View>
+
+        {/* Booking Modal */}
+        <Modal 
+          transparent={true} 
+          visible={modalVisible} 
+          animationType="slide"
+        >
+          <View className="flex-1 bg-black bg-opacity-50 justify-center items-center">
+            <View className="w-11/12 bg-white p-6 rounded-lg">
+              
+              {/* Close Button */}
+              <TouchableOpacity 
+                className="absolute right-4 top-4"
+                onPress={() => setModalVisible(false)}
+              >
+                <Ionicons name="close" size={24} color="black" />
+              </TouchableOpacity>
+
+              <Text className="text-xl font-bold text-gray-900 mb-4">Book {activity.title}</Text>
+
+              {/* Name Input */}
+              <Text className="text-gray-700">Full Name</Text>
+              <TextInput 
+                className="border p-2 rounded-md mt-1 mb-3"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChangeText={(text) => setFormData({ ...formData, name: text })}
+              />
+
+              {/* Email Input */}
+              <Text className="text-gray-700">Email</Text>
+              <TextInput 
+                className="border p-2 rounded-md mt-1 mb-3"
+                placeholder="Enter your email"
+                keyboardType="email-address"
+                value={formData.email}
+                onChangeText={(text) => setFormData({ ...formData, email: text })}
+              />
+
+              {/* Date Input */}
+              <Text className="text-gray-700">Date</Text>
+              <TextInput 
+                className="border p-2 rounded-md mt-1 mb-3"
+                placeholder="YYYY-MM-DD"
+                value={formData.date}
+                onChangeText={(text) => setFormData({ ...formData, date: text })}
+              />
+
+              {/* Submit Button */}
+              <TouchableOpacity 
+                className="bg-violet-500 p-3 rounded-lg mt-2"
+                onPress={() => {
+                  console.log("Booking Details:", formData);
+                  setModalVisible(false);
+                }}
+              >
+                <Text className="text-white text-center font-semibold">Confirm Booking</Text>
+              </TouchableOpacity>
+
+            </View>
+          </View>
+        </Modal>
       </View>
     </TouchableWithoutFeedback>
   );
