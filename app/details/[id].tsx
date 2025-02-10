@@ -1,13 +1,12 @@
-import {  View, Text, Image, ScrollView, TouchableOpacity, TextInput,  Keyboard, TouchableWithoutFeedback, Modal 
-} from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback, Modal } from "react-native";
 import { useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import ReservationMain from "./ReservationMain";
 import ReservationStepOne from "./ReservationStepOne";
-import ReservationStepTwo from "./ReservationStepThree";
-import ReservationStepThree from "./ReservationStepTwo";
+import ReservationStepTwo from "./ReservationStepTwo";
+import ReservationStepThree from "./ReservationStepThree";
 
 const activityCategories = [
   { id: "1", location: "Muscat", title: "Scuba Diving", type: "Hard", female: true, price: "100.0", companyName: "MfqodLTD", img: images.kayak },
@@ -19,16 +18,17 @@ const activityCategories = [
 ];
 
 export default function ActivityDetails() {
-  const steps =[
-                {name:"Main" , component: <ReservationMain/>},
-                {name:"Step One", component:<ReservationStepOne/>},
-                {name:"Step Two", component:<ReservationStepTwo/>},
-                {name:"Step Three", component:<ReservationStepThree/>}
-               ]
+  const steps = [
+    { name: "Main", component: <ReservationMain /> },
+    { name: "Step One", component: <ReservationStepOne /> },
+    { name: "Step Two", component: <ReservationStepTwo /> },
+    { name: "Step Three", component: <ReservationStepThree /> },
+  ];
+  
   const { id } = useLocalSearchParams();
   const activity = activityCategories.find((item) => item.id === id);
   const [modalVisible, setModalVisible] = useState(false);
-  const [reservationStep , setReservationStep] = useState(0);
+  const [reservationStep, setReservationStep] = useState(0);
 
   if (!activity) {
     return (
@@ -41,12 +41,7 @@ export default function ActivityDetails() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View className="flex-1 bg-gray-100">
-        <ScrollView
-          className="bg-white p-4"
-          contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
-          keyboardShouldPersistTaps="handled"
-        >
-          {/* Activity image */}
+        <ScrollView className="bg-white p-4" contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }} keyboardShouldPersistTaps="handled">
           <View className="relative w-full h-72 rounded-lg overflow-hidden">
             <Image source={activity.img} className="w-full h-full" resizeMode="cover" />
             {activity.female && (
@@ -56,7 +51,6 @@ export default function ActivityDetails() {
             )}
           </View>
 
-          {/* Activity details */}
           <View className="mt-4 px-3">
             <Text className="text-2xl font-bold text-gray-900">{activity.title}</Text>
             <View className="flex-row items-center mt-1">
@@ -69,46 +63,41 @@ export default function ActivityDetails() {
             <Text className="text-gray-600 mt-2">Company: {activity.companyName}</Text>
             <Text className="text-gray-600 mt-2">Difficulty: {activity.type}</Text>
           </View>
-
-          {/* Extra spacing */}
-          <View className="h-[400px] bg-violet-300 mt-6 rounded-xl"></View>
         </ScrollView>
 
-        {/* Bottom Section */}
         <View className="absolute bottom-0 left-0 right-0 bg-black h-28 flex-row items-center justify-between px-6 py-4">
           <Text className="text-white text-lg font-semibold">{activity.price} OMR</Text>
-          <TouchableOpacity 
-            className="bg-violet-500 px-6 py-3 rounded-lg"
-            onPress={() => setModalVisible(true)}
-          >
+          <TouchableOpacity className="bg-violet-500 px-6 py-3 rounded-lg" onPress={() => setModalVisible(true)}>
             <Text className="text-white font-semibold">Book Now</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Booking Modal */}
-        {/* The modal is controlled via visible prop */}
-        <Modal 
-          transparent={true} 
-          visible={modalVisible} 
-          animationType="slide"
-        >
-          <View className="flex-1 bg-black bg-opacity-50 items-center mt-28  rounded-t-3xl ">
+        <Modal transparent={true} visible={modalVisible} animationType="slide">
+          <View className="flex-1 bg-black bg-opacity-50 items-center mt-28 rounded-t-3xl">
             <View className="w-11/12 bg-white p-6 rounded-lg">
-              
-              {/* Close Button */}
-              <TouchableOpacity 
-                className="absolute right-4 top-4"
-                onPress={() => setModalVisible(false)}
-              >
+              <TouchableOpacity className="absolute right-4 top-4" onPress={() => setModalVisible(false)}>
                 <Ionicons name="close" size={24} color="black" />
               </TouchableOpacity>
 
               <Text className="text-xl font-bold text-gray-900 mb-4">Book {activity.title}</Text>
-              <View>
-
+              <View>{steps[reservationStep].component}</View>
+              
+              <View className="flex-row justify-between mt-6">
+                <TouchableOpacity
+                  disabled={reservationStep === 0}
+                  className={`px-6 py-3 rounded-lg ${reservationStep === 0 ? "bg-gray-300" : "bg-gray-500"}`}
+                  onPress={() => setReservationStep(reservationStep - 1)}
+                >
+                  <Text className="text-white font-semibold">Back</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  disabled={reservationStep === steps.length - 1}
+                  className={`px-6 py-3 rounded-lg ${reservationStep === steps.length - 1 ? "bg-gray-300" : "bg-violet-500"}`}
+                  onPress={() => setReservationStep(reservationStep + 1)}
+                >
+                  <Text className="text-white font-semibold">Next</Text>
+                </TouchableOpacity>
               </View>
-               
-
             </View>
           </View>
         </Modal>
