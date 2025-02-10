@@ -74,13 +74,13 @@ export default function ActivityDetails() {
         {/* Rendering Reservation components in a Model */}
         <Modal transparent={true} visible={modalVisible} animationType="slide" >
           <View className="flex-1 rounded-t-3xl  overflow-hidden border-t-2 ">
-            <View className="w-full bg-violet-300 rounded-lg h-full p-4 ">
-              <View className="flex relative items-center justify-center h-[8vh] mt-16">
+            <View className="w-full bg-white rounded-lg h-full p-4 ">
+              <View className="flex relative items-center justify-center h-[8vh] mt-14">
                 <TouchableOpacity className="absolute right-4  " onPress={() => setModalVisible(false)}>
                   <Ionicons name="close" size={32} color="black" />
                 </TouchableOpacity>
 
-                <Text className="text-xl font-bold text-gray-900">Request a Book</Text>
+                <Text className="text-lg font-pmedium text-gray-900">Request a Book</Text>
 
               </View>
              
