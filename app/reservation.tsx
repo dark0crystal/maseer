@@ -22,12 +22,26 @@ export default function Reservation() {
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
                 keyboardShouldPersistTaps="handled"
             >
+            <View className="flex flex-row">
             {/* Activity image */}
-            <View className="relative w-full h-72 rounded-lg overflow-hidden">
-                <Image source={images.kayak} width={200} height={200} resizeMode="cover" />
-            </View>
+                <View className=" relative w-[160px] h-[140px] rounded-lg overflow-hidden">
+                    <Image 
+                    source={images.kayak}  
+                    resizeMode="contain"  
+                    className="w-full h-full "
+                    />
+                </View>
+                
+                {/* Content section */}
+                <View className="border px-3 justify-center">
+                    <Text className="text-lg font-bold">20 OMR</Text>
+                    <Text className="text-md text-gray-700">Kayaking</Text>
+                    <Text className="text-sm text-yellow-500">⭐ 5 Stars</Text>
+                </View>
+                </View>
+
             <View className="h-[100vh]"/>
-            
+
             </ScrollView>
         </View>
     </TouchableWithoutFeedback>
