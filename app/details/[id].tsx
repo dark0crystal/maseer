@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback, Dimensions } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -19,50 +19,53 @@ export default function ActivityDetails() {
 
   if (!activity) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold", color: "red" }}>Activity not found</Text>
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-lg font-semibold text-red-500">Activity not found</Text>
       </View>
     );
   }
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View style={{ flex: 1 }}>
+      <View className="flex-1 bg-gray-100">
         <ScrollView
-          style={{ backgroundColor: "white", padding: 16 }}
+          className="bg-white p-4"
           contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
           keyboardShouldPersistTaps="handled"
         >
-          {/* صورة النشاط */}
-          <View style={{ position: "relative", width: "100%", height: 300, borderRadius: 10, overflow: "hidden" }}>
-            <Image source={activity.img} style={{ position: "absolute", width: "100%", height: "100%" }} resizeMode="cover" />
+          {/* Activity image */}
+          <View className="relative w-full h-72 rounded-lg overflow-hidden">
+            <Image source={activity.img} className="w-full h-full" resizeMode="cover" />
             {activity.female && (
-              <View style={{ position: "absolute", bottom: 8, left: 8, backgroundColor: "red", paddingHorizontal: 16, paddingVertical: 4, borderRadius: 10 }}>
-                <Text style={{ color: "white", fontWeight: "bold" }}>Female Only</Text>
+              <View className="absolute bottom-2 left-2 bg-red-500 px-4 py-1 rounded-lg">
+                <Text className="text-white font-semibold">Female Only</Text>
               </View>
             )}
           </View>
 
-          {/* تفاصيل النشاط */}
-          <View style={{ marginTop: 16, paddingHorizontal: 12 }}>
-            <Text style={{ fontSize: 24, fontWeight: "bold" }}>{activity.title}</Text>
-            <Text style={{ color: "gray", marginTop: 4 }}>
-              <Ionicons name="location-outline" size={16} color="black" /> {activity.location}
+          {/* Activity details */}
+          <View className="mt-4 px-3">
+            <Text className="text-2xl font-bold text-gray-900">{activity.title}</Text>
+            <View className="flex-row items-center mt-1">
+              <Ionicons name="location-outline" size={16} color="black" />
+              <Text className="text-gray-600 ml-1">{activity.location}</Text>
+            </View>
+            <Text className="text-lg font-semibold mt-2 text-gray-800">
+              Price: <Text className="text-violet-500">{activity.price} R.O</Text>
             </Text>
-            <Text style={{ fontSize: 18, fontWeight: "bold", marginTop: 8 }}>Price: {activity.price} R.O</Text>
-            <Text style={{ color: "gray", marginTop: 8 }}>Company: {activity.companyName}</Text>
-            <Text style={{ color: "gray", marginTop: 8 }}>Difficulty: {activity.type}</Text>
+            <Text className="text-gray-600 mt-2">Company: {activity.companyName}</Text>
+            <Text className="text-gray-600 mt-2">Difficulty: {activity.type}</Text>
           </View>
 
-          {/* مساحة فارغة (استبدل 100vh بطريقة صحيحة) */}
-          <View style={{ height: Dimensions.get("window").height, backgroundColor: "violet" }}></View>
+          {/* Extra spacing */}
+          <View className="h-[400px] bg-violet-300 mt-6 rounded-xl"></View>
         </ScrollView>
 
-        {/* القسم السفلي */}
-        <View style={{ position: "absolute", bottom: 0, backgroundColor: "black", height: 120, flexDirection: "row", width: "100%", justifyContent: "space-between", alignItems: "center", paddingHorizontal: 16 }}>
-          <Text style={{ color: "white", fontSize: 18, fontWeight: "bold" }}>{activity.price} OMR</Text>
-          <TouchableOpacity style={{ backgroundColor: "red", padding: 12, borderRadius: 8 }}>
-            <Text style={{ color: "white", fontWeight: "bold" }}>Book Now</Text>
+        {/* Bottom Section */}
+        <View className="absolute bottom-0 left-0 right-0 bg-black h-28 flex-row items-center justify-between px-6 py-4">
+          <Text className="text-white text-lg font-semibold">{activity.price} OMR</Text>
+          <TouchableOpacity className="bg-violet-500 px-6 py-3 rounded-lg">
+            <Text className="text-white font-semibold">Book Now</Text>
           </TouchableOpacity>
         </View>
       </View>
