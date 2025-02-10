@@ -1,11 +1,11 @@
 import { View ,Text} from "react-native";
 
 
-export default function ReservationStepTwo(){
+export default function ReservationStepThree(){
     return(
         <View>
             <Text>
-                Step Two
+                Step Three
             </Text>
         </View>
     )
