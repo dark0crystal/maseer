@@ -18,12 +18,12 @@ export default function ReservationMain() {
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <View className="flex">
             <ScrollView
-                className="p-4"
+                className=""
                 contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
                 keyboardShouldPersistTaps="handled"
             >
             {/* Header top section  */}
-            <View className="flex flex-row w-screen border-gray-200 border-y-[1px] my-2 py-4 px-2" >
+            <View className="flex flex-row w-screen border-gray-200 border-y-[1px] my-2 py-4 " >
             {/* Activity image */}
                 <View className=" relative w-[160px] h-[140px] rounded-lg overflow-hidden">
                     <Image 
