@@ -1,4 +1,4 @@
-import { View, Text, Image, ScrollView } from "react-native";
+import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -26,29 +26,47 @@ export default function ActivityDetails() {
   }
 
   return (
-    <ScrollView className="flex-1 bg-white p-4">
-      {/* صورة النشاط */}
-      <View className="relative w-full h-[300px] rounded-lg overflow-hidden">
-        <Image source={activity.img} className="absolute w-full h-full" resizeMode="cover" />
-        {activity.female && (
-          <View className="absolute bottom-2 left-2 bg-red-500 px-4 py-1 rounded-lg">
-            <Text className="text-white font-semibold">Female Only</Text>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+    <View className="flex-1">
+      <ScrollView className=" bg-white p-4" contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }} keyboardShouldPersistTaps="handled">
+        <View>
+        {/*  Activity image */}
+        <View className="relative w-full h-[300px] rounded-lg overflow-hidden">
+          <Image source={activity.img} className="absolute w-full h-full" resizeMode="cover" />
+          {activity.female && (
+            <View className="absolute bottom-2 left-2 bg-red-500 px-4 py-1 rounded-lg">
+              <Text className="text-white font-semibold">Female Only</Text>
+            </View>
+          )}
+        </View>
+
+        {/*Activity details */}
+        <View className="mt-4 px-3">
+          <Text className="text-2xl font-bold">{activity.title}</Text>
+          <Text className="text-gray-600 mt-1">
+            <Ionicons name="location-outline" size={16} color="black" /> {activity.location}
+          </Text>
+          <Text className="text-lg font-semibold mt-2">
+            Price: {activity.price} R.O
+          </Text>
+          <Text className="text-gray-600 mt-2">Company: {activity.companyName}</Text>
+          <Text className="text-gray-600 mt-2">Difficulty: {activity.type}</Text>
+        </View>
+          <View className="h-[100vh] bg-violet-300"></View>
           </View>
-        )}
+        </ScrollView>
+      {/* Bottom section */}
+      <View className="absolute bottom-0 bg-black h-[120px] flex flex-row w-screen">
+        <View className="">
+          <Text>190 OMR</Text>
+        </View>
+        <TouchableOpacity>
+          
+        </TouchableOpacity>
       </View>
 
-      {/* تفاصيل النشاط */}
-      <View className="mt-4 px-3">
-        <Text className="text-2xl font-bold">{activity.title}</Text>
-        <Text className="text-gray-600 mt-1">
-          <Ionicons name="location-outline" size={16} color="black" /> {activity.location}
-        </Text>
-        <Text className="text-lg font-semibold mt-2">
-          Price: {activity.price} R.O
-        </Text>
-        <Text className="text-gray-600 mt-2">Company: {activity.companyName}</Text>
-        <Text className="text-gray-600 mt-2">Difficulty: {activity.type}</Text>
       </View>
-    </ScrollView>
+    
+    </TouchableWithoutFeedback>
   );
 }
