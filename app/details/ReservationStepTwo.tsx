@@ -10,6 +10,12 @@ export default function ReservationStepTwo(){
             <View>
                 <TextInput />
             </View>
+            <Text>
+               Phone Number
+            </Text>
+            <View>
+                <TextInput />
+            </View>
         </View>
     )
 }
