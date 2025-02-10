@@ -85,7 +85,7 @@ export default function ActivityDetails() {
           visible={modalVisible} 
           animationType="slide"
         >
-          <View className="flex-1 bg-black bg-opacity-50 justify-center items-center">
+          <View className="flex-1 bg-black bg-opacity-50 items-center mt-28  rounded-t-3xl ">
             <View className="w-11/12 bg-white p-6 rounded-lg">
               
               {/* Close Button */}
