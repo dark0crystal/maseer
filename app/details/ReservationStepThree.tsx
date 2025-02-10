@@ -1,12 +1,15 @@
-import { View ,Text} from "react-native";
+import { View ,Text, TextInput} from "react-native";
 
 
 export default function ReservationStepThree(){
     return(
         <View>
             <Text>
-                Step Three
+                Payment
             </Text>
+            <View>
+                <TextInput />
+            </View>
         </View>
     )
 }
