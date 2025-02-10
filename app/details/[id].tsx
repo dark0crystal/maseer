@@ -4,6 +4,10 @@ import { useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import ReservationMain from "./ReservationMain";
+import ReservationStepOne from "./ReservationStepOne";
+import ReservationStepTwo from "./ReservationStepThree";
+import ReservationStepThree from "./ReservationStepTwo";
 
 const activityCategories = [
   { id: "1", location: "Muscat", title: "Scuba Diving", type: "Hard", female: true, price: "100.0", companyName: "MfqodLTD", img: images.kayak },
@@ -16,19 +20,14 @@ const activityCategories = [
 
 export default function ActivityDetails() {
   const steps =[
-                {name:"Main" , component: <Rese},
-                {name:"Step One", component:},
-                {name:"Step Two", component:},
-                {name:"Step Three", component:}
+                {name:"Main" , component: <ReservationMain/>},
+                {name:"Step One", component:<ReservationStepOne/>},
+                {name:"Step Two", component:<ReservationStepTwo/>},
+                {name:"Step Three", component:<ReservationStepThree/>}
                ]
   const { id } = useLocalSearchParams();
   const activity = activityCategories.find((item) => item.id === id);
   const [modalVisible, setModalVisible] = useState(false);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    date: "",
-  });
 
   if (!activity) {
     return (
