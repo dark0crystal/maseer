@@ -28,6 +28,7 @@ export default function ActivityDetails() {
   const { id } = useLocalSearchParams();
   const activity = activityCategories.find((item) => item.id === id);
   const [modalVisible, setModalVisible] = useState(false);
+  const [reservationStep , setReservationStep] = useState(0);
 
   if (!activity) {
     return (
@@ -85,6 +86,7 @@ export default function ActivityDetails() {
         </View>
 
         {/* Booking Modal */}
+        {/* The modal is controlled via visible prop */}
         <Modal 
           transparent={true} 
           visible={modalVisible} 
