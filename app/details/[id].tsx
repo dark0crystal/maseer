@@ -1,5 +1,5 @@
 import { View, Text, Image, ScrollView, TouchableOpacity, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
-import { useLocalSearchParams } from "expo-router";
+import { Link, useLocalSearchParams ,useRouter} from "expo-router";
 import { images } from "../../constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
@@ -16,6 +16,7 @@ const activityCategories = [
 export default function ActivityDetails() {
   const { id } = useLocalSearchParams(); // التقاط ID من الرابط
   const activity = activityCategories.find((item) => item.id === id); // البحث عن النشاط المطابق
+  const router  = useRouter();
 
   if (!activity) {
     return (
@@ -64,9 +65,12 @@ export default function ActivityDetails() {
         {/* Bottom Section */}
         <View className="absolute bottom-0 left-0 right-0 bg-black h-28 flex-row items-center justify-between px-6 py-4">
           <Text className="text-white text-lg font-semibold">{activity.price} OMR</Text>
-          <TouchableOpacity className="bg-violet-500 px-6 py-3 rounded-lg">
-            <Text className="text-white font-semibold">Book Now</Text>
-          </TouchableOpacity>
+          <TouchableOpacity 
+              className="bg-violet-500 px-6 py-3 rounded-lg"
+              onPress={() => router.push(`/reservation?id=${activity.id}`)} // Navigate to reservation page
+            >
+              <Text className="text-white font-semibold">Book Now</Text>
+            </TouchableOpacity>
         </View>
       </View>
     </TouchableWithoutFeedback>
