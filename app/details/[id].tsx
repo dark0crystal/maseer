@@ -71,18 +71,18 @@ export default function ActivityDetails() {
             <Text className="text-white font-semibold">Book Now</Text>
           </TouchableOpacity>
         </View>
-
+        {/* Rendering Reservation components in a Model */}
         <Modal transparent={true} visible={modalVisible} animationType="slide">
-          <View className="flex-1 bg-black bg-opacity-50 items-center mt-28 rounded-t-3xl">
-            <View className="w-11/12 bg-white p-6 rounded-lg">
+          <View className="flex-1  items-center mt-28 rounded-t-3xl overflow-hidden h-screen">
+            <View className="w-full bg-red-300 rounded-lg h-full ">
               <TouchableOpacity className="absolute right-4 top-4" onPress={() => setModalVisible(false)}>
-                <Ionicons name="close" size={24} color="black" />
+                <Ionicons name="close" size={30} color="black" />
               </TouchableOpacity>
 
               <Text className="text-xl font-bold text-gray-900 mb-4">Book {activity.title}</Text>
               <View>{steps[reservationStep].component}</View>
               
-              <View className="flex-row justify-between mt-6">
+              <View className="absolute bottom-0 mt-6">
                 <TouchableOpacity
                   disabled={reservationStep === 0}
                   className={`px-6 py-3 rounded-lg ${reservationStep === 0 ? "bg-gray-300" : "bg-gray-500"}`}
