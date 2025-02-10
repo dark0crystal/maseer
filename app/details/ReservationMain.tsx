@@ -23,7 +23,7 @@ export default function ReservationMain() {
                 keyboardShouldPersistTaps="handled"
             >
             {/* Header top section  */}
-            <View className="flex flex-row w-screen border-gray-200 border-y-[1px] my-2 py-4 " >
+            <View className="flex flex-row w-screen border-gray-200 border-b-[1px] my-2 py-4 " >
             {/* Activity image */}
                 <View className=" relative w-[160px] h-[140px] rounded-lg overflow-hidden">
                     <Image 

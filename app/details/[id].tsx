@@ -75,7 +75,7 @@ export default function ActivityDetails() {
         <Modal transparent={true} visible={modalVisible} animationType="slide" >
           <View className="flex-1 rounded-t-3xl  overflow-hidden border-t-2 ">
             <View className="w-full bg-white rounded-lg h-full p-4 ">
-              <View className="flex relative items-center justify-center h-[8vh] mt-14">
+              <View className="flex relative items-center justify-center h-[8vh] mt-14 border-gray-200 border-b-[1px]">
                 <TouchableOpacity className="absolute right-4  " onPress={() => setModalVisible(false)}>
                   <Ionicons name="close" size={32} color="black" />
                 </TouchableOpacity>
