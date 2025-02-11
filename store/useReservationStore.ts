@@ -1,11 +1,10 @@
 import { create } from "zustand";
-
 interface ReservationState {
-  dates: { start: Date; end: Date }[];
-  setDates: (dates: { start: Date; end: Date }[]) => void;
+  dates: { start: string; end: string } | null;
+  setDates: (dates: { start: string; end: string } | null) => void;
 }
 
 export const useReservationStore = create<ReservationState>((set) => ({
-  dates: [],
+  dates: null,
   setDates: (dates) => set({ dates }),
 }));
