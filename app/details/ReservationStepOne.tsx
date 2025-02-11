@@ -20,16 +20,24 @@ export default function ReservationStepOne({ navigation }: { navigation: any }) 
     defaultValues: { dates },
   });
 
+  const today = new Date().toISOString().split("T")[0]; // Get today's date
   const onDayPress = (day: DateData) => {
+    
+  
+    if (day.dateString < today) return; // Prevent selecting past dates
+  
     if (!selectedStart || (selectedStart && selectedEnd)) {
       setSelectedStart(day.dateString);
       setSelectedEnd(null);
-      setMarkedDates({ [day.dateString]: { selected: true, startingDay: true, color: "#50cebb" } });
+      setMarkedDates({
+        [day.dateString]: { selected: true, startingDay: true, color: "#001219" },
+      });
     } else if (selectedStart && !selectedEnd) {
       setSelectedEnd(day.dateString);
       markDateRange(selectedStart, day.dateString);
     }
   };
+  
 
   const markDateRange = (start: string, end: string) => {
     let range: Record<string, any> = {};
@@ -38,12 +46,12 @@ export default function ReservationStepOne({ navigation }: { navigation: any }) 
 
     while (currentDate <= endDate) {
       let dateString = currentDate.toISOString().split("T")[0];
-      range[dateString] = { selected: true, color: "#70d7c7" };
+      range[dateString] = { selected: true, color: "#001219" };
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
-    range[start] = { selected: true, startingDay: true, color: "#50cebb" };
-    range[end] = { selected: true, endingDay: true, color: "#50cebb" };
+    range[start] = { selected: true, startingDay: true, color: "#001219" };
+    range[end] = { selected: true, endingDay: true, color: "#001219" };
     setMarkedDates(range);
   };
 
@@ -65,7 +73,16 @@ export default function ReservationStepOne({ navigation }: { navigation: any }) 
   return (
     <View style={{ padding: 20 }}>
       <Text>Select Date Range</Text>
-      <Calendar markingType={"period"} markedDates={markedDates} onDayPress={onDayPress} />
+      <Calendar
+      markingType={"period"}
+      markedDates={{
+        ...markedDates,
+        [today]: { disabled: true }, // Disable today if needed
+      }}
+      minDate={new Date().toISOString().split("T")[0]} // Disable past dates
+      onDayPress={onDayPress}
+    />
+
       <Button title="Set Date Range" onPress={addDateRange} disabled={!selectedStart || !selectedEnd} />
       {dates && <Text>{`${dates.start} - ${dates.end}`}</Text>}
       <Button title="Next" onPress={handleSubmit(onSubmit)} disabled={!dates} />
