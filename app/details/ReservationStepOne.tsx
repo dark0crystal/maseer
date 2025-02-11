@@ -5,17 +5,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useReservationStore } from "../../store/useReservationStore";
 import { useState } from "react";
+import { reservationSchema } from "@/schemas/reservationSchema";
 
-const reservationSchema = z.object({
-  dates: z
-    .array(
-      z.object({
-        start: z.string(),
-        end: z.string(),
-      })
-    )
-    .min(1, "Please select at least one date range"),
-});
+
 
 export default function ReservationStepOne({ navigation }: { navigation: any }) {
   const { setDates, dates } = useReservationStore();
