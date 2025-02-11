@@ -77,7 +77,7 @@ export default function ReservationStepOne({ navigation }: { navigation: any }) 
       markingType={"period"}
       markedDates={{
         ...markedDates,
-        [today]: { disabled: true }, // Disable today if needed
+        // [today]: { disabled: true }, // Disable today if needed
       }}
       minDate={new Date().toISOString().split("T")[0]} // Disable past dates
       onDayPress={onDayPress}
