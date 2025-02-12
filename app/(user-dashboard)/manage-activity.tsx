@@ -28,7 +28,7 @@ export default function ManageActivity() {
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
                 <Link href={`/details/${item.id}`}  className='mt-2'>
-                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl   border-red-300 flex flex-row overflow-hidden gap-1 ">
+                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl border  border-red-300 flex flex-row overflow-hidden gap-1 ">
                     {/* image section */}
                    <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl ">
                         <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />   
