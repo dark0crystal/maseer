@@ -1,6 +1,9 @@
 import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { images } from "../../constants";
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from "expo-router";
+import { StarRatingDisplay} from 'react-native-star-rating-widget';
 
 export default function ManageActivity() {
 //   const navigation = useNavigation();
@@ -19,25 +22,49 @@ export default function ManageActivity() {
       <Text className="text-xl font-bold mb-4 text-gray-800">Manage Activities</Text>
 
       <FlatList
-        data={activityCategories}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <View className="bg-gray-100 rounded-lg shadow-md p-4 mb-4">
-            <Image source={item.img} className="w-full h-40 rounded-md mb-2" />
-            <Text className="text-lg font-semibold text-gray-800">{item.title}</Text>
-            <Text className="text-gray-600">{item.location} - {item.companyName}</Text>
-            <Text className="text-gray-700">Difficulty: {item.type} | Price: ${item.price}</Text>
+                data={activityCategories}
+                keyExtractor={(category) => category.id}
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
+                renderItem={({ item }) => (
+                <Link href={`/details/${item.id}`}  className='mt-2'>
+                <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl   border-red-300 flex flex-row overflow-hidden gap-1 ">
+                    {/* image section */}
+                   <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl ">
+                        <Image className="absolute w-full h-full" resizeMode="cover" source={item.img} />   
+                    </View>
 
-            {/* Navigation Button */}
-            <TouchableOpacity
-            //   onPress={() => navigation.navigate("ActivityDetails", { activity: item })}
-              className="mt-3 bg-blue-500 p-2 rounded-md"
-            >
-              <Text className="text-white text-center font-semibold">View Details</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
+                    {/* content section */}
+                    <View className='bg-white w-[200px]  h-[160px]  p-2  overflow-hidden rounded-2xl  flex flex-row '>
+
+                        
+                        {/* Left section */}
+                        <View>
+                            <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
+                            <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>
+                            <View className=''>
+                                <StarRatingDisplay
+                                    rating={2.5}
+                                    starSize={18}
+                                />
+                            </View>
+                            <Text className="text-base font-pmedium text-gray-600 mt-1">{item.price}R.O</Text>
+                            <View className='flex flex-row items-center  gap-1'>
+                                <View className='relative flex flex-row items-center justify-center'>
+                                    <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
+                                    <View className='absolute h-3 w-3 bg-green-400 rounded-full'/>
+                                    <View className='h-2 w-2 bg-green-500 rounded-full'/>
+                                    
+                                </View>
+                                <Text className="text-sm text-gray-600"> {item.type}</Text>
+                                
+                             </View>
+                        </View>
+                    </View>
+                </View>
+                </Link>
+                )}
+            />
     </View>
   );
 }
