@@ -5,6 +5,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from "expo-router";
 import { StarRatingDisplay} from 'react-native-star-rating-widget';
 import { useState } from "react";
+import ManageBooking from "./ManageBooking";
 
 export default function ManageActivity() {
 //   const navigation = useNavigation();
@@ -86,7 +87,7 @@ export default function ManageActivity() {
                 <Text className="text-lg font-pmedium text-gray-900">Manage Booking</Text>
 
               </View>
-                
+                <ManageBooking/>
               
             </View>
           </View>
