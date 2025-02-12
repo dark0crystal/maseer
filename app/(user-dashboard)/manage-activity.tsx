@@ -1,12 +1,14 @@
-import { View, Text, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, Image, TouchableOpacity, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { images } from "../../constants";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Link } from "expo-router";
 import { StarRatingDisplay} from 'react-native-star-rating-widget';
+import { useState } from "react";
 
 export default function ManageActivity() {
 //   const navigation = useNavigation();
+ const [modalVisible, setModalVisible] = useState(false);
 
   const activityCategories = [
     { id: "1", location: "Muscat", title: "Scuba Diving", type: "Hard", female: true, price: "100.0", companyName: "MfqodLTD", img: images.kayak },
@@ -27,7 +29,7 @@ export default function ManageActivity() {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
                 renderItem={({ item }) => (
-                <Link href={`/details/${item.id}`}  className='mt-2'>
+                
                 <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl border  border-red-300 flex flex-row overflow-hidden gap-1 ">
                     {/* image section */}
                    <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl ">
@@ -40,6 +42,12 @@ export default function ManageActivity() {
                         
                         {/* Left section */}
                         <View>
+
+                            {/* this button should not be shown if no bookings */}
+                            <TouchableOpacity className="bg-violet-500 px-6 py-3 rounded-lg" onPress={() => setModalVisible(true)}>
+                                <Text className="text-white font-semibold">show user details</Text>
+                            </TouchableOpacity>
+
                             <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
                             <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location}</Text>
                             <View className=''>
@@ -62,9 +70,27 @@ export default function ManageActivity() {
                         </View>
                     </View>
                 </View>
-                </Link>
+              
                 )}
             />
+
+           {/* Rendering Reservation components in a Model */}
+        <Modal transparent={true} visible={modalVisible} animationType="slide" >
+          <View className="flex-1 rounded-t-3xl  overflow-hidden border-t-2 ">
+            <View className="w-full bg-white rounded-lg h-full p-4 ">
+              <View className="flex relative items-center justify-center h-[8vh] mt-14 border-gray-200 border-b-[1px]">
+                <TouchableOpacity className="absolute right-4  " onPress={() => setModalVisible(false)}>
+                  <Ionicons name="close" size={32} color="black" />
+                </TouchableOpacity>
+
+                <Text className="text-lg font-pmedium text-gray-900">Manage Booking</Text>
+
+              </View>
+                
+              
+            </View>
+          </View>
+        </Modal>
     </View>
   );
 }
