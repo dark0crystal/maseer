@@ -8,7 +8,11 @@ const Profile = () => {
     <SafeAreaView>
       <Text>Profile</Text>
 
-      <Link href="/(admin)/StepOne">Go to admin</Link>
+      <Link href="/(admin)/StepOne">Add New Activity</Link>
+
+      {/* show this link after checking if the user is a manager of activity */}
+      <Link href="/(admin)/">Show Activities</Link>
+      
       <Link href="/(admin)/">Go to index</Link>
     </SafeAreaView>
   )
