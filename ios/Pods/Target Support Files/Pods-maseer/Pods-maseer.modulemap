@@ -1,0 +1,6 @@
+module Pods_maseer {
+  umbrella header "Pods-maseer-umbrella.h"
+
+  export *
+  module * { export * }
+}
