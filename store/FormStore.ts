@@ -25,6 +25,9 @@ interface FormState {
   allowPets: boolean;
   coverImage: string;
   dateConfig: DateConfig; // Added date configuration
+  formprogress:number;//form progress
+  incrementFormprogress: () => void;//form progress
+  decrementFormprogress: () => void;// form progress
   setCoverImage: (coverImage: string) => void;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
@@ -60,6 +63,9 @@ export const useFormStore = create<FormState>((set) => ({
     isUserSelectable: true, // Default value from AdminDateStore
     specificDates: undefined,
   },
+  formprogress:0 ,//form progress
+  incrementFormprogress: () => set((state) => ({ formprogress: state.formprogress + 1 })),
+  decrementFormprogress: () => set((state) => ({ formprogress: state.formprogress - 1 })),
   setCoverImage: (coverImage) => set({ coverImage }),
   setTitle: (title) => set({ title }),
   setDescription: (description) => set({ description }),
