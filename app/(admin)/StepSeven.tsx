@@ -1,52 +1,14 @@
-
-import { create } from "zustand";
 import { View, Text, Button, Switch } from "react-native";
 import { Calendar, DateData } from "react-native-calendars";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-
-// Define the schema for admin date configuration
-const adminDateSchema = z.object({
-  isUserSelectable: z.boolean(),
-  specificDates: z
-    .object({
-      start: z.string().optional(),
-      end: z.string().optional(),
-    })
-    .optional(),
-}).refine(
-  (data) => {
-    if (!data.isUserSelectable && (!data.specificDates?.start || !data.specificDates?.end)) {
-      return false;
-    }
-    return true;
-  },
-  {
-    message: "Specific dates are required when user selection is disabled",
-    path: ["specificDates"],
-  }
-);
-
-// Create store for admin settings
-interface AdminDateStore {
-  config: {
-    isUserSelectable: boolean;
-    specificDates?: { start: string; end: string };
-  };
-  setConfig: (config: { isUserSelectable: boolean; specificDates?: { start: string; end: string } }) => void;
-}
-
-export const useAdminDateStore = create<AdminDateStore>((set) => ({
-  config: {
-    isUserSelectable: true,
-  },
-  setConfig: (config) => set({ config }),
-}));
+import { adminDateSchema } from "@/schemas/adminDateSchema";
+import { useFormStore } from "../../store/FormStore"; // Adjust the import path
 
 export default function AdminDateConfig({ navigation }: { navigation: any }) {
-  const { config, setConfig } = useAdminDateStore();
+  const { dateConfig, setDateConfig } = useFormStore(); // Use form store
   const [selectedStart, setSelectedStart] = useState<string | null>(null);
   const [selectedEnd, setSelectedEnd] = useState<string | null>(null);
   const [markedDates, setMarkedDates] = useState<Record<string, any>>({});
@@ -54,8 +16,8 @@ export default function AdminDateConfig({ navigation }: { navigation: any }) {
   const { control, handleSubmit, setValue, watch } = useForm({
     resolver: zodResolver(adminDateSchema),
     defaultValues: {
-      isUserSelectable: true,
-      specificDates: undefined,
+      isUserSelectable: dateConfig.isUserSelectable, // Use store value
+      specificDates: dateConfig.specificDates, // Use store value
     },
   });
 
@@ -103,10 +65,10 @@ export default function AdminDateConfig({ navigation }: { navigation: any }) {
   };
 
   const onSubmit = (data: z.infer<typeof adminDateSchema>) => {
-    setConfig({
+    setDateConfig({
       isUserSelectable: data.isUserSelectable,
       specificDates: data.specificDates,
-    });
+    }); // Save to form store
     navigation.navigate("NextScreen"); // Replace with your next screen
   };
 
