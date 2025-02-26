@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "../../schemas/formSchema";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
+import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepOne() {
   const router = useRouter();
@@ -61,7 +62,8 @@ export default function StepOne() {
 
       {/* Fixed Button at the Bottom */}
       <View className="absolute bottom-0 w-screen h-[120px] bg-white">
-        <View className="h-2 w-full bg-black"></View>
+        {/* progress bar */}
+        <ProgressBar />
         <TouchableOpacity onPress={handleSubmit(onNext)} className="absolute bottom-12 right-6 bg-black rounded-lg px-6 py-3 w-[100px] ">
           <Text className="text-white text-lg font-semibold text-center">Next</Text>
         </TouchableOpacity>

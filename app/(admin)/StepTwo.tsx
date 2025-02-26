@@ -7,6 +7,7 @@ import { useState } from "react";
 import { formSchema } from "../../schemas/formSchema";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
+import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepTwo() {
   const router = useRouter();
@@ -93,7 +94,8 @@ export default function StepTwo() {
 
         {/* Fixed Bottom Buttons */}
         <View className="absolute bottom-0 bg-white h-[120px] flex flex-row w-screen">
-        <View className="h-2 w-full bg-black"></View>
+        {/* progress bar */}
+          <ProgressBar />
           {/* Back Button */}
           <TouchableOpacity
             onPress={() => router.back()}
