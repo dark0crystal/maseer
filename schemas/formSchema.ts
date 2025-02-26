@@ -13,4 +13,6 @@ export const formSchema = z.object({
     latitude: z.number().min(-90).max(90, "Invalid latitude"),
     longitude: z.number().min(-180).max(180, "Invalid longitude"),
   }),
+
+  
 });
