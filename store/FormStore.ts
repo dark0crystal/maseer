@@ -39,7 +39,7 @@ interface FormState {
 export const useFormStore = create<FormState>((set) => ({
     title: "",
     description: "",
-    price: 20,
+    price: 0,
     features: [],
     images: [],
     activityType: "",
