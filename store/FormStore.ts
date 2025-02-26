@@ -18,6 +18,8 @@ interface FormState {
   availableSeats: number;
   genderPreference: "male" | "female" | "both";
   allowPets: boolean;
+  coverImage: string;
+  setCoverImage: (coverImage: string) => void;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
   setPrice: (price: number) => void;
@@ -47,6 +49,8 @@ export const useFormStore = create<FormState>((set) => ({
     availableSeats: 0,
     genderPreference: "both",
     allowPets: false,
+    coverImage: "",
+    setCoverImage: (coverImage) => set({ coverImage }),
     setTitle: (title) => set({ title }),
     setDescription: (description) => set({ description }),
     setPrice: (price) => set({ price }),
