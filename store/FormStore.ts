@@ -63,7 +63,7 @@ export const useFormStore = create<FormState>((set) => ({
     isUserSelectable: true, // Default value from AdminDateStore
     specificDates: undefined,
   },
-  formprogress:0 ,//form progress
+  formprogress:1 ,//form progress
   incrementFormprogress: () => set((state) => ({ formprogress: state.formprogress + 1 })),
   decrementFormprogress: () => set((state) => ({ formprogress: state.formprogress - 1 })),
   setCoverImage: (coverImage) => set({ coverImage }),
