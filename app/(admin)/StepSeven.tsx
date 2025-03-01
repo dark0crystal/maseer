@@ -1,32 +1,27 @@
-import { View, Text, Button, Switch } from "react-native";
+import { View, Text, Button, TouchableOpacity } from "react-native";
 import { Calendar, DateData } from "react-native-calendars";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { adminDateSchema } from "@/schemas/adminDateSchema";
-import { useFormStore } from "../../store/FormStore"; // Adjust the import path
+import { useFormStore } from "../../store/FormStore";
 
 export default function AdminDateConfig({ navigation }: { navigation: any }) {
-  const { dateConfig, setDateConfig } = useFormStore(); // Use form store
+  const { dateConfig, setDateConfig } = useFormStore();
   const [selectedStart, setSelectedStart] = useState<string | null>(null);
   const [selectedEnd, setSelectedEnd] = useState<string | null>(null);
   const [markedDates, setMarkedDates] = useState<Record<string, any>>({});
 
   const { control, handleSubmit, setValue, watch } = useForm({
     resolver: zodResolver(adminDateSchema),
-    defaultValues: {
-      isUserSelectable: dateConfig.isUserSelectable, // Use store value
-      specificDates: dateConfig.specificDates, // Use store value
-    },
+    defaultValues: { specificDates: dateConfig.specificDates },
   });
 
-  const isUserSelectable = watch("isUserSelectable");
   const today = new Date().toISOString().split("T")[0];
 
   const onDayPress = (day: DateData) => {
     if (day.dateString < today) return;
-
     if (!selectedStart || (selectedStart && selectedEnd)) {
       setSelectedStart(day.dateString);
       setSelectedEnd(null);
@@ -36,6 +31,7 @@ export default function AdminDateConfig({ navigation }: { navigation: any }) {
     } else if (selectedStart && !selectedEnd) {
       setSelectedEnd(day.dateString);
       markDateRange(selectedStart, day.dateString);
+      setDateRange(selectedStart, day.dateString);
     }
   };
 
@@ -55,72 +51,42 @@ export default function AdminDateConfig({ navigation }: { navigation: any }) {
     setMarkedDates(range);
   };
 
-  const setDateRange = () => {
-    if (selectedStart && selectedEnd) {
-      const newDateRange = { start: selectedStart, end: selectedEnd };
-      setValue("specificDates", newDateRange);
-      setSelectedStart(null);
-      setSelectedEnd(null);
-    }
+  const setDateRange = (start: string, end: string) => {
+    const newDateRange = { start, end };
+    setValue("specificDates", newDateRange);
+    setSelectedStart(null);
+    setSelectedEnd(null);
   };
 
   const onSubmit = (data: z.infer<typeof adminDateSchema>) => {
-    setDateConfig({
-      isUserSelectable: data.isUserSelectable,
-      specificDates: data.specificDates,
-    }); // Save to form store
-    navigation.navigate("NextScreen"); // Replace with your next screen
+    setDateConfig({ specificDates: data.specificDates });
+    navigation.navigate("StepEight");
   };
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text style={{ fontSize: 18, marginBottom: 10 }}>
-        Configure Activity Date Availability
-      </Text>
-
-      {/* Toggle for user selection */}
-      <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-        <Text>Allow users to select dates?</Text>
-        <Switch
-          value={isUserSelectable}
-          onValueChange={(value) => {
-            setValue("isUserSelectable", value);
-            if (value) {
-              setValue("specificDates", undefined);
-              setMarkedDates({});
-              setSelectedStart(null);
-              setSelectedEnd(null);
-            }
-          }}
+    <View style={{ flex: 1, padding: 20, justifyContent: "space-between" }}>
+      <View>
+        <Text>Select Available Date Range (optional)</Text>
+        <Calendar
+          markingType={"period"}
+          markedDates={markedDates}
+          minDate={today}
+          onDayPress={onDayPress}
         />
+        {watch("specificDates") && (
+          <Text>{`${watch("specificDates")?.start} - ${watch("specificDates")?.end}`}</Text>
+        )}
       </View>
 
-      {/* Date picker section - shown only when user selection is disabled */}
-      {!isUserSelectable && (
-        <>
-          <Text>Select Available Date Range</Text>
-          <Calendar
-            markingType={"period"}
-            markedDates={markedDates}
-            minDate={today}
-            onDayPress={onDayPress}
-          />
-          <Button
-            title="Set Date Range"
-            onPress={setDateRange}
-            disabled={!selectedStart || !selectedEnd}
-          />
-          {watch("specificDates") && (
-            <Text>{`${watch("specificDates")?.start} - ${watch("specificDates")?.end}`}</Text>
-          )}
-        </>
-      )}
-
-      <Button
-        title="Save Configuration"
-        onPress={handleSubmit(onSubmit)}
-        disabled={!isUserSelectable && (!watch("specificDates")?.start || !watch("specificDates")?.end)}
-      />
+      <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
+        <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 10 }}>
+          <Text style={{ fontSize: 16, color: "black" }}>Back</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={{ backgroundColor: "black", padding: 10, borderRadius: 5 }} disabled={!watch("specificDates")?.start && !watch("specificDates")?.end}>
+          <Text style={{ fontSize: 16, color: "white" }}>Next</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
