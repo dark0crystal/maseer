@@ -1,91 +1,86 @@
-import { View, Text, Button, TouchableOpacity } from "react-native";
-import { Calendar, DateData } from "react-native-calendars";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
-import { adminDateSchema } from "@/schemas/adminDateSchema";
+import { View, Text, TouchableOpacity } from "react-native";
+import { Calendar } from "react-native-calendars";
+import { useRouter } from "expo-router";
 import { useFormStore } from "../../store/FormStore";
+import ProgressBar from "@/components/shared-components/ProgressBar";
 
-export default function AdminDateConfig({ navigation }: { navigation: any }) {
-  const { dateConfig, setDateConfig } = useFormStore();
-  const [selectedStart, setSelectedStart] = useState<string | null>(null);
-  const [selectedEnd, setSelectedEnd] = useState<string | null>(null);
-  const [markedDates, setMarkedDates] = useState<Record<string, any>>({});
-
-  const { control, handleSubmit, setValue, watch } = useForm({
-    resolver: zodResolver(adminDateSchema),
-    defaultValues: { specificDates: dateConfig.specificDates },
+export default function StepSeven() {
+  const router = useRouter();
+  const { setActivityDates } = useFormStore(); // تحديث التواريخ في المخزن
+  const [dateRange, setDateRange] = useState<{ start: string | null; end: string | null }>({
+    start: null,
+    end: null,
   });
 
-  const today = new Date().toISOString().split("T")[0];
+  const [selectingStart, setSelectingStart] = useState(true); // للتحكم في أي تاريخ يتم تحديده حاليًا
 
-  const onDayPress = (day: DateData) => {
-    if (day.dateString < today) return;
-    if (!selectedStart || (selectedStart && selectedEnd)) {
-      setSelectedStart(day.dateString);
-      setSelectedEnd(null);
-      setMarkedDates({
-        [day.dateString]: { selected: true, startingDay: true, color: "#001219" },
-      });
-    } else if (selectedStart && !selectedEnd) {
-      setSelectedEnd(day.dateString);
-      markDateRange(selectedStart, day.dateString);
-      setDateRange(selectedStart, day.dateString);
+  // تحديث التواريخ عند الاختيار
+  const handleDateSelect = (day: { dateString: string }) => {
+    if (selectingStart) {
+      setDateRange({ start: day.dateString, end: null });
+      setSelectingStart(false); // الانتقال إلى تحديد تاريخ النهاية
+    } else {
+      setDateRange({ ...dateRange, end: day.dateString });
+      setSelectingStart(true); // إعادة التحديد إلى تاريخ البداية
     }
   };
 
-  const markDateRange = (start: string, end: string) => {
-    let range: Record<string, any> = {};
-    let currentDate = new Date(start);
-    let endDate = new Date(end);
-
-    while (currentDate <= endDate) {
-      let dateString = currentDate.toISOString().split("T")[0];
-      range[dateString] = { selected: true, color: "#001219" };
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    range[start] = { selected: true, startingDay: true, color: "#001219" };
-    range[end] = { selected: true, endingDay: true, color: "#001219" };
-    setMarkedDates(range);
+  // تخطي تحديد التواريخ
+  const skipDateSelection = () => {
+    setActivityDates(null); // تخزين لا شيء في الحالة
+    router.replace("./StepEight"); // الانتقال للخطوة التالية
   };
 
-  const setDateRange = (start: string, end: string) => {
-    const newDateRange = { start, end };
-    setValue("specificDates", newDateRange);
-    setSelectedStart(null);
-    setSelectedEnd(null);
-  };
-
-  const onSubmit = (data: z.infer<typeof adminDateSchema>) => {
-    setDateConfig({ specificDates: data.specificDates });
-    navigation.navigate("StepEight");
+  // تأكيد النطاق الزمني
+  const confirmDateSelection = () => {
+    setActivityDates(dateRange);
+    router.replace("./StepEight"); // الانتقال للخطوة التالية
   };
 
   return (
-    <View style={{ flex: 1, padding: 20, justifyContent: "space-between" }}>
-      <View>
-        <Text>Select Available Date Range (optional)</Text>
-        <Calendar
-          markingType={"period"}
-          markedDates={markedDates}
-          minDate={today}
-          onDayPress={onDayPress}
-        />
-        {watch("specificDates") && (
-          <Text>{`${watch("specificDates")?.start} - ${watch("specificDates")?.end}`}</Text>
+    <View className="flex-1 p-5">
+      <Text className="text-xl font-semibold mb-4">Select Date Range (Optional)</Text>
+
+      {/* التقويم */}
+      <Calendar 
+        onDayPress={handleDateSelect}
+        markedDates={{
+          ...(dateRange.start && { [dateRange.start]: { selected: true, startingDay: true, color: "green" } }),
+          ...(dateRange.end && { [dateRange.end]: { selected: true, endingDay: true, color: "green" } }),
+        }}
+      />
+
+      {/* عرض التواريخ المحددة */}
+      <View className="mt-4">
+        <Text className="text-lg">
+          Start Date: {dateRange.start || "Not Selected"}
+        </Text>
+        <Text className="text-lg">
+          End Date: {dateRange.end || "Not Selected"}
+        </Text>
+      </View>
+
+      {/* الأزرار */}
+      <View className="mt-6 flex-row justify-between">
+        <TouchableOpacity onPress={() => router.back()} className="px-6 py-3 bg-gray-200 rounded-lg">
+          <Text className="text-black font-semibold">Back</Text>
+        </TouchableOpacity>
+
+        {dateRange.start && dateRange.end ? (
+          <TouchableOpacity onPress={confirmDateSelection} className="px-6 py-3 bg-black rounded-lg">
+            <Text className="text-white font-semibold">Next</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={skipDateSelection} className="px-6 py-3 bg-gray-400 rounded-lg">
+            <Text className="text-white font-semibold">Skip</Text>
+          </TouchableOpacity>
         )}
       </View>
 
-      <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 20 }}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 10 }}>
-          <Text style={{ fontSize: 16, color: "black" }}>Back</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={{ backgroundColor: "black", padding: 10, borderRadius: 5 }} disabled={!watch("specificDates")?.start && !watch("specificDates")?.end}>
-          <Text style={{ fontSize: 16, color: "white" }}>Next</Text>
-        </TouchableOpacity>
+      {/* شريط التقدم */}
+      <View className="absolute bottom-0 w-full">
+        <ProgressBar />
       </View>
     </View>
   );
