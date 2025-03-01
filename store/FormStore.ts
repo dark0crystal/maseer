@@ -24,10 +24,11 @@ interface FormState {
   genderPreference: "male" | "female" | "both";
   allowPets: boolean;
   coverImage: string;
-  dateConfig: DateConfig; // Added date configuration
   formprogress:number;//form progress
   incrementFormprogress: () => void;//form progress
   decrementFormprogress: () => void;// form progress
+  activityDates: { start: string | null; end: string | null } | null;
+  setActivityDates: (dates: { start: string | null; end: string | null } | null) => void;
   setCoverImage: (coverImage: string) => void;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
@@ -42,7 +43,7 @@ interface FormState {
   decrementSeat: () => void;
   setGenderPreference: (preference: "male" | "female" | "both") => void;
   setAllowPets: (allow: boolean) => void;
-  setDateConfig: (config: DateConfig) => void; // Setter for date config
+  
 }
 
 export const useFormStore = create<FormState>((set) => ({
@@ -59,10 +60,6 @@ export const useFormStore = create<FormState>((set) => ({
   genderPreference: "both",
   allowPets: false,
   coverImage: "",
-  dateConfig: {
-    isUserSelectable: true, // Default value from AdminDateStore
-    specificDates: undefined,
-  },
   formprogress:1 ,//form progress
   incrementFormprogress: () => set((state) => ({ formprogress: state.formprogress + 1 })),
   decrementFormprogress: () => set((state) => ({ formprogress: state.formprogress - 1 })),
@@ -80,5 +77,7 @@ export const useFormStore = create<FormState>((set) => ({
   decrementSeat: () => set((state) => ({ availableSeats: Math.max(0, state.availableSeats - 1) })),
   setGenderPreference: (preference) => set({ genderPreference: preference }),
   setAllowPets: (allow) => set({ allowPets: allow }),
-  setDateConfig: (config) => set({ dateConfig: config }), // Setter implementation
+  activityDates: null,
+  setActivityDates: (dates) => set({ activityDates: dates }),
+
 }));
