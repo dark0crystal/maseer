@@ -77,7 +77,7 @@ export const useFormStore = create<FormState>((set) => ({
   decrementSeat: () => set((state) => ({ availableSeats: Math.max(0, state.availableSeats - 1) })),
   setGenderPreference: (preference) => set({ genderPreference: preference }),
   setAllowPets: (allow) => set({ allowPets: allow }),
-  activityDates: null,
+  activityDates: [] as { start: string; end: string }[],
   setActivityDates: (dates) => set({ activityDates: dates }),
 
 }));
