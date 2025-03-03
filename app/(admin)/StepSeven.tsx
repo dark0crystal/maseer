@@ -17,8 +17,9 @@ export default function StepSeven() {
 
   // تحديث التواريخ عند الاختيار
   const handleDateSelect = (day: { dateString: string }) => {
+    // that means if the start date not selected yet by checking the selectingStart state 
     if (selectingStart) {
-      setCurrentRange({ start: day.dateString, end: null });
+      setCurrentRange({ start: day.dateString, end: null });//dateString (a string representing the selected date
       setSelectingStart(false);
     } else {
       setCurrentRange((prev) => {
