@@ -11,7 +11,7 @@ const activityTypes = ["Hiking", "Camping", "Fishing", "Cycling", "Diving"];
 
 export default function StepThree() {
   const router = useRouter();
-  const { activityType, setActivityType } = useFormStore();
+  const { activityType, setActivityType ,incrementFormprogress,decrementFormprogress} = useFormStore();
 
   const {
     handleSubmit,
@@ -33,6 +33,7 @@ export default function StepThree() {
   const onNext = () => {
     setActivityType(selectedActivityType); 
     router.push("./StepFour");
+    incrementFormprogress();
   };
 
   return (
