@@ -8,7 +8,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepOne() {
   const router = useRouter();
-  const { title, description, setDescription, setTitle } = useFormStore();
+  const { title, description, setDescription, setTitle ,incrementFormprogress} = useFormStore();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema.pick({ title: true, description: true })),
@@ -17,6 +17,7 @@ export default function StepOne() {
 
   const onNext = (data: any) => {
     setTitle(data.title);
+    incrementFormprogress();
     setDescription(data.description);
     router.push("./StepTwo");
   };
