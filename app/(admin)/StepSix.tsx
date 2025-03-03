@@ -14,7 +14,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
   
   export default function StepSix() {
     const router = useRouter();
-    const { availableSeats, genderPreference, allowPets, incrementSeat, decrementSeat, setGenderPreference, setAllowPets } = useFormStore();
+    const { availableSeats, genderPreference, allowPets, incrementSeat, decrementSeat, setGenderPreference, setAllowPets,incrementFormprogress,decrementFormprogress } = useFormStore();
     const { control, handleSubmit, setValue, watch } = useForm({
       defaultValues: {
         availableSeats,
@@ -29,6 +29,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
       setGenderPreference(data.genderPreference);
       setAllowPets(data.allowPets);
       router.push("./StepSeven"); // Navigate to next page
+      incrementFormprogress();
     };
   
     return (
