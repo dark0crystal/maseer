@@ -11,7 +11,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepTwo() {
   const router = useRouter();
-  const { governorate, setGovernorate, city, setCity, coordinates, setCoordinates } = useFormStore();
+  const { governorate, setGovernorate, city, setCity, coordinates, setCoordinates ,incrementFormprogress,decrementFormprogress} = useFormStore();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(formSchema.pick({ governorate: true, city: true, coordinates: true })),
@@ -29,6 +29,7 @@ export default function StepTwo() {
     setCity(data.city);
     setCoordinates(coordinates);
     router.push("./StepThree");
+    incrementFormprogress();
   };
 
   return (
@@ -98,7 +99,7 @@ export default function StepTwo() {
           <ProgressBar />
           {/* Back Button */}
           <TouchableOpacity
-            onPress={() => router.back()}
+            onPress={() => {router.back() , decrementFormprogress()}}
             className="absolute bottom-12 left-6 rounded-lg px-6 py-3"
           >
             <Text className="text-black text-lg font-semibold">Back</Text>
