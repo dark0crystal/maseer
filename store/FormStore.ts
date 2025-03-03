@@ -27,8 +27,8 @@ interface FormState {
   formprogress:number;//form progress
   incrementFormprogress: () => void;//form progress
   decrementFormprogress: () => void;// form progress
-  activityDates: { start: string | null; end: string | null } | null;
-  setActivityDates: (dates: { start: string | null; end: string | null } | null) => void;
+  activityDates: { start: string; end: string }[]; // Always an array
+  setActivityDates: (dates: { start: string; end: string }[]) => void; // Accepts an array
   setCoverImage: (coverImage: string) => void;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
@@ -77,7 +77,7 @@ export const useFormStore = create<FormState>((set) => ({
   decrementSeat: () => set((state) => ({ availableSeats: Math.max(0, state.availableSeats - 1) })),
   setGenderPreference: (preference) => set({ genderPreference: preference }),
   setAllowPets: (allow) => set({ allowPets: allow }),
-  activityDates: [] as { start: string; end: string }[],
+  activityDates: [] as { start: string ; end: string}[],
   setActivityDates: (dates) => set({ activityDates: dates }),
 
 }));
