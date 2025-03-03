@@ -60,7 +60,7 @@ export const useFormStore = create<FormState>((set) => ({
   genderPreference: "both",
   allowPets: false,
   coverImage: "",
-  formprogress:1 ,//form progress
+  formprogress:0 ,//form progress
   incrementFormprogress: () => set((state) => ({ formprogress: state.formprogress + 1 })),
   decrementFormprogress: () => set((state) => ({ formprogress: state.formprogress - 1 })),
   setCoverImage: (coverImage) => set({ coverImage }),
