@@ -70,7 +70,7 @@ export default function StepThree() {
           <ProgressBar />
           <View className="flex-row justify-between px-6 py-4">
             {/* Back Button */}
-            <TouchableOpacity onPress={() => router.back()} className="rounded-lg px-6 py-3">
+            <TouchableOpacity onPress={() => {router.back() , decrementFormprogress()}} className="rounded-lg px-6 py-3">
               <Text className="text-black text-lg font-semibold">Back</Text>
             </TouchableOpacity>
 
