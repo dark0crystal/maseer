@@ -9,7 +9,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepFour() {
   const router = useRouter();
-  const { title, features, coverImage, images, setCoverImage, setImages } = useFormStore();
+  const { title, features, coverImage, images, setCoverImage, setImages ,incrementFormprogress,decrementFormprogress} = useFormStore();
 
   const {
     handleSubmit,
@@ -53,6 +53,7 @@ export default function StepFour() {
   const onNext = () => {
     console.log({ title, features, coverImage, images });
     router.replace("./StepFive");
+    incrementFormprogress();
   };
 
   return (
