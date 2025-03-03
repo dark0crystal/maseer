@@ -7,7 +7,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
 
 export default function StepSeven() {
   const router = useRouter();
-  const { title, features, coverImage, images, price,description ,coordinates,availableSeats, genderPreference} = useFormStore();
+  const { title, features, coverImage, images, price,description ,coordinates,availableSeats, genderPreference,activityDates} = useFormStore();
 
   const { setActivityDates } = useFormStore();
   const [dateRanges, setDateRanges] = useState<{ start: string; end: string }[]>([]);
@@ -38,14 +38,16 @@ export default function StepSeven() {
 
   // تخطي تحديد التواريخ
   const skipDateSelection = () => {
-    console.log({ title, description ,features, coverImage, images,price , coordinates,availableSeats, genderPreference});
+    console.log("in seven")
+    console.log({ title, description ,features, coverImage, images,price , coordinates,availableSeats, genderPreference,activityDates});
     setActivityDates([]); // تخزين مصفوفة فارغة
     router.replace("./StepEight");
   };
 
   // تأكيد النطاق الزمني
   const confirmDateSelection = () => {
-    console.log({ title,  description, features, coverImage, images,price, coordinates,availableSeats, genderPreference });
+    console.log("in seven")
+    console.log({ title,  description, features, coverImage, images,price, coordinates,availableSeats, genderPreference ,activityDates});
     setActivityDates(dateRanges);
     router.replace("./StepEight");
   };
