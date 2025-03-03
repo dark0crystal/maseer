@@ -84,7 +84,7 @@ export default function StepSeven() {
 
       {/* الأزرار */}
       <View className="mt-6 flex-row justify-between">
-        <TouchableOpacity onPress={() => router.back()} className="px-6 py-3 bg-gray-200 rounded-lg">
+        <TouchableOpacity onPress={() => {router.back() , decrementFormprogress()}} className="px-6 py-3 bg-gray-200 rounded-lg">
           <Text className="text-black font-semibold">Back</Text>
         </TouchableOpacity>
 
