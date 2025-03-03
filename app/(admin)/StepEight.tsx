@@ -28,7 +28,7 @@ export default function StepEight() {
 
     // Navigate after delay
     setTimeout(() => {
-      router.replace("/success"); // Navigate to success screen or home page
+      router.replace("/"); // Navigate to success screen or home page
     }, 3000);
   };
 
