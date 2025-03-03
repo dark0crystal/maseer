@@ -111,7 +111,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
           <ProgressBar />
           {/* Back Button */}
           <TouchableOpacity
-            onPress={() => router.back()}
+            onPress={() => {router.back() , decrementFormprogress()}}
             className="absolute bottom-12 left-6 rounded-lg px-6 py-3"
           >
             <Text className="text-black text-lg font-semibold">Back</Text>
