@@ -17,7 +17,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
   
   export default function StepFour() {
     const router = useRouter();
-    const { price, setPrice } = useFormStore();
+    const { price, setPrice,incrementFormprogress,decrementFormprogress } = useFormStore();
   
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
       resolver: zodResolver(formSchema.pick({ price: true })),
@@ -27,6 +27,7 @@ import ProgressBar from "@/components/shared-components/ProgressBar";
     const onNext = (data: any) => {
       setPrice(data.price);
       router.push("./StepSix");
+      incrementFormprogress();
     };
   
     return (
