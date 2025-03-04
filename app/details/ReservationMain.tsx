@@ -1,6 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import { View, Text, TouchableWithoutFeedback, Keyboard, ScrollView, Image } from "react-native";
 import { images } from "../../constants";
+import Price from "@/components/shared-components/Price";
 
 
 export default function ReservationMain() {
@@ -24,7 +25,7 @@ export default function ReservationMain() {
             {/* Content section */}
             <View className="px-3 justify-center">
               <Text className="text-lg font-bold">
-                {convertedPrice} {currency}
+                <Price price={50} />
               </Text>
               <Text className="text-md text-gray-700">Kayaking sport albsjfd</Text>
               <Text className="text-sm text-yellow-500">⭐ 5 Stars</Text>
