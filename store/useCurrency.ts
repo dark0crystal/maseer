@@ -9,16 +9,16 @@ interface CurrencyState {
 }
 
 export const useCurrencyStore = create<CurrencyState>((set, get) => ({
-  currency: 'USD',
+  currency: 'OMR',
 
-  // Fixed exchange rates (set manually)
-  exchangeRates: {
-    USD: 1,     // Base currency
-    OMR: 0.385, // 1 USD = 0.385 OMR
-    EUR: 0.92,  // 1 USD = 0.92 EUR
-    GBP: 0.79   // 1 USD = 0.79 GBP
+ // Fixed exchange rates with OMR as the base currency
+exchangeRates: {
+    OMR: 1,       // Base currency
+    USD: 1 / 0.385, // 1 OMR = ~2.60 USD
+    EUR: 2.40,    // 1 OMR = 2.40 EUR (adjust manually if needed)
+    GBP: 2.05     // 1 OMR = 2.05 GBP (adjust manually if needed)
   },
-
+  
   setCurrency: async (newCurrency) => {
     await AsyncStorage.setItem('currency', newCurrency);
     set({ currency: newCurrency });
