@@ -7,15 +7,7 @@ import { useCurrencyStore } from "@/store/useCurrencyStore";
 
 export default function ReservationMain() {
   const { id } = useLocalSearchParams(); // Get activity ID from URL
-  const { currency, setCurrency, convertPrice } = useCurrencyStore(); // Access Zustand store
-  const basePrice = 20; // Original price in OMR
 
-  const [convertedPrice, setConvertedPrice] = useState(convertPrice(basePrice));
-
-  // Load saved currency when the component mounts
-  useEffect(() => {
-    setConvertedPrice(convertPrice(basePrice));
-  }, [currency]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -41,22 +33,7 @@ export default function ReservationMain() {
             </View>
           </View>
 
-          {/* Currency Picker */}
-          <View className="px-3 py-2">
-            <Text className="text-black text-lg font-semibold">Select Currency:</Text>
-            <Picker
-              selectedValue={currency}
-              onValueChange={async (newCurrency) => {
-                await setCurrency(newCurrency);
-                setConvertedPrice(convertPrice(basePrice)); // Update price when currency changes
-              }}
-            >
-              <Picker.Item label="OMR - Omani Rial" value="OMR" />
-              <Picker.Item label="USD - US Dollar" value="USD" />
-              <Picker.Item label="EUR - Euro" value="EUR" />
-              <Picker.Item label="GBP - British Pound" value="GBP" />
-            </Picker>
-          </View>
+         
 
           <View className="h-[100vh]" />
         </ScrollView>

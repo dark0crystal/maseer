@@ -29,3 +29,5 @@ exchangeRates: {
     return (amount * exchangeRates[currency]).toFixed(2);
   }
 }));
+
+
