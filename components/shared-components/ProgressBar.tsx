@@ -2,7 +2,7 @@
 import { View } from "react-native";
 import { useFormStore } from "../../store/FormStore";
 
-const TOTAL_STEPS = 8;
+const TOTAL_STEPS = 7; //they are 8 but we start from zero
 
 export default function ProgressBar() {
   const { formprogress } = useFormStore();

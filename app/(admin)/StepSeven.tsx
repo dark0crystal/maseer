@@ -83,26 +83,30 @@ export default function StepSeven() {
       </View>
 
       {/* الأزرار */}
-      <View className="mt-6 flex-row justify-between">
-        <TouchableOpacity onPress={() => {router.back() , decrementFormprogress()}} className="px-6 py-3 bg-gray-200 rounded-lg">
-          <Text className="text-black font-semibold">Back</Text>
-        </TouchableOpacity>
-
-        {dateRanges.length > 0 ? (
-          <TouchableOpacity onPress={confirmDateSelection} className="px-6 py-3 bg-black rounded-lg">
-            <Text className="text-white font-semibold">Next</Text>
+      {/* Fixed Bottom Buttons */}
+      <View className="absolute bottom-0 bg-white h-[120px] flex flex-row w-screen">
+        {/* progress bar */}
+          <ProgressBar />
+          {/* Back Button */}
+          <TouchableOpacity
+            onPress={() => {router.back() , decrementFormprogress()}}
+            className="absolute bottom-12 left-6 rounded-lg px-6 py-3"
+          >
+            <Text className="text-black text-lg font-semibold">Back</Text>
           </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={skipDateSelection} className="px-6 py-3 bg-gray-400 rounded-lg">
-            <Text className="text-white font-semibold">Skip</Text>
-          </TouchableOpacity>
-        )}
-      </View>
 
-      {/* شريط التقدم */}
-      <View className="absolute bottom-0 w-full">
-        <ProgressBar />
-      </View>
+          {/* Next Button */}
+          <TouchableOpacity
+            onPress={skipDateSelection}
+            className= "absolute bottom-12 right-6 bg-black rounded-lg px-6 py-3"
+          >
+            <Text className="text-white text-lg font-semibold">Next</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 }
+
+ 
+
+
