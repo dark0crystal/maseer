@@ -12,6 +12,7 @@ export default function Create() {
       <Stack.Screen name="StepFour" options={{ title: "Step 4" ,headerShown:false}} />
       <Stack.Screen name="StepFive" options={{ title: "Step 5",headerShown:false }} />
       <Stack.Screen name="StepSix" options={{ title: "Step 6" ,headerShown:false}} />
+      <Stack.Screen name="StepSeven" options={{ title: "Step 7" ,headerShown:false}} />
     </Stack>
   );
 }
