@@ -1,9 +1,7 @@
 import { useLocalSearchParams } from "expo-router";
 import { View, Text, TouchableWithoutFeedback, Keyboard, ScrollView, Image } from "react-native";
-import { Picker } from "@react-native-picker/picker";
-import { useEffect, useState } from "react";
 import { images } from "../../constants";
-import { useCurrencyStore } from "@/store/useCurrencyStore";
+
 
 export default function ReservationMain() {
   const { id } = useLocalSearchParams(); // Get activity ID from URL
