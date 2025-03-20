@@ -8,6 +8,7 @@ import { formSchema } from "../../schemas/formSchema";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
 import ProgressBar from "@/components/shared-components/ProgressBar";
+import { createActivity } from '../actions/activity'
 
 export default function StepTwo() {
   const router = useRouter();
@@ -24,12 +25,20 @@ export default function StepTwo() {
     "Ash Sharqiyah South", "Ad Dhahirah", "Al Wusta"
   ];
 
-  const onNext = (data: any) => {
+  const onNext = async (data: any) => {
+    // Save the current step data to the store
     setGovernorate(data.governorate);
     setCity(data.city);
     setCoordinates(coordinates);
-    router.push("./StepThree");
+
+    // Validate that all required fields are filled
+    if (!data.governorate || !data.city || !coordinates) {
+      return;
+    }
+
+    // Store the data in the form store for the next step
     incrementFormprogress();
+    router.push("./StepThree");
   };
 
   return (
