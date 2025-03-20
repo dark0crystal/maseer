@@ -1,8 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'expo-router'
-import Link from 'expo-router'
+import { useRouter, Link } from 'expo-router'
 import { signIn } from '@/app/actions/auth'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -39,7 +38,7 @@ export default function Login() {
     const result = await signIn(data.email, data.password)
 
     if (result.success) {
-      router.push('/dashboard')
+      router.push('/')
     } else {
       setError(result.error || 'An error occurred')
     }
@@ -97,7 +96,7 @@ export default function Login() {
         </form>
         <div className="text-sm text-center">
           Don't have an account?{' '}
-          <Link href="/register" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/" className="text-indigo-600 hover:text-indigo-500">
             Sign up
           </Link>
         </div>
