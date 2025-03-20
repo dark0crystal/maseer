@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
+import { useRouter } from 'expo-router'
+import {Link} from 'expo-router'
 import { signUp } from '@/app/actions/auth'
 
 export default function Register() {
@@ -20,9 +20,9 @@ export default function Register() {
     const result = await signUp(email, password)
 
     if (result.success) {
-      router.push('/login?message=Please check your email to confirm your account')
+      router.push('/')
     } else {
-      setError(result.error)
+      setError(result.error || 'An error occurred')
     }
     setLoading(false)
   }
@@ -76,7 +76,7 @@ export default function Register() {
         </form>
         <div className="text-sm text-center">
           Already have an account?{' '}
-          <Link href="/login" className="text-indigo-600 hover:text-indigo-500">
+          <Link href="/" className="text-indigo-600 hover:text-indigo-500">
             Sign in
           </Link>
         </div>
