@@ -1,6 +1,6 @@
 // import { useFormStore } from "../../store/FormStore";
 // import { createActivity } from '../actions/activity';
-
+//removed
 // export default function StepFinal() {
 //   const { 
 //     governorate, 
