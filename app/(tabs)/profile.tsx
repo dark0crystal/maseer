@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link } from 'expo-router'
@@ -8,17 +8,19 @@ import Auth from '@/components/auth/Auth'
 const Profile = () => {
   return (
     <SafeAreaView>
-      <Text>Profile</Text>
+      {/* Make the content scrollable */}
+      <ScrollView contentContainerStyle={{ padding: 16 }}>
+        <Text>Profile</Text>
 
-      <Link href="/(admin)/StepOne">Add New Activity</Link>
+        <Link href="/(admin)/StepOne">Add New Activity</Link>
 
-      {/* show this link after checking if the user is a manager of activity */}
-      <Link href="/(user-dashboard)/manage-activity">Show Activities</Link>
+        {/* show this link after checking if the user is a manager of activity */}
+        <Link href="/(user-dashboard)/manage-activity">Show Activities</Link>
 
-      <Link href="/(admin)/">Go to index</Link>
-      <CurrencyChange/>
-      <Auth/>
-
+        <Link href="/(admin)/">Go to index</Link>
+        <CurrencyChange />
+        <Auth />
+      </ScrollView>
     </SafeAreaView>
   )
 }
