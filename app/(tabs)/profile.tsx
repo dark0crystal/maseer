@@ -20,6 +20,7 @@ const Profile = () => {
         <Link href="/(admin)/" className="text-blue-500 text-lg">Go to index</Link>
 
         <CurrencyChange />
+        
         <Account />
       </ScrollView>
     </SafeAreaView>
