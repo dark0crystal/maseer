@@ -9,6 +9,17 @@ import ConfettiCannon from "react-native-confetti-cannon";
 import { supabase } from "../../lib/supabase";  // Import your supabase client
 import { Picker } from "@react-native-picker/picker";
 
+interface Post {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  available_seats: number;
+  gender_preference: string;
+  activity_type: string;
+}
+
+
 export default function StepEight() {
   const {
     title, description, features, coverImage, images, price,
