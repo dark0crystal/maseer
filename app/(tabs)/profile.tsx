@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { Link } from 'expo-router'
 import CurrencyChange from '../(user-dashboard)/Currencychange'
 import Auth from '@/components/auth/Auth'
+import Account from '@/components/auth/Account'
 
 const Profile = () => {
   return (
@@ -19,7 +20,7 @@ const Profile = () => {
 
         <Link href="/(admin)/">Go to index</Link>
         <CurrencyChange />
-        <Auth />
+        <Account/>
       </ScrollView>
     </SafeAreaView>
   )
