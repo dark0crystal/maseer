@@ -1,19 +1,33 @@
 import React, { useRef, useState } from 'react';
-import { View, Text, TextInput, Alert } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity } from 'react-native';
 import PhoneInput from 'react-native-phone-number-input';
 
-export default function ReservationStepTwo() {
+interface ReservationStepTwoProps {
+  onContinue: () => void; // 👈 add this prop
+}
+
+export default function ReservationStepTwo({ onContinue }: ReservationStepTwoProps) {
   const phoneInput = useRef<PhoneInput>(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isValid, setIsValid] = useState(true);
+  const [guestCount, setGuestCount] = useState('');
 
-  const validatePhoneNumber = () => {
-    const checkValid = phoneInput.current?.isValidNumber(phoneNumber);
-    setIsValid(!!checkValid);
+  const handleContinue = () => {
+    const valid = phoneInput.current?.isValidNumber(phoneNumber);
+    setIsValid(!!valid);
 
-    if (!checkValid) {
+    if (!valid) {
       Alert.alert('Invalid phone number', 'Please enter a valid number.');
+      return;
     }
+
+    if (!guestCount) {
+      Alert.alert('Guests Required', 'Please enter the number of guests.');
+      return;
+    }
+
+    // 🎯 Trigger next step
+    onContinue();
   };
 
   return (
@@ -24,6 +38,8 @@ export default function ReservationStepTwo() {
           placeholder="Number of guests"
           keyboardType="numeric"
           className="border border-gray-300 rounded-lg p-3 text-base"
+          value={guestCount}
+          onChangeText={setGuestCount}
         />
       </View>
 
@@ -54,7 +70,6 @@ export default function ReservationStepTwo() {
           countryPickerButtonStyle={{
             marginRight: 10,
           }}
-          onEndEditing={validatePhoneNumber}
         />
 
         {!isValid && (
@@ -63,6 +78,14 @@ export default function ReservationStepTwo() {
           </Text>
         )}
       </View>
+
+      {/* Continue Button */}
+      <TouchableOpacity
+        onPress={handleContinue}
+        className="mt-6 bg-blue-600 rounded-xl py-3 px-6 self-start"
+      >
+        <Text className="text-white font-semibold text-base">Continue to Payment</Text>
+      </TouchableOpacity>
     </View>
   );
 }
