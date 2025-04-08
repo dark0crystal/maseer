@@ -63,6 +63,6 @@ const Profile = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
+};    
 
 export default Profile;
