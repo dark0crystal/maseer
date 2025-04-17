@@ -33,23 +33,15 @@ export default function StepEight() {
 
   const handleSubmit = async () => {
     if (isLoading) return;
-    
+  
     setIsLoading(true);
     try {
-      // Validate required fields
       if (!title || !description || !price || !availableSeats || !activityType) {
         Alert.alert("Missing Information", "Please fill in all required fields");
         setIsLoading(false);
         return;
       }
-
-      // Log form data for testing
-      console.log({
-        title, description, features, coverImage, images, price,
-        coordinates, availableSeats, genderPreference, activityDates, activityType
-      });
-
-      // Insert post data into 'posts' table
+  
       const { data, error: postError } = await supabase
         .from('posts')
         .insert([
@@ -59,68 +51,62 @@ export default function StepEight() {
             price,
             available_seats: availableSeats,
             gender_preference: genderPreference,
-            activity_type: activityType // Include activity type
+            activity_type: activityType,
           }
         ])
         .select();
-
+  
       if (postError) throw new Error(postError.message);
-      
-      if (!data || data.length === 0) {
-        throw new Error("Failed to create post - no data returned");
-      }
-      
+      if (!data || data.length === 0) throw new Error("Failed to create post - no data returned");
+  
       const postData = data[0];
-
-      // Insert coordinates into the 'post_activity_locations' table
+  
+      // Insert coordinates
       const { error: locationError } = await supabase
         .from('post_activity_locations')
         .insert([
           {
             post_id: postData.id,
-            governate: "some_governate", // Replace with actual governate info
-            city: "some_city", // Replace with actual city info
-            coordinates: coordinates // Coordinates as a string (latitude, longitude)
+            governate: "some_governate", // Replace
+            city: "some_city", // Replace
+            coordinates,
           }
         ]);
-
       if (locationError) throw new Error(locationError.message);
-
-      // Upload images to Supabase Storage and save URLs to 'post_images' table
+  
+      // Upload images to Supabase Storage
       for (let image of images) {
         try {
-          // Read the file as base64
           const fileInfo = await FileSystem.getInfoAsync(image);
           if (!fileInfo.exists) {
             console.log(`File doesn't exist: ${image}`);
             continue;
           }
-          
-          const base64 = await FileSystem.readAsStringAsync(image, { encoding: FileSystem.EncodingType.Base64 });
-          const fileExt = image.split(".").pop() || 'jpg'; // Extract file extension (e.g., jpg, png)
-          const fileName = `${postData.id}_${Date.now()}.${fileExt}`; // Unique file name
-          
-          // Convert base64 to blob
-          const blob = await fetch(`data:image/${fileExt};base64,${base64}`).then(res => res.blob());
-          
-          // Upload to Supabase storage
+  
+          const fileExt = image.split(".").pop() || 'jpg';
+          const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
+  
+          // Get file as blob using fetch
+          // const response = await fetch(image);
+          // const blob = await response.blob();
+  
+          // Upload to Supabase
           const { data: uploadData, error: uploadError } = await supabase.storage
-            .from("post-images") // Your storage bucket name
-            .upload(fileName, blob, {
+            .from("post-images")
+            .upload(fileName, "imagggg", {
+              contentType: `image/${fileExt}`,
               cacheControl: "3600",
               upsert: false
             });
-
+  
           if (uploadError) throw new Error(uploadError.message);
-
-          // Get the public URL of the uploaded image
+  
           const { data: urlData } = supabase.storage
             .from("post-images")
             .getPublicUrl(uploadData.path);
-            
+  
           const imageUrl = urlData.publicUrl;
-
-          // Insert image URL into the 'post_images' table
+  
           const { error: imageError } = await supabase
             .from('post_images')
             .insert([
@@ -129,15 +115,16 @@ export default function StepEight() {
                 post_image_url: imageUrl
               }
             ]);
-
+  
           if (imageError) throw new Error(imageError.message);
+  
         } catch (imgError) {
           console.error("Error uploading image:", imgError);
-          // Continue with other images even if one fails
+          // continue to next image
         }
       }
-
-      // Insert activity dates into 'post_activity_dates' table
+  
+      // Insert activity dates
       for (let { start, end } of activityDates) {
         const { error: dateError } = await supabase
           .from('post_activity_dates')
@@ -148,14 +135,14 @@ export default function StepEight() {
               end_date: end
             }
           ]);
-
+  
         if (dateError) throw new Error(dateError.message);
       }
-
-      // Show confetti and navigate after a delay
+  
+      // Show confetti and redirect
       setSubmitted(true);
       setTimeout(() => {
-        router.replace("/"); // Navigate to the home or success screen
+        router.replace("/");
       }, 3000);
     } catch (error: any) {
       console.error("Submission error:", error);
@@ -164,6 +151,7 @@ export default function StepEight() {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <View style={{ flex: 1, backgroundColor: "white" }}>
