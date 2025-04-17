@@ -50,7 +50,7 @@ const Profile = () => {
       <SafeAreaView className="flex-1 bg-white justify-center items-center p-6">
         <View className="w-full max-w-sm">
           <View className="items-center mb-8">
-            <Text className="text-3xl font-bold text-gray-800 mb-2">Welcome</Text>
+            <Text className="text-3xl font-bold text-black mb-2">Welcome</Text>
             <Text className="text-gray-500 text-center">Log in or sign up to access your profile</Text>
           </View>
           <Account />
@@ -68,18 +68,18 @@ const Profile = () => {
             <View className="h-20 w-20 rounded-full bg-gray-200 mr-4 overflow-hidden">
               {/* User avatar placeholder */}
               <View className="h-full w-full bg-gray-300 items-center justify-center">
-                <Text className="text-2xl font-bold text-gray-500">
+                <Text className="text-2xl font-bold text-black">
                   {session.user.email?.charAt(0).toUpperCase()}
                 </Text>
               </View>
             </View>
             <View className="flex-1">
-              <Text className="text-2xl font-bold text-gray-800">
+              <Text className="text-2xl font-bold text-black">
                 {session.user.email?.split('@')[0]}
               </Text>
               <Text className="text-gray-500">{session.user.email}</Text>
               <TouchableOpacity className="mt-1">
-                <Text className="text-pink-500 font-semibold">Edit profile</Text>
+                <Text className="text-black font-semibold">Edit profile</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -89,13 +89,13 @@ const Profile = () => {
 
         {/* Admin Actions */}
         <View className="px-4 py-6">
-          <Text className="text-xl font-bold text-gray-800 mb-4">Admin Actions</Text>
+          <Text className="text-xl font-bold text-black mb-4">Admin Actions</Text>
           <View className="space-y-3">
             <Link href="/(admin)/StepOne" asChild>
               <TouchableOpacity className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <View className="flex-row items-center space-x-3">
-                  <FontAwesome5 name="plus-circle" size={18} color="#FF5A5F" />
-                  <Text className="text-base font-medium text-gray-800">Add New Activity</Text>
+                  <FontAwesome5 name="plus-circle" size={18} color="black" />
+                  <Text className="text-base font-medium text-black">Add New Activity</Text>
                 </View>
                 <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
               </TouchableOpacity>
@@ -104,8 +104,8 @@ const Profile = () => {
             <Link href="/(user-dashboard)/manage-activity" asChild>
               <TouchableOpacity className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <View className="flex-row items-center space-x-3">
-                  <FontAwesome5 name="tasks" size={18} color="#FF5A5F" />
-                  <Text className="text-base font-medium text-gray-800">Manage Activities</Text>
+                  <FontAwesome5 name="tasks" size={18} color="black" />
+                  <Text className="text-base font-medium text-black">Manage Activities</Text>
                 </View>
                 <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
               </TouchableOpacity>
@@ -114,8 +114,8 @@ const Profile = () => {
             <Link href="/(admin)/" asChild>
               <TouchableOpacity className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <View className="flex-row items-center space-x-3">
-                  <MaterialIcons name="dashboard" size={18} color="#FF5A5F" />
-                  <Text className="text-base font-medium text-gray-800">Admin Dashboard</Text>
+                  <MaterialIcons name="dashboard" size={18} color="black" />
+                  <Text className="text-base font-medium text-black">Admin Dashboard</Text>
                 </View>
                 <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
               </TouchableOpacity>
@@ -127,7 +127,7 @@ const Profile = () => {
 
         {/* Settings Section */}
         <View className="px-4 py-6">
-          <Text className="text-xl font-bold text-gray-800 mb-4">Settings</Text>
+          <Text className="text-xl font-bold text-black mb-4">Settings</Text>
           <CurrencyChange />
         </View>
 
@@ -135,14 +135,14 @@ const Profile = () => {
 
         {/* Account Section */}
         <View className="px-4 py-6">
-          <Text className="text-xl font-bold text-gray-800 mb-4">Account</Text>
+          <Text className="text-xl font-bold text-black mb-4">Account</Text>
           <TouchableOpacity 
             className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100 mb-4"
             onPress={() => Alert.alert('Account Info', 'Your account details')}
           >
             <View className="flex-row items-center space-x-3">
-              <Ionicons name="person-outline" size={18} color="#FF5A5F" />
-              <Text className="text-base font-medium text-gray-800">Personal Information</Text>
+              <Ionicons name="person-outline" size={18} color="black" />
+              <Text className="text-base font-medium text-black">Personal Information</Text>
             </View>
             <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
           </TouchableOpacity>
@@ -152,8 +152,8 @@ const Profile = () => {
             onPress={() => Alert.alert('Security', 'Manage your security settings')}
           >
             <View className="flex-row items-center space-x-3">
-              <Ionicons name="shield-outline" size={18} color="#FF5A5F" />
-              <Text className="text-base font-medium text-gray-800">Security</Text>
+              <Ionicons name="shield-outline" size={18} color="black" />
+              <Text className="text-base font-medium text-black">Security</Text>
             </View>
             <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
           </TouchableOpacity>
@@ -161,7 +161,7 @@ const Profile = () => {
           <Button 
             title="Sign Out" 
             onPress={handleSignOut} 
-            buttonStyle={{ backgroundColor: '#FF5A5F', borderRadius: 8, padding: 12 }}
+            buttonStyle={{ backgroundColor: 'black', borderRadius: 8, padding: 12 }}
             titleStyle={{ fontWeight: '600' }}
           />
         </View>

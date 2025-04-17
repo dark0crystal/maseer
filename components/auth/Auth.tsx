@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Alert, View } from 'react-native'
+import { Alert, View, Text, TouchableOpacity, Linking, ImageBackground } from 'react-native'
 import { supabase } from '../../lib/supabase'
 import { Button, Input } from '@rneui/themed'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function Auth() {
   const [email, setEmail] = useState('')
@@ -34,36 +35,116 @@ export default function Auth() {
     setLoading(false)
   }
 
+  const handlePrivacyPolicy = () => {
+    Linking.openURL('https://www.example.com/privacy-policy')
+  }
+
+  const handleTermsOfService = () => {
+    Linking.openURL('https://www.example.com/terms-of-service')
+  }
+
   return (
-    <View className="mt-10 p-4">
-      <View className="space-y-4">
+    <View className="p-4 rounded-xl bg-white shadow-lg">
+      <View className="items-center mb-6">
+        <Text className="text-3xl font-bold text-gray-800">Welcome</Text>
+        <Text className="text-gray-500 mt-2">Sign in to continue your journey</Text>
+      </View>
+      
+      <View className="mb-5">
         <Input
           label="Email"
-          leftIcon={{ type: 'font-awesome', name: 'envelope' }}
+          labelStyle={{ color: '#5B5B5B', fontWeight: '600', marginBottom: 8 }}
+          leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#333333', size: 18 }}
           onChangeText={(text) => setEmail(text)}
           value={email}
-          placeholder="email@address.com"
+          placeholder="your.email@example.com"
           autoCapitalize={'none'}
-          className="mb-4"
+          inputContainerStyle={{ 
+            borderWidth: 0,
+            backgroundColor: '#F3F4F6',
+            borderRadius: 12,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+            height: 55
+          }}
+          inputStyle={{ color: '#333', paddingLeft: 10 }}
+          containerStyle={{ paddingHorizontal: 0 }}
         />
       </View>
-      <View className="space-y-4">
+      
+      <View className="mb-6">
         <Input
           label="Password"
-          leftIcon={{ type: 'font-awesome', name: 'lock' }}
+          labelStyle={{ color: '#5B5B5B', fontWeight: '600', marginBottom: 8 }}
+          leftIcon={{ type: 'font-awesome', name: 'lock', color: '#333333', size: 22 }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Password"
+          placeholder="Your secure password"
           autoCapitalize={'none'}
-          className="mb-4"
+          inputContainerStyle={{ 
+            borderWidth: 0,
+            backgroundColor: '#F3F4F6',
+            borderRadius: 12,
+            paddingHorizontal: 15,
+            paddingVertical: 5,
+            height: 55
+          }}
+          inputStyle={{ color: '#333', paddingLeft: 10 }}
+          containerStyle={{ paddingHorizontal: 0 }}
         />
       </View>
-      <View className="space-y-4">
-        <Button title="Sign in" disabled={loading} onPress={() => signInWithEmail()} className="bg-blue-500" />
+      
+      <View className="mb-4">
+        <Button 
+          title="Sign in" 
+          disabled={loading} 
+          onPress={() => signInWithEmail()} 
+          buttonStyle={{ 
+            backgroundColor: '#333333', 
+            padding: 15, 
+            borderRadius: 12,
+            height: 55
+          }}
+          titleStyle={{ fontWeight: 'bold', fontSize: 16 }}
+          disabledStyle={{ backgroundColor: '#CCCCCC' }}
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: ['#333333', '#000000'],
+            start: { x: 0, y: 0 },
+            end: { x: 1, y: 0 }
+          }}
+        />
       </View>
-      <View className="space-y-4">
-        <Button title="Sign up" disabled={loading} onPress={() => signUpWithEmail()} className="bg-blue-500" />
+      
+      <View className="mb-6">
+        <Button 
+          title="Create Account" 
+          disabled={loading} 
+          onPress={() => signUpWithEmail()} 
+          buttonStyle={{ 
+            backgroundColor: 'transparent', 
+            padding: 15, 
+            borderRadius: 12,
+            borderWidth: 1.5, 
+            borderColor: '#333333',
+            height: 55
+          }}
+          titleStyle={{ color: '#333333', fontWeight: 'bold', fontSize: 16 }}
+          disabledStyle={{ backgroundColor: 'transparent', borderColor: '#CCCCCC' }}
+          disabledTitleStyle={{ color: '#CCCCCC' }}
+        />
+      </View>
+      
+      <View className="flex-row flex-wrap justify-center items-center mt-4 px-2">
+        <Text className="text-gray-500 text-center text-sm">By continuing, you agree to our </Text>
+        <TouchableOpacity onPress={handleTermsOfService}>
+          <Text className="text-gray-800 font-bold text-sm">Terms of Service</Text>
+        </TouchableOpacity>
+        <Text className="text-gray-500 text-sm"> and </Text>
+        <TouchableOpacity onPress={handlePrivacyPolicy}>
+          <Text className="text-gray-800 font-bold text-sm">Privacy Policy</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
