@@ -83,20 +83,27 @@ export default function StepEight() {
             continue;
           }
   
-          const fileExt = image.split(".").pop() || 'jpg';
-          const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
+          // const fileExt = image.split(".").pop() || 'jpg';
+          // const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
   
           // Get file as blob using fetch
           // const response = await fetch(image);
           // const blob = await response.blob();
-  
+          console.log("the image is s :",image)
           // Upload to Supabase
+          const base64 = await FileSystem.readAsStringAsync(image, { encoding: FileSystem.EncodingType.Base64 });
+          const fileExt = image.split('.').pop() || 'jpg';
+          const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
+          const filePath = `${postData.id}/${fileName}`;
+
+          // Convert base64 to a buffer
+          const buffer = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+
+          // Upload the buffer to Supabase
           const { data: uploadData, error: uploadError } = await supabase.storage
             .from("post-images")
-            .upload(fileName, "imagggg", {
+            .upload(filePath, buffer, {
               contentType: `image/${fileExt}`,
-              cacheControl: "3600",
-              upsert: false
             });
   
           if (uploadError) throw new Error(uploadError.message);
