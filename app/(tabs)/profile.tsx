@@ -1,12 +1,34 @@
-import { View, Text, ScrollView, TouchableOpacity } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Link } from 'expo-router';
 import CurrencyChange from '../(user-dashboard)/Currencychange';
 import Account from '@/components/auth/Account';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { supabase } from '@/lib/supabase';
+import { Session } from '@supabase/supabase-js';
+import { Button } from '@rneui/themed';
 
 const Profile = () => {
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      Alert.alert('Error signing out', error.message);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView contentContainerStyle={{ padding: 20 }}>
@@ -57,7 +79,18 @@ const Profile = () => {
         {/* Account Section */}
         <View className="mt-6">
           <Text className="text-xl font-semibold text-gray-800 mb-2">Account</Text>
-          <Account />
+          {session && session.user ? (
+            <View className="bg-gray-100 p-4 rounded-xl">
+              <Text className="text-gray-800 mb-2">Logged in as: {session.user.email}</Text>
+              <Button 
+                title="Sign Out" 
+                onPress={handleSignOut} 
+                buttonStyle={{ backgroundColor: '#ef4444' }}
+              />
+            </View>
+          ) : (
+            <Account />
+          )}
         </View>
 
       </ScrollView>
