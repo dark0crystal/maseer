@@ -92,23 +92,34 @@ export default function StepEight() {
             continue;
           }
   
-          console.log("the image is s :", image);
-          
+          // const fileExt = image.split(".").pop() || 'jpg';
+          // const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
+  
+          // Get file as blob using fetch
+          // const response = await fetch(image);
+          // const blob = await response.blob();
+          console.log("the image is s :",image)
           // Upload to Supabase
           const base64 = await FileSystem.readAsStringAsync(image, { encoding: FileSystem.EncodingType.Base64 });
           const fileExt = image.split('.').pop() || 'jpg';
-          const fileName = `${Date.now()}.${fileExt}`;
-          // Create a folder structure with post ID as the folder name
+          const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
           const filePath = `${postData.id}/${fileName}`;
 
-          // Convert base64 to a buffer
-          const buffer = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+          // Convert base64 to Blob
+          const byteCharacters = atob(base64);
+          const byteArrays = [];
+          for (let i = 0; i < byteCharacters.length; i++) {
+            byteArrays.push(byteCharacters.charCodeAt(i));
+          }
+          const blob = new Blob([new Uint8Array(byteArrays)], { type: `image/${fileExt}` });
+          const file = new File([blob], fileName, { type: `image/${fileExt}` });
 
-          // Upload the buffer to Supabase
+          // Upload to Supabase
           const { data: uploadData, error: uploadError } = await supabase.storage
             .from("post-images")
-            .upload(filePath, buffer, {
-              contentType: `image/${fileExt}`,
+            .upload(fileName, file, {
+              cacheControl: "3600",
+              upsert: false
             });
   
           if (uploadError) throw new Error(uploadError.message);
