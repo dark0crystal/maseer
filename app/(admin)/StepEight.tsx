@@ -18,6 +18,7 @@ interface Post {
   available_seats: number;
   gender_preference: string;
   activity_type: string;
+  profile_id: string;
 }
 
 export default function StepEight() {
@@ -41,6 +42,13 @@ export default function StepEight() {
         setIsLoading(false);
         return;
       }
+      
+      // Get the current user's profile ID
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (userError) throw new Error(userError.message);
+      
+      const profileId = userData.user.id;
+      if (!profileId) throw new Error("User not authenticated");
   
       const { data, error: postError } = await supabase
         .from('posts')
@@ -52,6 +60,7 @@ export default function StepEight() {
             available_seats: availableSeats,
             gender_preference: genderPreference,
             activity_type: activityType,
+            profile_id: profileId, // Add the profile ID to the post
           }
         ])
         .select();
@@ -83,17 +92,13 @@ export default function StepEight() {
             continue;
           }
   
-          // const fileExt = image.split(".").pop() || 'jpg';
-          // const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
-  
-          // Get file as blob using fetch
-          // const response = await fetch(image);
-          // const blob = await response.blob();
-          console.log("the image is s :",image)
+          console.log("the image is s :", image);
+          
           // Upload to Supabase
           const base64 = await FileSystem.readAsStringAsync(image, { encoding: FileSystem.EncodingType.Base64 });
           const fileExt = image.split('.').pop() || 'jpg';
-          const fileName = `${postData.id}_${Date.now()}.${fileExt}`;
+          const fileName = `${Date.now()}.${fileExt}`;
+          // Create a folder structure with post ID as the folder name
           const filePath = `${postData.id}/${fileName}`;
 
           // Convert base64 to a buffer
