@@ -8,6 +8,7 @@ import { useRouter } from "expo-router";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { supabase } from "../../lib/supabase";  // Import your supabase client
 import { Picker } from "@react-native-picker/picker";
+import * as FileSystem from 'expo-file-system';
 
 interface Post {
   id: number;
@@ -19,7 +20,6 @@ interface Post {
   activity_type: string;
 }
 
-
 export default function StepEight() {
   const {
     title, description, features, coverImage, images, price,
@@ -29,9 +29,20 @@ export default function StepEight() {
   
   const router = useRouter();
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    if (isLoading) return;
+    
+    setIsLoading(true);
     try {
+      // Validate required fields
+      if (!title || !description || !price || !availableSeats || !activityType) {
+        Alert.alert("Missing Information", "Please fill in all required fields");
+        setIsLoading(false);
+        return;
+      }
+
       // Log form data for testing
       console.log({
         title, description, features, coverImage, images, price,
@@ -39,7 +50,7 @@ export default function StepEight() {
       });
 
       // Insert post data into 'posts' table
-      const { data: postData, error: postError } = await supabase
+      const { data, error: postError } = await supabase
         .from('posts')
         .insert([
           {
@@ -51,9 +62,15 @@ export default function StepEight() {
             activity_type: activityType // Include activity type
           }
         ])
-        .single();
+        .select();
 
       if (postError) throw new Error(postError.message);
+      
+      if (!data || data.length === 0) {
+        throw new Error("Failed to create post - no data returned");
+      }
+      
+      const postData = data[0];
 
       // Insert coordinates into the 'post_activity_locations' table
       const { error: locationError } = await supabase
@@ -71,32 +88,53 @@ export default function StepEight() {
 
       // Upload images to Supabase Storage and save URLs to 'post_images' table
       for (let image of images) {
-        // Upload image to Supabase storage
-        const fileExt = image.split(".").pop(); // Extract file extension (e.g., jpg, png)
-        const fileName = `${postData.id}_${Date.now()}.${fileExt}`; // Unique file name
-        const { data, error: uploadError } = await supabase.storage
-          .from("post-images") // Your storage bucket name
-          .upload(fileName, { uri: image }, {
-            cacheControl: "3600",
-            upsert: false
-          });
+        try {
+          // Read the file as base64
+          const fileInfo = await FileSystem.getInfoAsync(image);
+          if (!fileInfo.exists) {
+            console.log(`File doesn't exist: ${image}`);
+            continue;
+          }
+          
+          const base64 = await FileSystem.readAsStringAsync(image, { encoding: FileSystem.EncodingType.Base64 });
+          const fileExt = image.split(".").pop() || 'jpg'; // Extract file extension (e.g., jpg, png)
+          const fileName = `${postData.id}_${Date.now()}.${fileExt}`; // Unique file name
+          
+          // Convert base64 to blob
+          const blob = await fetch(`data:image/${fileExt};base64,${base64}`).then(res => res.blob());
+          
+          // Upload to Supabase storage
+          const { data: uploadData, error: uploadError } = await supabase.storage
+            .from("post-images") // Your storage bucket name
+            .upload(fileName, blob, {
+              cacheControl: "3600",
+              upsert: false
+            });
 
-        if (uploadError) throw new Error(uploadError.message);
+          if (uploadError) throw new Error(uploadError.message);
 
-        // Get the public URL of the uploaded image
-        const imageUrl = `${process.env.EXPO_PUBLIC_SUPABASE_URL}/post-images/${data.path}`;
+          // Get the public URL of the uploaded image
+          const { data: urlData } = supabase.storage
+            .from("post-images")
+            .getPublicUrl(uploadData.path);
+            
+          const imageUrl = urlData.publicUrl;
 
-        // Insert image URL into the 'post_images' table
-        const { error: imageError } = await supabase
-          .from('post_images')
-          .insert([
-            {
-              post_id: postData.id,
-              post_image_url: imageUrl
-            }
-          ]);
+          // Insert image URL into the 'post_images' table
+          const { error: imageError } = await supabase
+            .from('post_images')
+            .insert([
+              {
+                post_id: postData.id,
+                post_image_url: imageUrl
+              }
+            ]);
 
-        if (imageError) throw new Error(imageError.message);
+          if (imageError) throw new Error(imageError.message);
+        } catch (imgError) {
+          console.error("Error uploading image:", imgError);
+          // Continue with other images even if one fails
+        }
       }
 
       // Insert activity dates into 'post_activity_dates' table
@@ -119,8 +157,11 @@ export default function StepEight() {
       setTimeout(() => {
         router.replace("/"); // Navigate to the home or success screen
       }, 3000);
-    } catch (error) {
-      Alert.alert("Error", error.message);
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      Alert.alert("Error", error?.message || "An unknown error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -198,8 +239,12 @@ export default function StepEight() {
           <TouchableOpacity onPress={() => { router.back(); decrementFormprogress(); }} className="rounded-lg px-6 py-3">
             <Text className="text-black text-lg font-semibold">Back</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={handleSubmit} className="bg-green-600 rounded-lg px-6 py-3">
-            <Text className="text-white text-lg font-semibold">Submit</Text>
+          <TouchableOpacity 
+            onPress={handleSubmit} 
+            className={`${isLoading ? 'bg-gray-400' : 'bg-green-600'} rounded-lg px-6 py-3`}
+            disabled={isLoading}
+          >
+            <Text className="text-white text-lg font-semibold">{isLoading ? 'Submitting...' : 'Submit'}</Text>
           </TouchableOpacity>
         </View>
       </View>
