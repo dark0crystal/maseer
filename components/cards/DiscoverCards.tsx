@@ -36,17 +36,9 @@ export default function DiscoverCards(){
         }
     }
 
-    // Fallback data in case the fetch fails
-    const fallbackPosts = [
-        { id: '1', location:"Muscat", title: 'Scuba diving', activity_type:"Hard", price:"100.0", description: "Amazing scuba diving experience", img:images.kayak },
-        { id: '2', location:"Bidyah", title: 'Fishing', activity_type:"Easy", price:"1200", description: "Fishing trip with experts", img:images.brand},
-        { id: '3', location:"Sidab", title: 'Sea tour', activity_type:"Mid", price:"20", description: "Explore the sea with us", img:images.kayak},
-        { id: '4', location:"Qatar", title: 'Snorkeling', activity_type:"Hard", price:"30.5", description: "Snorkeling adventure", img:images.brand},
-        { id: '5', location:"Saudi", title: 'Jet ski', activity_type:"Easy", price:"30000", description: "Jet ski fun", img:images.kayak},
-        { id: '6', location:"Dubai", title: 'Kayak', activity_type:"Mid", price:"49.5", description: "Kayaking experience", img:images.brand},
-    ];
 
-    const displayData = posts.length > 0 ? posts : fallbackPosts;
+
+    const displayData = posts.length > 0 ? posts : [];
 
     return(
         <View>
