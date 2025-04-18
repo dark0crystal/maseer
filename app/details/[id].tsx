@@ -11,8 +11,9 @@ import {
   Modal,
   SafeAreaView,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { images } from '../../constants';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -97,6 +98,36 @@ export default function ActivityDetails() {
       default:
         return null;
     }
+  };
+
+  const handleNext = () => {
+    const { selectedDates, numberOfGuests, guestPhoneNumber } = useReservationStore.getState();
+    
+    if (reservationStep === 0) {
+      // Validate date selection
+      if (!selectedDates.startDate || !selectedDates.endDate) {
+        Alert.alert('Date Required', 'Please select both start and end dates.');
+        return;
+      }
+      setReservationStep(1);
+    } else if (reservationStep === 1) {
+      // Validate guest information
+      if (!numberOfGuests || numberOfGuests < 1) {
+        Alert.alert('Guests Required', 'Please enter a valid number of guests.');
+        return;
+      }
+      
+      if (!guestPhoneNumber) {
+        Alert.alert('Phone Number Required', 'Please enter a valid phone number.');
+        return;
+      }
+      
+      setReservationStep(2);
+    }
+  };
+
+  const handleBack = () => {
+    setReservationStep((prev) => prev - 1);
   };
 
   if (loading) {
@@ -226,7 +257,7 @@ export default function ActivityDetails() {
               {reservationStep > 0 && (
                 <TouchableOpacity
                   className="px-6 py-3 border border-gray-300 rounded-lg"
-                  onPress={() => setReservationStep((prev) => prev - 1)}
+                  onPress={handleBack}
                 >
                   <Text className="text-black font-medium">Back</Text>
                 </TouchableOpacity>
@@ -235,7 +266,7 @@ export default function ActivityDetails() {
               {reservationStep < 2 && (
                 <TouchableOpacity
                   className="bg-black px-6 py-3 rounded-lg"
-                  onPress={() => setReservationStep((prev) => prev + 1)}
+                  onPress={handleNext}
                 >
                   <Text className="text-white font-medium">Next</Text>
                 </TouchableOpacity>
