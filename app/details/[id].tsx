@@ -25,6 +25,7 @@ import { supabase } from '../../lib/supabase';
 import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useReservationStore } from '@/store/reservationStore';
+import ReservationForm from './ReservationForm';
 
 interface Post {
   id: string;
@@ -101,24 +102,24 @@ export default function ActivityDetails() {
   };
 
   const handleNext = () => {
-    const { selectedDates, numberOfGuests, guestPhoneNumber } = useReservationStore.getState();
+    const { selectedDates, numberOfGuests, phoneNumber } = useReservationStore.getState();
     
     if (reservationStep === 0) {
       // Validate date selection
       if (!selectedDates.startDate || !selectedDates.endDate) {
-        Alert.alert('Date Required', 'Please select both start and end dates.');
+        Alert.alert('Date Required', 'Please select both start and end dates');
         return;
       }
       setReservationStep(1);
     } else if (reservationStep === 1) {
       // Validate guest information
       if (!numberOfGuests || numberOfGuests < 1) {
-        Alert.alert('Guests Required', 'Please enter a valid number of guests.');
+        Alert.alert('Guests Required', 'Please enter a valid number of guests');
         return;
       }
       
-      if (!guestPhoneNumber) {
-        Alert.alert('Phone Number Required', 'Please enter a valid phone number.');
+      if (!phoneNumber) {
+        Alert.alert('Phone Number Required', 'Please enter a valid phone number');
         return;
       }
       
@@ -234,44 +235,16 @@ export default function ActivityDetails() {
               <TouchableOpacity
                 onPress={() => {
                   setModalVisible(false);
-                  setReservationStep(0);
                   useReservationStore.getState().resetReservation();
                 }}
               >
                 <Ionicons name="close" size={24} color="black" />
               </TouchableOpacity>
               <Text className="text-lg font-medium text-center flex-1">
-                {reservationStep === 0
-                  ? 'Select Dates'
-                  : reservationStep === 1
-                  ? 'Choose Guests'
-                  : reservationStep === 2
-                  ? 'Reservation Summary'
-                  : 'Done'}
+                Make a Reservation
               </Text>
             </View>
-
-            <View className="flex-1">{renderReservationStep()}</View>
-
-            <View className="border-t border-gray-200 px-5 py-4 flex-row justify-between">
-              {reservationStep > 0 && (
-                <TouchableOpacity
-                  className="px-6 py-3 border border-gray-300 rounded-lg"
-                  onPress={handleBack}
-                >
-                  <Text className="text-black font-medium">Back</Text>
-                </TouchableOpacity>
-              )}
-
-              {reservationStep < 2 && (
-                <TouchableOpacity
-                  className="bg-black px-6 py-3 rounded-lg"
-                  onPress={handleNext}
-                >
-                  <Text className="text-white font-medium">Next</Text>
-                </TouchableOpacity>
-              )}
-            </View>
+            <ReservationForm />
           </SafeAreaView>
         </Modal>
       </View>
