@@ -80,7 +80,11 @@ export default function ActivityDetails() {
 
   useEffect(() => {
     if (activity) {
-      useReservationStore.getState().setActivityDetails(activity);
+      const price = parseFloat(activity.price || '0');
+      useReservationStore.getState().setActivityDetails({
+        ...activity,
+        price: price
+      });
     }
   }, [activity]);
 
@@ -107,38 +111,6 @@ export default function ActivityDetails() {
       setLoading(false);
     }
   }
-
- 
-
-  const handleNext = () => {
-    const { selectedDates, numberOfGuests, phoneNumber } = useReservationStore.getState();
-    
-    if (reservationStep === 0) {
-      // Validate date selection
-      if (!selectedDates.startDate || !selectedDates.endDate) {
-        Alert.alert('Date Required', 'Please select both start and end dates');
-        return;
-      }
-      setReservationStep(1);
-    } else if (reservationStep === 1) {
-      // Validate guest information
-      if (!numberOfGuests || numberOfGuests < 1) {
-        Alert.alert('Guests Required', 'Please enter a valid number of guests');
-        return;
-      }
-      
-      if (!phoneNumber) {
-        Alert.alert('Phone Number Required', 'Please enter a valid phone number');
-        return;
-      }
-      
-      setReservationStep(2);
-    }
-  };
-
-  const handleBack = () => {
-    setReservationStep((prev) => prev - 1);
-  };
 
   const headerOpacity = scrollY.interpolate({
     inputRange: [0, 200],
