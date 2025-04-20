@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 
 export default function DiscoverCards(){
-    const [posts, setPosts] = useState([]);
+    const [posts, setPosts] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -36,13 +36,11 @@ export default function DiscoverCards(){
         }
     }
 
-
-
     const displayData = posts.length > 0 ? posts : [];
 
     return(
         <View>
-            <Text className='text-xl font-psemibold'>Activity Cards</Text>
+            <Text className='text-xl font-psemibold'>Discover Activities</Text>
             {loading ? (
                 <Text className="text-center mt-4">Loading activities...</Text>
             ) : (
@@ -50,40 +48,50 @@ export default function DiscoverCards(){
                     data={displayData}
                     keyExtractor={(item) => item.id.toString()}
                     showsHorizontalScrollIndicator={false}
-                    contentContainerStyle={{ paddingHorizontal: 10, marginTop:20  ,alignItems: "center",}}
+                    contentContainerStyle={{ paddingHorizontal: 10, marginTop: 20, alignItems: "center" }}
                     renderItem={({ item }) => (
-                    <Link href={`/details/${item.id}`}  className='mt-2'>
-                    <View className="bg-white shadow w-[350px] h-[190px] p-2 m-2 rounded-3xl   border-red-300 flex flex-row overflow-hidden gap-1 ">
+                    <Link href={`/details/${item.id}`} className='mt-2'>
+                    <View className="bg-white shadow-lg w-[350px] h-[190px] p-3 m-2 rounded-3xl flex flex-row overflow-hidden gap-3 border border-gray-100">
                         {/* image section */}
-                       <View className="relative  w-[120px] h-[160px] overflow-hidden rounded-2xl ">
-                            <Image className="absolute w-full h-full" resizeMode="cover" source={item.img || images.kayak} />   
+                        <View className="relative w-[120px] h-[160px] overflow-hidden rounded-2xl shadow-md">
+                            <Image 
+                                className="absolute w-full h-full" 
+                                resizeMode="cover" 
+                                source={item.img || images.kayak} 
+                            />
+                            <View className="absolute top-0 right-0 bg-white/80 px-2 py-1 m-1 rounded-lg">
+                                <Text className="text-xs font-bold text-gray-700">Featured</Text>
+                            </View>   
                         </View>
 
                         {/* content section */}
-                        <View className='bg-white w-[200px]  h-[160px]  p-2  overflow-hidden rounded-2xl  flex flex-row '>
-
-                            
-                            {/* Left section */}
+                        <View className='flex-1 py-2 justify-between'>
+                            {/* Top section - Title and Location */}
                             <View>
-                                <Text className="text-base font-psemibold text-gray-600 ">{item.title}</Text>
-                                <Text className="text-base text-gray-600 mt-1"><Ionicons name="location-outline" size={13} color="black" />{item.location || "Oman"}</Text>
-                                <View className=''>
+                                <Text className="text-lg font-bold text-gray-800 mb-1">{item.title}</Text>
+                                <View className="flex-row items-center mb-1">
+                                    <Ionicons name="location-outline" size={14} color="#4B5563" />
+                                    <Text className="text-sm text-gray-600 ml-1">{item.location || "Oman"}</Text>
+                                </View>
+                                <View className='mb-2'>
                                     <StarRatingDisplay
                                         rating={4.5}
-                                        starSize={18}
+                                        starSize={16}
                                     />
                                 </View>
-                                <Text className="text-base font-pmedium text-gray-600 mt-1">{item.price}R.O</Text>
-                                <View className='flex flex-row items-center  gap-1'>
-                                    <View className='relative flex flex-row items-center justify-center'>
+                            </View>
+                            
+                            {/* Bottom section - Price and Activity Type */}
+                            <View>
+                                <Text className="text-lg font-bold text-gray-800 mb-2">{item.price} <Text className="text-sm font-medium">R.O</Text></Text>
+                                <View className='flex-row items-center gap-2 bg-gray-50 py-1 px-2 rounded-full self-start'>
+                                    <View className='relative flex-row items-center justify-center'>
                                         <View className='absolute h-4 w-4 bg-green-300 rounded-full'/>
                                         <View className='absolute h-3 w-3 bg-green-400 rounded-full'/>
                                         <View className='h-2 w-2 bg-green-500 rounded-full'/>
-                                        
                                     </View>
-                                    <Text className="text-sm text-gray-600"> {item.activity_type}</Text>
-                                    
-                                 </View>
+                                    <Text className="text-sm font-medium text-gray-700">{item.activity_type}</Text>
+                                </View>
                             </View>
                         </View>
                     </View>
