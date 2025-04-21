@@ -101,6 +101,16 @@ const Profile = () => {
               </TouchableOpacity>
             </Link>
 
+            <Link href="/(user-dashboard)/add-place" asChild>
+              <TouchableOpacity className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100">
+                <View className="flex-row items-center space-x-3">
+                  <FontAwesome5 name="map-marker-alt" size={18} color="black" />
+                  <Text className="text-base font-medium text-black">Add New Place</Text>
+                </View>
+                <MaterialIcons name="chevron-right" size={24} color="#9ca3af" />
+              </TouchableOpacity>
+            </Link>
+
             <Link href="/(user-dashboard)/manage-activity" asChild>
               <TouchableOpacity className="flex-row items-center justify-between bg-gray-50 p-4 rounded-xl border border-gray-100">
                 <View className="flex-row items-center space-x-3">
