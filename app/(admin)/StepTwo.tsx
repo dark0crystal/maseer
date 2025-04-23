@@ -61,7 +61,7 @@ export default function StepTwo() {
               >
                 <Picker.Item label="Select Governorate" value="" style={{ color: "black" }} />
                 {omaniGovernorates.map((gov, index) => (
-                  <Picker.Item key={index} label={gov} value={gov} style={{ color: "black" }} />
+                  <Picker.Item key={index} label={gov} value={gov} style={{ color: "black" }} color='black' />
                 ))}
               </Picker>
             </View>
