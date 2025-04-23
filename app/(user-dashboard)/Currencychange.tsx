@@ -20,10 +20,10 @@ export default function CurrencyChange(){
                
               }}
             >
-              <Picker.Item label="OMR - Omani Rial" value="OMR" />
-              <Picker.Item label="USD - US Dollar" value="USD" />
-              <Picker.Item label="EUR - Euro" value="EUR" />
-              <Picker.Item label="GBP - British Pound" value="GBP" />
+              <Picker.Item label="OMR - Omani Rial" value="OMR"  color="black"/>
+              <Picker.Item label="USD - US Dollar" value="USD" color="black"/>
+              <Picker.Item label="EUR - Euro" value="EUR" color="black"/>
+              <Picker.Item label="GBP - British Pound" value="GBP" color="black"/>
             </Picker>
           </View>
         </View>

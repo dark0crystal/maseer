@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ExperienceCards from '@/components/cards/ExperienceCards'
 
+
 const Experience = () => {
   return (
     <SafeAreaView>
