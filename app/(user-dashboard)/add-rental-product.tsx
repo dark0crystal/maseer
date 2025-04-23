@@ -1,6 +1,3 @@
-
-
-
 import { View, Text, ScrollView, TextInput, TouchableOpacity, Alert, Image } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useState } from 'react'
@@ -9,6 +6,8 @@ import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { Picker } from '@react-native-picker/picker'
 import * as ImagePicker from 'expo-image-picker'
+import * as FileSystem from 'expo-file-system';
+import { manipulateAsync, SaveFormat } from 'expo-image-manipulator';
 
 interface Governorate {
   id: number
@@ -73,33 +72,81 @@ export default function AddRentalProductForm() {
     setProperties(newProperties)
   }
 
+  const optimizeImage = async (uri: string): Promise<string> => {
+    try {
+      // Optimize the image by resizing and compressing it
+      const optimizedImage = await manipulateAsync(
+        uri,
+        [{ resize: { width: 1200 } }], // Resize to max width of 1200px (maintains aspect ratio)
+        { compress: 0.7, format: SaveFormat.JPEG } // 70% quality JPEG
+      );
+      
+      return optimizedImage.uri;
+    } catch (error) {
+      console.error("Image optimization failed:", error);
+      // Return original URI if optimization fails
+      return uri;
+    }
+  };
+
   const uploadImages = async (userId: string) => {
     const uploadedUrls: string[] = []
-
-    for (const uri of images) {
-      const response = await fetch(uri)
-      const blob = await response.blob()
-
-      const fileName = `${userId}/test.jpg`
-      console.log("fileName",fileName)
-      const { error: uploadError } = await supabase.storage
-        .from('rental-images')
-        .upload(fileName, blob, {
-          contentType: 'image/jpeg',
-        })
-        console.log("uploadError",uploadError)
-
-      if (uploadError) throw uploadError
-
-      const { data } = supabase.storage
-        .from('rental-images')
-        .getPublicUrl(fileName)
-
-      uploadedUrls.push(data.publicUrl)
+  
+    for (const image of images) {
+      try {
+        // Optimize the image before uploading
+        const optimizedImageUri = await optimizeImage(image);
+        
+        // Generate a unique filename
+        const fileExt = optimizedImageUri.split('.').pop() || 'jpg';
+        const fileName = `${userId}_${Date.now()}.${fileExt}`;
+        const filePath = `${userId}/${fileName}`;
+        
+        // Read the file from the filesystem
+        const fileInfo = await FileSystem.getInfoAsync(optimizedImageUri);
+        if (!fileInfo.exists) {
+          console.log(`File doesn't exist: ${optimizedImageUri}`);
+          continue;
+        }
+        
+        // Convert to base64 and upload directly
+        const base64 = await FileSystem.readAsStringAsync(optimizedImageUri, { 
+          encoding: FileSystem.EncodingType.Base64 
+        });
+        
+        // Upload to Supabase
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from("rental-images")
+          .upload(filePath, base64, {
+            contentType: `image/${fileExt}`,
+            cacheControl: "3600",
+            upsert: false,
+          });
+  
+        if (uploadError) {
+          console.error("Upload error:", uploadError);
+          throw uploadError;
+        }
+  
+        // Get public URL
+        const { data: publicUrlData } = supabase.storage
+          .from("rental-images")
+          .getPublicUrl(filePath);
+  
+        uploadedUrls.push(publicUrlData.publicUrl);
+        
+        // Clean up temporary optimized image if different from original
+        if (optimizedImageUri !== image && optimizedImageUri.startsWith('file://')) {
+          await FileSystem.deleteAsync(optimizedImageUri, { idempotent: true });
+        }
+      } catch (err) {
+        console.error("Image processing/upload failed:", err);
+        Alert.alert("Upload Failed", "Could not upload one of the images.");
+      }
     }
-
-    return uploadedUrls
-  }
+  
+    return uploadedUrls;
+  };
 
   const handleSubmit = async () => {
     if (!formData.title || !formData.price || !formData.location) {

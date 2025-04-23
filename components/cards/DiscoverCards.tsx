@@ -50,18 +50,16 @@ export default function DiscoverCards(){
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={{ paddingHorizontal: 10, marginTop: 20, alignItems: "center" }}
                     renderItem={({ item }) => (
-                    <Link href={`/details/${item.id}`} className='mt-2'>
-                    <View className="bg-white shadow-lg w-[350px] h-[190px] p-3 m-2 rounded-3xl flex flex-row overflow-hidden gap-3 border border-gray-100">
+                    <Link href={`/details/${item.id}`} className='mt-5'>
+                    <View className="bg-white shadow-lg w-[350px] h-[200px] p-2 m-2 rounded-3xl flex flex-row overflow-hidden gap-4 border border-gray-100">
                         {/* image section */}
-                        <View className="relative w-[120px] h-[160px] overflow-hidden rounded-2xl shadow-md">
+                        <View className="relative w-[130px] h-[160px] overflow-hidden rounded-2xl shadow-md">
                             <Image 
                                 className="absolute w-full h-full" 
                                 resizeMode="cover" 
                                 source={item.img || images.kayak} 
                             />
-                            <View className="absolute top-0 right-0 bg-white/80 px-2 py-1 m-1 rounded-lg">
-                                <Text className="text-xs font-bold text-gray-700">Featured</Text>
-                            </View>   
+                           
                         </View>
 
                         {/* content section */}
