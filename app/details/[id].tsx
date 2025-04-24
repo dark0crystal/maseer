@@ -28,6 +28,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useReservationStore } from '@/store/reservationStore';
 import ReservationForm from './ReservationForm';
 import { BlurView } from 'expo-blur';
+import { useTranslation } from 'react-i18next';
+import Price from '@/components/shared-components/Price';
 
 interface Post {
   id: string;
@@ -58,6 +60,7 @@ export default function ActivityDetails() {
   const scrollY = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
+  const { t } = useTranslation();
 
   useEffect(() => {
     Animated.parallel([
@@ -123,7 +126,7 @@ export default function ActivityDetails() {
       <View className="flex-1 justify-center items-center bg-white">
         <StatusBar barStyle="dark-content" />
         <ActivityIndicator size="large" color="#2563eb" />
-        <Text className="text-lg font-medium text-gray-800 mt-4">Loading activity details...</Text>
+        <Text className="text-lg font-medium text-gray-800 mt-4">{t('common.loading')}</Text>
       </View>
     );
   }
@@ -133,12 +136,12 @@ export default function ActivityDetails() {
       <View className="flex-1 justify-center items-center bg-white">
         <StatusBar barStyle="dark-content" />
         <Ionicons name="alert-circle-outline" size={60} color="#9ca3af" />
-        <Text className="text-xl font-medium text-gray-800 mt-4">Activity not found</Text>
+        <Text className="text-xl font-medium text-gray-800 mt-4">{t('activity.notFound')}</Text>
         <TouchableOpacity 
           className="mt-6 bg-black px-6 py-3 rounded-full"
           onPress={() => router.back()}
         >
-          <Text className="text-white font-medium">Go Back</Text>
+          <Text className="text-white font-medium">{t('activity.goBack')}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -285,38 +288,38 @@ export default function ActivityDetails() {
                   <Text className="text-gray-800 font-medium ml-2">Price</Text>
                 </View>
                 <Text className="text-gray-600 mt-1">
-                  {activity.price} OMR per person
+                  <Price price={activity.price} />
                 </Text>
               </View>
             </View>
 
             <View className="mt-6  pt-6 border-t border-gray-200">
-              <Text className="text-xl font-semibold text-gray-900">About this activity</Text>
+              <Text className="text-xl font-semibold text-gray-900">{t('activity.about')}</Text>
               <Text className="text-gray-700 mt-2 leading-6">
-                {activity.description || 'No description available for this activity.'}
+                {activity.description || t('activity.description')}
               </Text>
             </View>
             
             <View className="mt-8 bg-blue-50 p-5 rounded-xl">
-              <Text className="text-lg font-semibold text-gray-900">What to expect</Text>
+              <Text className="text-lg font-semibold text-gray-900">{t('activity.whatToExpect')}</Text>
               <View className="mt-3">
                 <View className="flex-row items-center mt-2">
                   <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center">
                     <Ionicons name="time-outline" size={16} color="#3b82f6" />
                   </View>
-                  <Text className="text-gray-700 ml-3">Flexible scheduling</Text>
+                  <Text className="text-gray-700 ml-3">{t('activity.flexibleScheduling')}</Text>
                 </View>
                 <View className="flex-row items-center mt-3">
                   <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center">
                     <Ionicons name="people-outline" size={16} color="#3b82f6" />
                   </View>
-                  <Text className="text-gray-700 ml-3">Small groups available</Text>
+                  <Text className="text-gray-700 ml-3">{t('activity.smallGroups')}</Text>
                 </View>
                 <View className="flex-row items-center mt-3">
                   <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center">
                     <Ionicons name="shield-checkmark-outline" size={16} color="#3b82f6" />
                   </View>
-                  <Text className="text-gray-700 ml-3">Safety equipment provided</Text>
+                  <Text className="text-gray-700 ml-3">{t('activity.safetyEquipment')}</Text>
                 </View>
               </View>
             </View>
@@ -326,8 +329,8 @@ export default function ActivityDetails() {
         <View className="absolute bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-5 py-4" style={{ paddingBottom: Platform.OS === 'ios' ? 20 : 10 }}>
           <View className="flex-row items-center justify-between mb-3">
             <View>
-              <Text className="text-gray-600 text-sm">Price per person</Text>
-              <Text className="text-2xl font-bold">{activity.price} OMR</Text>
+              <Text className="text-gray-600 text-sm">{t('activity.pricePerPerson')}</Text>
+              <Text className="text-2xl font-bold"><Price price={activity.price} /></Text>
             </View>
             
           </View>
@@ -336,7 +339,7 @@ export default function ActivityDetails() {
             onPress={() => setModalVisible(true)}
             style={{ elevation: 2 }}
           >
-            <Text className="text-white font-bold text-lg">Reserve Now</Text>
+            <Text className="text-white font-bold text-lg">{t('activity.reserveNow')}</Text>
           </TouchableOpacity>
         </View>
 
@@ -352,7 +355,7 @@ export default function ActivityDetails() {
                 <Ionicons name="close" size={24} color="black" />
               </TouchableOpacity>
               <Text className="text-lg font-semibold text-center flex-1">
-                Make a Reservation
+                {t('activity.makeReservation')}
               </Text>
             </View>
             <ReservationForm />
