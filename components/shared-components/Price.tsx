@@ -2,7 +2,13 @@ import {View , Text} from "react-native"
 import {useState, useEffect} from "react"
 import { useCurrencyStore } from "@/store/useCurrencyStore";
 
-export default function Price({price}:any){
+interface PriceProps {
+  price: number;
+  textStyle?: string; // Optional custom text style using nativewind
+  containerStyle?: string; // Optional custom container style using nativewind
+}
+
+export default function Price({ price, textStyle = "text-lg font-bold", containerStyle = "" }: PriceProps) {
     const { currency, convertPrice } = useCurrencyStore(); // Access Zustand store
     // const basePrice = 20; // Original price in OMR
   
@@ -15,8 +21,8 @@ export default function Price({price}:any){
   
 
     return(
-        <View>
-            <Text className="text-lg font-bold">
+        <View className={containerStyle}>
+            <Text className={textStyle}>
                 {convertedPrice} {currency}
             </Text>
         </View>

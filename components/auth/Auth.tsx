@@ -3,11 +3,13 @@ import { Alert, View, Text, TouchableOpacity, Linking, ImageBackground } from 'r
 import { supabase } from '../../lib/supabase'
 import { Button, Input } from '@rneui/themed'
 import { LinearGradient } from 'expo-linear-gradient'
+import { useTranslation } from 'react-i18next'
 
 export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation('auth')
 
   async function signInWithEmail() {
     setLoading(true)
@@ -31,7 +33,7 @@ export default function Auth() {
     })
 
     if (error) Alert.alert(error.message)
-    if (!session) Alert.alert('Please check your inbox for email verification!')
+    if (!session) Alert.alert(t('checkInbox', 'Please check your inbox for email verification!'))
     setLoading(false)
   }
 
@@ -46,18 +48,17 @@ export default function Auth() {
   return (
     <View className="p-4 rounded-xl bg-white shadow-lg">
       <View className="items-center mb-6">
-        <Text className="text-3xl font-bold text-gray-800">Welcome</Text>
-        <Text className="text-gray-500 mt-2">Sign in to continue your journey</Text>
+        
       </View>
       
       <View className="mb-5">
         <Input
-          label="Email"
+          label={t('email', 'Email')}
           labelStyle={{ color: '#5B5B5B', fontWeight: '600', marginBottom: 8 }}
           leftIcon={{ type: 'font-awesome', name: 'envelope', color: '#333333', size: 18 }}
           onChangeText={(text) => setEmail(text)}
           value={email}
-          placeholder="your.email@example.com"
+          placeholder={t('emailPlaceholder', 'your.email@example.com')}
           autoCapitalize={'none'}
           inputContainerStyle={{ 
             borderWidth: 0,
@@ -74,13 +75,13 @@ export default function Auth() {
       
       <View className="mb-6">
         <Input
-          label="Password"
+          label={t('password', 'Password')}
           labelStyle={{ color: '#5B5B5B', fontWeight: '600', marginBottom: 8 }}
           leftIcon={{ type: 'font-awesome', name: 'lock', color: '#333333', size: 22 }}
           onChangeText={(text) => setPassword(text)}
           value={password}
           secureTextEntry={true}
-          placeholder="Your secure password"
+          placeholder={t('passwordPlaceholder', 'Your secure password')}
           autoCapitalize={'none'}
           inputContainerStyle={{ 
             borderWidth: 0,
@@ -97,7 +98,7 @@ export default function Auth() {
       
       <View className="mb-4">
         <Button 
-          title="Sign in" 
+          title={t('signIn', 'Sign in')} 
           disabled={loading} 
           onPress={() => signInWithEmail()} 
           buttonStyle={{ 
@@ -119,7 +120,7 @@ export default function Auth() {
       
       <View className="mb-6">
         <Button 
-          title="Create Account" 
+          title={t('createAccount', 'Create Account')} 
           disabled={loading} 
           onPress={() => signUpWithEmail()} 
           buttonStyle={{ 
@@ -137,13 +138,13 @@ export default function Auth() {
       </View>
       
       <View className="flex-row flex-wrap justify-center items-center mt-4 px-2">
-        <Text className="text-gray-500 text-center text-sm">By continuing, you agree to our </Text>
+        <Text className="text-gray-500 text-center text-sm">{t('byContinuing', 'By continuing, you agree to our')} </Text>
         <TouchableOpacity onPress={handleTermsOfService}>
-          <Text className="text-gray-800 font-bold text-sm">Terms of Service</Text>
+          <Text className="text-gray-800 font-bold text-sm">{t('termsOfService', 'Terms of Service')}</Text>
         </TouchableOpacity>
-        <Text className="text-gray-500 text-sm"> and </Text>
+        <Text className="text-gray-500 text-sm"> {t('and', 'and')} </Text>
         <TouchableOpacity onPress={handlePrivacyPolicy}>
-          <Text className="text-gray-800 font-bold text-sm">Privacy Policy</Text>
+          <Text className="text-gray-800 font-bold text-sm">{t('privacyPolicy', 'Privacy Policy')}</Text>
         </TouchableOpacity>
       </View>
     </View>

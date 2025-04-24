@@ -5,10 +5,13 @@ import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { useEffect, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { images } from "../../constants";
+import { useTranslation } from 'react-i18next';
+import Price from '../shared-components/Price';
 
 export default function DiscoverCards() {
   const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation("discover");
 
   useEffect(() => {
     fetchPosts();
@@ -38,9 +41,9 @@ export default function DiscoverCards() {
 
   return (
     <View className="mt-6 px-4">
-      <Text className='text-xl font-bold mb-4'>Discover Activities</Text>
+      <Text className='text-xl font-bold mb-4'>{t('discoverActivities')}</Text>
       {loading ? (
-        <Text className="text-center mt-4">Loading activities...</Text>
+        <Text className="text-center mt-4">{t('loadingActivities')}</Text>
       ) : (
         <FlatList
           data={displayData}
@@ -67,7 +70,7 @@ export default function DiscoverCards() {
                     <View className="flex-row items-center mt-1">
                       <Ionicons name="location-outline" size={14} color="#6B7280" />
                       <Text className="text-sm text-gray-600 ml-1" numberOfLines={1}>
-                        {item.location || "Oman"}
+                        {item.location || t('oman')}
                       </Text>
                     </View>
                     <View className="mt-1">
@@ -78,7 +81,7 @@ export default function DiscoverCards() {
                   {/* Price & Badge */}
                   <View className="mt-2">
                     <Text className="text-base font-bold text-gray-800">
-                      {item.price} <Text className="text-sm font-medium">R.O</Text>
+                    <Price price={item.price} /> <Text className="text-sm font-medium">{t('currency')}</Text>
                     </Text>
                     <View className="flex-row items-center gap-2 bg-green-50 mt-1 px-2 py-1 rounded-full w-max">
                       <Ionicons name="bicycle" size={14} color="#10B981" />

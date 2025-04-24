@@ -8,7 +8,7 @@ import { formSchema } from "../../schemas/formSchema";
 import { useFormStore } from "../../store/FormStore";
 import { useRouter } from "expo-router";
 import ProgressBar from "@/components/shared-components/ProgressBar";
-import { createActivity } from '../actions/activity'
+
 
 export default function StepTwo() {
   const router = useRouter();

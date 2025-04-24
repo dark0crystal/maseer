@@ -17,6 +17,8 @@ import { supabase } from "@/lib/supabase";
 import { WebView } from "react-native-webview";
 import { useRouter } from "expo-router";
 import { useReservationStore } from "@/store/reservationStore";
+import { useTranslation } from "react-i18next";
+import Price from "../shared-components/Price";
 
 
 interface ProductType {
@@ -42,6 +44,7 @@ interface RentalProduct {
 
 export default function ExperienceCards() {
   const router = useRouter();
+  const { t } = useTranslation("experience");
   const { setSelectedDates, setNumberOfGuests, setPhoneNumber, setTotalPrice, setActivityDetails } = useReservationStore();
   const [selectedType, setSelectedType] = useState<ProductType | null>(null);
   const [rentalProducts, setRentalProducts] = useState<RentalProduct[]>([]);
@@ -182,12 +185,12 @@ export default function ExperienceCards() {
       } else {
         console.error("Session creation failed:", data);
         setError("Unable to initiate payment session.");
-        Alert.alert("Payment Error", "Unable to initiate payment session.");
+        Alert.alert(t("paymentError"), t("unableToInitiatePayment"));
       }
     } catch (err) {
       console.error("Network or API error:", err);
       setError("Something went wrong. Please try again.");
-      Alert.alert("Payment Error", "Something went wrong. Please try again.");
+      Alert.alert(t("paymentError"), t("somethingWentWrong"));
     } finally {
       setPaymentLoading(false);
     }
@@ -196,22 +199,22 @@ export default function ExperienceCards() {
   const handlePayment = async () => {
     // Validate form fields
     if (!name.trim()) {
-      Alert.alert('Name Required', 'Please enter your full name');
+      Alert.alert(t('nameRequired'), t('pleaseEnterFullName'));
       return;
     }
 
     if (!email.trim()) {
-      Alert.alert('Email Required', 'Please enter your email address');
+      Alert.alert(t('emailRequired'), t('pleaseEnterEmail'));
       return;
     }
 
     if (!phone.trim()) {
-      Alert.alert('Phone Required', 'Please enter your phone number');
+      Alert.alert(t('phoneRequired'), t('pleaseEnterPhone'));
       return;
     }
 
     if (!rentalDays || parseInt(rentalDays) < 1) {
-      Alert.alert('Invalid Days', 'Please enter at least 1 day for rental');
+      Alert.alert(t('invalidDays'), t('pleaseEnterAtLeastOneDay'));
       return;
     }
 
@@ -245,11 +248,11 @@ export default function ExperienceCards() {
                 />
                 <View className="absolute inset-0 bg-gradient-to-b from-transparent to-black/70" />
                 <View className="absolute bottom-0 left-0 right-0 p-4">
-                  <Text className="text-white text-2xl font-bold">{item.name}</Text>
-                  <Text className="text-white text-sm mt-1 opacity-90">Tap to explore options</Text>
+                  <Text className="text-white text-2xl font-bold">{t(item.name.toLowerCase())}</Text>
+                  <Text className="text-white text-sm mt-1 opacity-90">{t("tapToExplore")}</Text>
                 </View>
                 <View className="absolute top-4 right-4 bg-white/90 px-3 py-1 rounded-full">
-                  <Text className="text-blue-600 font-semibold">Available</Text>
+                  <Text className="text-blue-600 font-semibold">{t("available")}</Text>
                 </View>
               </View>
             </View>
@@ -268,7 +271,7 @@ export default function ExperienceCards() {
             <View className="items-center py-2 relative my-2 h-[70px]">
               <View className="w-12 h-1 bg-gray-300 rounded-full" />
               <Text className="text-xl font-bold mt-2">
-                {selectedType?.name} for Rent
+                {selectedType?.name ? t(selectedType.name.toLowerCase()) : ""} {t("forRent")}
               </Text>
               <TouchableOpacity
                 className="absolute right-4 top-2 p-2"
@@ -281,7 +284,7 @@ export default function ExperienceCards() {
             {loading ? (
               <View className="flex-1 justify-center items-center">
                 <ActivityIndicator size="large" color="#2563eb" />
-                <Text className="text-gray-600 mt-2">Loading products...</Text>
+                <Text className="text-gray-600 mt-2">{t("loadingProducts")}</Text>
               </View>
             ) : (
               <ScrollView className="p-4">
@@ -303,7 +306,7 @@ export default function ExperienceCards() {
                       </View>
                       <Text className="text-gray-600 mb-2">{product.description}</Text>
                       <Text className="text-lg font-bold text-blue-600 mb-2">
-                        OMR {product.price.toFixed(2)}
+                        <Price price={product.price} />
                       </Text>
                       <TouchableOpacity
                         className="bg-blue-600 rounded-lg p-3 mt-3"
@@ -313,14 +316,14 @@ export default function ExperienceCards() {
                         }}
                       >
                         <Text className="text-white text-center font-bold">
-                          View Details
+                          {t("viewDetails")}
                         </Text>
                       </TouchableOpacity>
                     </View>
                   ))
                 ) : (
                   <View className="flex-1 justify-center items-center py-10">
-                    <Text className="text-gray-500">No products available for rent in this category</Text>
+                    <Text className="text-gray-500">{t("noProductsAvailable")}</Text>
                   </View>
                 )}
               </ScrollView>
@@ -360,17 +363,17 @@ export default function ExperienceCards() {
 
                   <Text className="text-xl font-bold mb-2">{selectedProduct.title}</Text>
                   
-                  <Text className="text-lg font-semibold mb-2">Description</Text>
+                  <Text className="text-lg font-semibold mb-2">{t("description")}</Text>
                   <Text className="text-gray-600 mb-4">{selectedProduct.description}</Text>
 
-                  <Text className="text-lg font-semibold mb-2">Price</Text>
+                  <Text className="text-lg font-semibold mb-2">{t("price")}</Text>
                   <Text className="text-2xl font-bold text-blue-600 mb-4">
-                    OMR {selectedProduct.price.toFixed(2)} / day
+                    <Price price={selectedProduct.price} textStyle="text-xl font-bold text-blue-600 " /> / {t("day")}
                   </Text>
 
                   {selectedProduct.location && (
                     <>
-                      <Text className="text-lg font-semibold mb-2">Location</Text>
+                      <Text className="text-lg font-semibold mb-2">{t("location")}</Text>
                       <Text className="text-gray-600 mb-4">{selectedProduct.location}</Text>
                     </>
                   )}
@@ -379,7 +382,7 @@ export default function ExperienceCards() {
                     className="bg-blue-600 rounded-lg p-4 mt-3"
                     onPress={handleRentNow}
                   >
-                    <Text className="text-white text-center font-bold">Rent Now</Text>
+                    <Text className="text-white text-center font-bold">{t("rentNow")}</Text>
                   </TouchableOpacity>
                 </>
               )}
@@ -399,7 +402,7 @@ export default function ExperienceCards() {
             <View className="items-center py-2 relative my-2 h-[70px]">
               <View className="w-12 h-1 bg-gray-300 rounded-full" />
               <Text className="text-xl font-bold mt-2">
-                Complete Your Rental
+                {t("completeYourRental")}
               </Text>
               <TouchableOpacity
                 className="absolute right-4 top-2 p-2"
@@ -426,26 +429,26 @@ export default function ExperienceCards() {
                     <View className="bg-gray-50 p-4 rounded-xl mb-6">
                       <Text className="text-lg font-bold mb-2">{selectedProduct.title}</Text>
                       <Text className="text-gray-600 mb-2">{selectedProduct.description}</Text>
-                      <Text className="text-blue-600 font-bold">OMR {selectedProduct.price.toFixed(2)} / day</Text>
+                      <Text className="text-blue-600 font-bold">OMR {selectedProduct.price.toFixed(2)} / {t("day")}</Text>
                     </View>
 
-                    <Text className="text-lg font-bold mb-4">Rental Information</Text>
+                    <Text className="text-lg font-bold mb-4">{t("rentalInformation")}</Text>
                     
                     <View className="mb-4">
-                      <Text className="text-gray-700 mb-2">Full Name</Text>
+                      <Text className="text-gray-700 mb-2">{t("fullName")}</Text>
                       <TextInput
                         className="border border-gray-300 rounded-lg p-3 bg-gray-50"
-                        placeholder="Enter your full name"
+                        placeholder={t("enterFullName")}
                         value={name}
                         onChangeText={setName}
                       />
                     </View>
                     
                     <View className="mb-4">
-                      <Text className="text-gray-700 mb-2">Email</Text>
+                      <Text className="text-gray-700 mb-2">{t("email")}</Text>
                       <TextInput
                         className="border border-gray-300 rounded-lg p-3 bg-gray-50"
-                        placeholder="Enter your email"
+                        placeholder={t("enterEmail")}
                         value={email}
                         onChangeText={setEmail}
                         keyboardType="email-address"
@@ -453,10 +456,10 @@ export default function ExperienceCards() {
                     </View>
                     
                     <View className="mb-4">
-                      <Text className="text-gray-700 mb-2">Phone Number</Text>
+                      <Text className="text-gray-700 mb-2">{t("phoneNumber")}</Text>
                       <TextInput
                         className="border border-gray-300 rounded-lg p-3 bg-gray-50"
-                        placeholder="Enter your phone number"
+                        placeholder={t("enterPhone")}
                         value={phone}
                         onChangeText={setPhone}
                         keyboardType="phone-pad"
@@ -464,10 +467,10 @@ export default function ExperienceCards() {
                     </View>
                     
                     <View className="mb-6">
-                      <Text className="text-gray-700 mb-2">Number of Days</Text>
+                      <Text className="text-gray-700 mb-2">{t("numberOfDays")}</Text>
                       <TextInput
                         className="border border-gray-300 rounded-lg p-3 bg-gray-50"
-                        placeholder="Enter number of days"
+                        placeholder={t("enterNumberOfDays")}
                         value={rentalDays}
                         onChangeText={setRentalDays}
                         keyboardType="number-pad"
@@ -475,17 +478,17 @@ export default function ExperienceCards() {
                     </View>
 
                     <View className="bg-blue-50 p-4 rounded-xl mb-6">
-                      <Text className="text-lg font-bold mb-2">Payment Summary</Text>
+                      <Text className="text-lg font-bold mb-2">{t("paymentSummary")}</Text>
                       <View className="flex-row justify-between mb-2">
-                        <Text className="text-gray-600">Price per day:</Text>
+                        <Text className="text-gray-600">{t("pricePerDay")}:</Text>
                         <Text className="font-medium">OMR {selectedProduct.price.toFixed(2)}</Text>
                       </View>
                       <View className="flex-row justify-between mb-2">
-                        <Text className="text-gray-600">Number of days:</Text>
+                        <Text className="text-gray-600">{t("numberOfDays")}:</Text>
                         <Text className="font-medium">{rentalDays || 1}</Text>
                       </View>
                       <View className="flex-row justify-between pt-2 border-t border-gray-200 mt-2">
-                        <Text className="text-gray-800 font-bold">Total:</Text>
+                        <Text className="text-gray-800 font-bold">{t("total")}:</Text>
                         <Text className="text-blue-600 font-bold">OMR {getTotalPrice().toFixed(2)}</Text>
                       </View>
                     </View>
@@ -498,10 +501,10 @@ export default function ExperienceCards() {
                       {paymentLoading ? (
                         <View className="flex-row justify-center items-center">
                           <ActivityIndicator size="small" color="white" />
-                          <Text className="text-white text-center font-bold ml-2">Processing...</Text>
+                          <Text className="text-white text-center font-bold ml-2">{t("processing")}</Text>
                         </View>
                       ) : (
-                        <Text className="text-white text-center font-bold">Pay & Complete Rental</Text>
+                        <Text className="text-white text-center font-bold">{t("payAndCompleteRental")}</Text>
                       )}
                     </TouchableOpacity>
                     

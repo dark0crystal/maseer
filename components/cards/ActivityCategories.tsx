@@ -1,15 +1,16 @@
 import { View, Text, FlatList } from 'react-native';
+import { useTranslation } from 'react-i18next';
 
 export default function ActivityCategories(){
-
+    const { t } = useTranslation("activities");
 
     const activityCategories = [
-        { id: '1', name: 'Scuba diving' },
-        { id: '2', name: 'Fishing' },
-        { id: '3', name: 'Sea tour' },
-        { id: '4', name: 'Snorkeling' },
-        { id: '5', name: 'Jet ski' },
-        { id: '6', name: 'Kayak' },
+        { id: '1', name: t('scubaDiving', 'Scuba diving') },
+        { id: '2', name: t('fishing', 'Fishing') },
+        { id: '3', name: t('seaTour', 'Sea tour') },
+        { id: '4', name: t('snorkeling', 'Snorkeling') },
+        { id: '5', name: t('jetSki', 'Jet ski') },
+        { id: '6', name: t('kayak', 'Kayak') },
     ];
 
     return(
