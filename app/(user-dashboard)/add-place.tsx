@@ -212,7 +212,7 @@ export default function AddPlaceForm() {
                   style={{ color: 'black' }}
                 >
                   {governorates.map((gov) => (
-                    <Picker.Item key={gov.id} label={gov.name} value={gov.id} />
+                    <Picker.Item key={gov.id} label={gov.name} value={gov.id} color='black' />
                   ))}
                 </Picker>
               </View>
@@ -233,7 +233,7 @@ export default function AddPlaceForm() {
                   style={{ color: 'black' }}
                 >
                   {placeTypes.map((type) => (
-                    <Picker.Item key={type.id} label={type.name} value={type.id} />
+                    <Picker.Item key={type.id} label={type.name} value={type.id} color='black'/>
                   ))}
                 </Picker>
               </View>
