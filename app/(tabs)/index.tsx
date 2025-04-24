@@ -6,8 +6,11 @@ import ActivityCards from '@/components/cards/ActivityCards';
 import ExperienceCards from '@/components/cards/ExperienceCards';
 import DiscoverCards from '@/components/cards/DiscoverCards';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTranslation } from 'react-i18next';
 
 const Home = () => {
+  const { t } = useTranslation("home");
+  
   return (
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView className="flex-1 p-4">
@@ -15,9 +18,9 @@ const Home = () => {
           colors={['#4c669f', '#3b5998', '#192f6a']}
           className="w-full rounded-xl p-6 mb-6"
         >
-          <Text className="text-white text-2xl font-bold mb-2">Welcome to Maseer App</Text>
+          <Text className="text-white text-2xl font-bold mb-2">{t('welcome')}</Text>
           <Text className="text-white text-base opacity-80">
-            Discover breathtaking experiences and unforgettable journeys across the Sultanate
+            {t('discoverText')}
           </Text>
          
         </LinearGradient>
