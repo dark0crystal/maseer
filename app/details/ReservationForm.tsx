@@ -11,6 +11,7 @@ import { useState, useEffect, useRef } from 'react'
 import { ActivityIndicator } from 'react-native'
 import { WebView } from 'react-native-webview'
 import React from 'react'
+import Price from '@/components/shared-components/Price'
 
 interface ActivityDetails {
   id?: string;
@@ -340,7 +341,7 @@ export default function ReservationForm() {
                 <Text className="text-lg font-semibold mb-4">Price Details</Text>
                 <View className="flex-row justify-between mb-2">
                   <Text className="text-gray-600">Base price</Text>
-                  <Text className="font-medium">{activityDetails?.price?.toFixed(2) || '0.00'} OMR</Text>
+                  <Text className="font-medium"><Price price={activityDetails?.price} /></Text>
                 </View>
                 <View className="flex-row justify-between mb-2">
                   <Text className="text-gray-600">Guests</Text>
@@ -357,7 +358,9 @@ export default function ReservationForm() {
                 <View className="border-t border-gray-200 my-2" />
                 <View className="flex-row justify-between mt-2">
                   <Text className="text-lg font-bold">Total</Text>
-                  <Text className="text-lg font-bold">{totalPrice.toFixed(2)} OMR</Text>
+                  <Text className="text-lg font-bold">
+                    <Price price={totalPrice} key={`total-${totalPrice}`} />
+                  </Text>
                 </View>
               </View>
 
