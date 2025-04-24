@@ -5,9 +5,11 @@ import DiscoverCards from '@/components/cards/DiscoverCards'
 import { useRouter } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import images from '@/constants/images'
+import { useTranslation } from 'react-i18next'
 
 const Discover = () => {
   const router = useRouter()
+  const { t } = useTranslation("discover")
 
   const navigateToMap = () => {
     router.push('/map')
@@ -17,15 +19,17 @@ const Discover = () => {
     <SafeAreaView className="flex-1 bg-white">
       <ScrollView>
         <View className="p-4">
+         
+          
           <Image 
             source={images.brand} 
             className="w-full h-48 rounded-xl mb-4" 
             resizeMode="cover"
           />
           
-          <Text className="text-2xl font-bold mb-2">Discover</Text>
+          <Text className="text-2xl font-bold mb-2">{t('title')}</Text>
           <Text className="text-gray-600 mb-4">
-            Explore amazing outdoor experiences and rental equipment for your next adventure in Oman.
+            {t('description')}
           </Text>
           
           <TouchableOpacity 
@@ -33,9 +37,8 @@ const Discover = () => {
             onPress={navigateToMap}
           >
             <Ionicons name="map" size={24} color="white" />
-            <Text className="text-white font-bold ml-2">Open Map View</Text>
+            <Text className="text-white font-bold ml-2">{t('openMap')}</Text>
           </TouchableOpacity>
-          
         </View>
       </ScrollView>
     </SafeAreaView>
