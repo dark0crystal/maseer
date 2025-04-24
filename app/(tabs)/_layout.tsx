@@ -1,11 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { Redirect, Tabs } from "expo-router";
 import { Image, Text, View } from "react-native";
+import { useTranslation } from "react-i18next";
 
 import icons from "../../constants/icons";
 import Loader from "../../components/Loader";
 import React from "react";
-// import { useGlobalContext } from "../../context/GlobalProvider";
 
 const TabIcon = ({ icon, color, name, focused }:any) => {
   return (
@@ -27,6 +27,7 @@ const TabIcon = ({ icon, color, name, focused }:any) => {
 };
 
 const TabLayout = () => {
+  const { t } = useTranslation("navigation");
   // const { loading, isLogged } = useGlobalContext();
 
   // if (!loading && !isLogged) return <Redirect href="/sign-in" />;
@@ -54,13 +55,13 @@ const TabLayout = () => {
         <Tabs.Screen
           name="index"
           options={{
-            title: "Home",
+            title: t("home", "Home"),
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.home}
                 color={color}
-                name="Home"
+                name={t("home", "Home")}
                 focused={focused}
               />
             ),
@@ -69,13 +70,13 @@ const TabLayout = () => {
         <Tabs.Screen
           name="experience"
           options={{
-            title: "Experiences",
+            title: t("experiences", "Experiences"),
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.bookmark}
                 color={color}
-                name="Experiences"
+                name={t("experiences", "Experiences")}
                 focused={focused}
               />
             ),
@@ -85,13 +86,13 @@ const TabLayout = () => {
         <Tabs.Screen
           name="discover"
           options={{
-            title: "Explore",
+            title: t("explore", "Explore"),
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.plus}
                 color={color}
-                name="Explore"
+                name={t("explore", "Explore")}
                 focused={focused}
               />
             ),
@@ -100,7 +101,7 @@ const TabLayout = () => {
         <Tabs.Screen
           name="profile"
           options={{
-            title: "Profile",
+            title: t("profile", "Profile"),
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
